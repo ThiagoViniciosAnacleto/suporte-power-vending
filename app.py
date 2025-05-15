@@ -144,7 +144,7 @@ def editar_chamado(id):
         conn.close()
 
         flash("Chamado atualizado com sucesso!")
-        return redirect("/")
+        return redirect("/listar")
 
     # Método GET: buscar chamado pelo ID
     cursor.execute("SELECT * FROM chamados WHERE id = ?", (id,))
@@ -205,6 +205,17 @@ def listar_chamados():
     conn.close()
     return render_template("lista_chamados.html", chamados=chamados, status_filtro=status_filtro, empresa_filtro=empresa_filtro)
 
+@app.route('/excluir/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def excluir_chamado(id):
+    conn = sqlite3.connect('chamados.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM chamados WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    flash("Chamado excluído!")
+    return redirect('/listar')
 
 
 # Dashboard: todos usuários logados podem acessar

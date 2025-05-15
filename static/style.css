@@ -403,3 +403,27 @@ tr:last-child td {
     background: #2e3d55;
     color: #fff;
 }
+
+.toast {
+    position: fixed;
+    bottom: 22px;
+    right: 28px;
+    background-color: #28a745;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    box-shadow: 0 3px 16px rgba(30,40,90,0.16);
+    z-index: 9999;
+    font-weight: 600;
+    font-size: 1.08rem;
+    letter-spacing: 0.5px;
+    animation: fadein 0.5s, fadeout 0.8s 2.7s;
+}
+@keyframes fadein {
+    from { opacity: 0; transform: translateY(-25px);}
+    to   { opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeout {
+    from { opacity: 1;}
+    to   { opacity: 0;}
+}
