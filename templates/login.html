@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header class="topbar">
+        <button id="toggle-darkmode" class="darkmode-btn" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
+        🌙 Modo Escuro
+        </button>
+    </header>
     <main class="form-main">
         <form method="POST" action="/login" class="form-card" style="margin-top: 70px;">
             <h1 style="margin-bottom: 24px; font-size: 1.8rem;">Login de Acesso</h1>
@@ -29,5 +34,6 @@
             </div>
         </form>
     </main>
+    
 </body>
 </html>
