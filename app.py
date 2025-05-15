@@ -105,6 +105,107 @@ def criar_chamado():
         return redirect("/")
     return render_template("criar_chamado.html")
 
+@app.route("/editar/<int:id>", methods=["GET", "POST"])
+@login_required
+@admin_required
+def editar_chamado(id):
+    conn = sqlite3.connect("chamados.db")
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        responsavel_atendimento = request.form["responsavel_atendimento"]
+        data = request.form["data"]
+        horario = request.form["horario"]
+        cliente = request.form["cliente"]
+        empresa = request.form["empresa"]
+        porta_ssh = request.form["porta_ssh"]
+        tipo_maquina = request.form["tipo_maquina"]
+        relato = request.form["relato"]
+        prioridade = request.form["prioridade"]
+        origem = request.form["origem"]
+        tipo_acao = request.form["tipo_acao"]
+        responsavel_acao = request.form["responsavel_acao"]
+        descricao_acao = request.form["descricao_acao"]
+        status = request.form["status"]
+
+        cursor.execute("""
+            UPDATE chamados SET
+                responsavel_atendimento=?, data=?, horario=?, cliente=?, empresa=?,
+                porta_ssh=?, tipo_maquina=?, relato=?, prioridade=?, origem=?,
+                tipo_acao=?, responsavel_acao=?, descricao_acao=?, status=?
+            WHERE id=?
+        """, (
+            responsavel_atendimento, data, horario, cliente, empresa,
+            porta_ssh, tipo_maquina, relato, prioridade, origem,
+            tipo_acao, responsavel_acao, descricao_acao, status, id
+        ))
+
+        conn.commit()
+        conn.close()
+
+        flash("Chamado atualizado com sucesso!")
+        return redirect("/")
+
+    # Método GET: buscar chamado pelo ID
+    cursor.execute("SELECT * FROM chamados WHERE id = ?", (id,))
+    chamado = cursor.fetchone()
+    conn.close()
+
+    if not chamado:
+        flash("Chamado não encontrado.")
+        return redirect("/")
+
+    # Mapear os campos da tupla para nomes do formulário
+    campos = [
+        "id", "responsavel_atendimento", "data", "horario", "cliente", "empresa",
+        "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem",
+        "tipo_acao", "responsavel_acao", "descricao_acao", "status"
+    ]
+    chamado_dict = dict(zip(campos, chamado))
+
+    return render_template("editar_chamado.html", chamado=chamado_dict)
+
+@app.route("/listar")
+@login_required
+@admin_required
+def listar_chamados():
+    status_filtro = request.args.get("status", "todos")
+    empresa_filtro = request.args.get("empresa", "").strip()
+
+    conn = sqlite3.connect("chamados.db")
+    cursor = conn.cursor()
+
+    sql = "SELECT id, responsavel_atendimento, data, cliente, empresa, status FROM chamados WHERE 1=1"
+    params = []
+
+    # Filtro de status
+    if status_filtro != "todos":
+        sql += " AND status = ?"
+        params.append(status_filtro)
+
+    # Filtro de empresa
+    if empresa_filtro:
+        sql += " AND empresa LIKE ?"
+        params.append(f"%{empresa_filtro}%")
+
+    sql += " ORDER BY id DESC"
+
+    cursor.execute(sql, params)
+    chamados = [
+        dict(
+            id=row[0],
+            responsavel_atendimento=row[1],
+            data=row[2],
+            cliente=row[3],
+            empresa=row[4],
+            status=row[5]
+        )
+        for row in cursor.fetchall()
+    ]
+    conn.close()
+    return render_template("lista_chamados.html", chamados=chamados, status_filtro=status_filtro, empresa_filtro=empresa_filtro)
+
+
 
 # Dashboard: todos usuários logados podem acessar
 @app.route("/dashboard")

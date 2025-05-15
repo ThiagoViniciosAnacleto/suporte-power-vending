@@ -1,112 +1,87 @@
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f6fb;
-    margin: 0;
-    padding: 0;
-}
-
-h1 {
-    color: #2e3d55;
-    margin-bottom: 24px;
-    text-align: center;
-}
-
-form {
+/* Filtro de busca no topo da lista */
+.filtro-container {
+    margin: 0 auto 26px auto;
+    padding: 26px 32px;
     background: #fff;
-    max-width: 420px;
-    margin: 30px auto 0 auto;
-    padding: 32px 24px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(30,40,90,0.1);
+    border-radius: 14px;
+    box-shadow: 0 4px 18px 0 rgba(34, 51, 84, 0.07);
+    width: fit-content;
+    min-width: 350px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.filtro-container label {
+    font-weight: 500;
+    color: #233554;
+    margin-right: 4px;
 }
 
-label {
-    font-weight: bold;
-    color: #333;
+.filtro-container input,
+.filtro-container select,
+.filtro-container button {
+    width: auto !important;
+    min-width: 90px;
+    padding: 8px 12px;
+    margin-bottom: 0;
 }
 
-input, select, textarea, button {
-    width: 100%;
-    margin-bottom: 16px;
-    padding: 10px 8px;
-    border-radius: 5px;
-    border: 1px solid #bfc3ca;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: #89aaff;
-    outline: none;
-    background: #f2f6ff;
-}
-
-button {
+.filtro-container button {
     background: #2e3d55;
     color: #fff;
     border: none;
-    font-weight: bold;
-    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 600;
     transition: background 0.2s;
+    margin-left: 10px;
 }
 
-button:hover {
+.filtro-container button:hover {
     background: #4361b7;
 }
 
-a {
-    color: #4361b7;
+/* Tabela estilos modernos */
+table {
+    width: 96%;
+    margin: 0 auto 32px auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px 0 rgba(34,51,84,0.04);
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+}
+
+th {
+    background: #eaeef4;
+    color: #233554;
+    font-size: 1.06rem;
+    font-weight: 700;
+    border-bottom: 2px solid #d1dae7;
+}
+
+td {
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 1.04rem;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.edit-icon {
+    color: #2787f5;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 1.25rem;
+    transition: color 0.18s;
+    display: inline-block;
+    vertical-align: middle;
 }
-
-a:hover {
-    text-decoration: underline;
-}
-
-div[style*="text-align: right"] {
-    margin: 12px 24px 0 0;
-}
-
-@media (max-width: 600px) {
-    form {
-        max-width: 95vw;
-        padding: 16px 5vw;
-    }
-    h1 {
-        font-size: 1.4rem;
-    }
-}
-
-.toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #28a745;
-    color: white;
-    padding: 14px 20px;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.15);
-    z-index: 9999;
-    animation: fadein 0.3s ease, fadeout 0.5s ease 3s;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-        }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        }
-}
-
-@keyframes fadeout {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+.edit-icon:hover {
+    color: #1a5ea8;
 }

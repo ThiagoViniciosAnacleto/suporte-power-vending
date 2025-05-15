@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Chamado #{{ chamado.id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div style="text-align: right;">
+        <form action="/logout" method="get" style="display: inline;">
+            <button type="submit">Sair</button>
+        </form>
+    </div>
+    <h1>Editar Chamado #{{ chamado.id }}</h1>
+
+    <form method="POST">
+        <label>Responsável pelo Atendimento:</label><br>
+        <input type="text" name="responsavel_atendimento" value="{{ chamado.responsavel_atendimento }}"><br><br>
+
+        <label>Data:</label><br>
+        <input type="date" name="data" value="{{ chamado.data }}"><br><br>
+
+        <label>Horário:</label><br>
+        <input type="time" name="horario" value="{{ chamado.horario }}"><br><br>
+
+        <label>Nome do Cliente:</label><br>
+        <input type="text" name="cliente" value="{{ chamado.cliente }}"><br><br>
+
+        <label>Empresa:</label><br>
+        <input type="text" name="empresa" value="{{ chamado.empresa }}"><br><br>
+
+        <label>Porta SSH da Máquina:</label><br>
+        <input type="text" name="porta_ssh" value="{{ chamado.porta_ssh }}"><br><br>
+
+        <label>Tipo da Máquina:</label><br>
+        <input type="text" name="tipo_maquina" value="{{ chamado.tipo_maquina }}"><br><br>
+
+        <label>Relato / Solicitação do Cliente:</label><br>
+        <textarea name="relato" rows="3">{{ chamado.relato }}</textarea><br><br>
+
+        <label>Prioridade:</label><br>
+        <select name="prioridade">
+            <option {% if chamado.prioridade == "Baixa" %}selected{% endif %}>Baixa</option>
+            <option {% if chamado.prioridade == "Média" %}selected{% endif %}>Média</option>
+            <option {% if chamado.prioridade == "Alta" %}selected{% endif %}>Alta</option>
+            <option {% if chamado.prioridade == "Crítica" %}selected{% endif %}>Crítica</option>
+        </select><br><br>
+
+        <label>Origem do Caso:</label><br>
+        <input type="text" name="origem" value="{{ chamado.origem }}"><br><br>
+
+        <label>Tipo de Atendimento / Ação Necessária:</label><br>
+        <input type="text" name="tipo_acao" value="{{ chamado.tipo_acao }}"><br><br>
+
+        <label>Responsável pela Ação:</label><br>
+        <input type="text" name="responsavel_acao" value="{{ chamado.responsavel_acao }}"><br><br>
+
+        <label>Ação Realizada / Descrição:</label><br>
+        <textarea name="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea><br><br>
+
+        <label>Status do Caso:</label><br>
+        <select name="status">
+            <option {% if chamado.status == "Aberto" %}selected{% endif %}>Aberto</option>
+            <option {% if chamado.status == "Em andamento" %}selected{% endif %}>Em andamento</option>
+            <option {% if chamado.status == "Resolvido" %}selected{% endif %}>Resolvido</option>
+            <option {% if chamado.status == "Fechado" %}selected{% endif %}>Fechado</option>
+        </select><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+</body>
+</html>

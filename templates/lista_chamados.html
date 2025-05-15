@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Chamados</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Ícone de lápis do Google Fonts ou use SVG abaixo -->
+    <style>
+        .edit-icon {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 8px;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+        .edit-icon:hover {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        th, td {
+            border: 1px solid #bbb;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        th {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Chamados</h1>
+    <form method="get" action="/listar" class="filtro-container">
+        <label for="status">Filtrar por status:</label>
+        <select name="status" id="status" onchange="this.form.submit()">
+            <option value="todos" {% if status_filtro == 'todos' %}selected{% endif %}>Todos</option>
+            <option value="Aberto" {% if status_filtro == 'Aberto' %}selected{% endif %}>Abertos</option>
+            <option value="Em andamento" {% if status_filtro == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+            <option value="Resolvido" {% if status_filtro == 'Resolvido' %}selected{% endif %}>Resolvidos</option>
+            <option value="Fechado" {% if status_filtro == 'Fechado' %}selected{% endif %}>Fechados</option>
+        </select>
+
+        <label for="empresa">Empresa:</label>
+        <input type="text" name="empresa" id="empresa" value="{{ empresa_filtro }}" placeholder="Nome da empresa" style="height:28px;">
+        <button type="submit">Filtrar</button>
+    </form>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Responsável</th>
+        <th>Data</th>
+        <th>Cliente</th>
+        <th>Empresa</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    {% for chamado in chamados %}
+    <tr>
+        <td>{{ chamado.id }}</td>
+        <td>{{ chamado.responsavel_atendimento }}</td>
+        <td>{{ chamado.data }}</td>
+        <td>{{ chamado.cliente }}</td>
+        <td>{{ chamado.empresa }}</td>
+        <td>{{ chamado.status }}</td>
+        <td>
+            <a class="edit-icon" href="/editar/{{ chamado.id }}" title="Editar chamado">
+                <!-- SVG do lápis -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"/>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                </svg>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

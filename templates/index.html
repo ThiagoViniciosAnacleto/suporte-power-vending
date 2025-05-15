@@ -4,40 +4,36 @@
     <meta charset="UTF-8">
     <title>Central de Suporte - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </head>
 <body>
-    <h1>Central de Suporte Técnico</h1>
-    <div style="text-align: right;">
-        <form action="/logout" method="get" style="display: inline;">
+    <header class="topbar">
+        <form action="/logout" method="get" class="logout-form">
             <button type="submit">Sair</button>
         </form>
-    </div>
-    <ul>
-        <li><a href="/novo">➕ Criar Chamado</a></li>
-        <li><a href="/editar">✏️ Editar Chamado</a></li>
-        <li><a href="/consultar">🔍 Acessar Chamado</a></li>
-        <li><a href="/dashboard">📊 Dashboard</a></li>
-        <li><a href="/listar">📂 Listar Todos os Chamados</a></li>
-    </ul>
-    <hr>
-
-    <h3>Futuras opções:</h3>
-    <ul>
-        <li>📂 Listar Todos os Chamados</li>
-        <li>🔎 Pesquisa por Cliente/ID</li>
-        <li>📥 Exportar Dados</li>
-        <li>⚙️ Configurações</li>
-    </ul>
-
+        <h1>Central de Suporte Técnico</h1>
+    </header>
+    <main class="home-main">
+        <nav class="home-nav">
+            <ul>
+                <li><a href="/novo">➕ Criar Chamado</a></li>
+                <li><a href="/listar">📂 Listar Chamados</a></li>
+                <li><a href="/dashboard">📊 Dashboard</a></li>
+            </ul>
+        </nav>
+        <section class="future-options">
+            <h3>Futuras opções:</h3>
+            <ul>
+                <li>⚙️ Configurações</li>
+            </ul>
+        </section>
+    </main>
     {% with mensagens = get_flashed_messages() %}
         {% if mensagens %}
             <div class="toast" id="toast">
-            {{ mensagens[0] }}
+                {{ mensagens[0] }}
             </div>
         {% endif %}
     {% endwith %}
-
-<script src="{{ url_for('static', filename='scripts.js') }}"></script> 
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>
