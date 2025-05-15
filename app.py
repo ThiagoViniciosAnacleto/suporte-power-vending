@@ -171,25 +171,40 @@ def editar_chamado(id):
 def listar_chamados():
     status_filtro = request.args.get("status", "todos")
     empresa_filtro = request.args.get("empresa", "").strip()
+    cliente_filtro = request.args.get("cliente", "").strip()
+    responsavel_filtro = request.args.get("responsavel", "").strip()
+    data_ini_filtro = request.args.get("data_ini", "").strip()
+    data_fim_filtro = request.args.get("data_fim", "").strip()
 
     conn = sqlite3.connect("chamados.db")
     cursor = conn.cursor()
 
-    sql = "SELECT id, responsavel_atendimento, data, cliente, empresa, status FROM chamados WHERE 1=1"
+    sql = """
+        SELECT id, responsavel_atendimento, data, cliente, empresa, status
+        FROM chamados WHERE 1=1
+    """
     params = []
 
-    # Filtro de status
     if status_filtro != "todos":
         sql += " AND status = ?"
         params.append(status_filtro)
-
-    # Filtro de empresa
     if empresa_filtro:
         sql += " AND empresa LIKE ?"
         params.append(f"%{empresa_filtro}%")
+    if cliente_filtro:
+        sql += " AND cliente LIKE ?"
+        params.append(f"%{cliente_filtro}%")
+    if responsavel_filtro:
+        sql += " AND responsavel_atendimento LIKE ?"
+        params.append(f"%{responsavel_filtro}%")
+    if data_ini_filtro:
+        sql += " AND date(data) >= date(?)"
+        params.append(data_ini_filtro)
+    if data_fim_filtro:
+        sql += " AND date(data) <= date(?)"
+        params.append(data_fim_filtro)
 
     sql += " ORDER BY id DESC"
-
     cursor.execute(sql, params)
     chamados = [
         dict(
@@ -203,7 +218,17 @@ def listar_chamados():
         for row in cursor.fetchall()
     ]
     conn.close()
-    return render_template("lista_chamados.html", chamados=chamados, status_filtro=status_filtro, empresa_filtro=empresa_filtro)
+    return render_template(
+        "lista_chamados.html",
+        chamados=chamados,
+        status_filtro=status_filtro,
+        empresa_filtro=empresa_filtro,
+        cliente_filtro=cliente_filtro,
+        responsavel_filtro=responsavel_filtro,
+        data_ini_filtro=data_ini_filtro,
+        data_fim_filtro=data_fim_filtro
+    )
+
 
 @app.route('/excluir/<int:id>', methods=['POST'])
 @login_required
