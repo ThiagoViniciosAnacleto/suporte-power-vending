@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login de Acesso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Login de Acesso</h1>
+
+    {% if erro %}
+        <p style="color: red;">{{ erro }}</p>
+    {% endif %}
+
+    <form method="POST" action="/login">
+        <label>Usuário:</label><br>
+        <input type="text" name="usuario"><br><br>
+
+        <label>Senha:</label><br>
+        <input type="password" name="senha"><br><br>
+
+        <button type="submit">Entrar</button>
+        <div style="margin-top: 10px;">
+        <a href="#" onclick="alert('Procure o administrador do sistema para redefinir sua senha.'); return false;">
+        Esqueci minha senha
+    </a>
+</div>
+
+    </form>
+</body>
+</html>

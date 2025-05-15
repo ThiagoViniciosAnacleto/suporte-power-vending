@@ -2,69 +2,31 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Atendimentos</title>
+    <title>Central de Suporte - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Registro de Atendimentos</h1>
+    <h1>Central de Suporte Técnico</h1>
+    <div style="text-align: right;">
+        <form action="/logout" method="get" style="display: inline;">
+            <button type="submit">Sair</button>
+        </form>
+    </div>
+    <ul>
+        <li><a href="/novo">➕ Criar Chamado</a></li>
+        <li><a href="/editar">✏️ Editar Chamado</a></li>
+        <li><a href="/consultar">🔍 Acessar Chamado</a></li>
+        <li><a href="/dashboard">📊 Dashboard</a></li>
+        <li><a href="/listar">📂 Listar Todos os Chamados</a></li>
+    </ul>
+    <hr>
 
-    <form method="POST" action="/">
-        <label>Número do Chamado:</label><br>
-        <input type="text" name="numero_chamado"><br><br>
-
-        <label>Responsável pelo Atendimento:</label><br>
-        <input type="text" name="responsavel_atendimento"><br><br>
-
-        <label>Data:</label><br>
-        <input type="date" name="data"><br><br>
-
-        <label>Horário:</label><br>
-        <input type="time" name="horario"><br><br>
-
-        <label>Nome do Cliente:</label><br>
-        <input type="text" name="cliente"><br><br>
-
-        <label>Empresa:</label><br>
-        <input type="text" name="empresa"><br><br>
-
-        <label>Porta SSH da Máquina:</label><br>
-        <input type="text" name="porta_ssh"><br><br>
-
-        <label>Tipo da Máquina:</label><br>
-        <input type="text" name="tipo_maquina"><br><br>
-
-        <label>Relato / Solicitação do Cliente:</label><br>
-        <textarea name="relato" rows="3"></textarea><br><br>
-
-        <label>Prioridade:</label><br>
-        <select name="prioridade">
-            <option>Baixa</option>
-            <option>Média</option>
-            <option>Alta</option>
-            <option>Crítica</option>
-        </select><br><br>
-
-        <label>Origem do Caso:</label><br>
-        <input type="text" name="origem"><br><br>
-
-        <label>Tipo de Atendimento / Ação Necessária:</label><br>
-        <input type="text" name="tipo_acao"><br><br>
-
-        <label>Responsável pela Ação:</label><br>
-        <input type="text" name="responsavel_acao"><br><br>
-
-        <label>Ação Realizada / Descrição:</label><br>
-        <textarea name="descricao_acao" rows="3"></textarea><br><br>
-
-        <label>Status do Caso:</label><br>
-        <select name="status">
-            <option>Aberto</option>
-            <option>Em andamento</option>
-            <option>Resolvido</option>
-            <option>Fechado</option>
-        </select><br><br>
-
-        <button type="submit">Salvar Atendimento</button>
-    </form>
+    <h3>Futuras opções:</h3>
+    <ul>
+        <li>📂 Listar Todos os Chamados</li>
+        <li>🔎 Pesquisa por Cliente/ID</li>
+        <li>📥 Exportar Dados</li>
+        <li>⚙️ Configurações</li>
+    </ul>
 </body>
 </html>
