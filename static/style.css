@@ -427,3 +427,23 @@ tr:last-child td {
     from { opacity: 1;}
     to   { opacity: 0;}
 }
+
+.delete-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    vertical-align: middle;
+    color: #e15555;
+    font-size: 1.16rem;
+    transition: color 0.15s;
+}
+.delete-icon:hover svg {
+    color: #a10000;
+    stroke: #a10000;
+}
+.delete-icon svg {
+    vertical-align: middle;
+    color: #e15555;
+    stroke: #e15555;
+}
