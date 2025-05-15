@@ -482,11 +482,12 @@ tr:last-child td {
     margin: 0 auto;
 }
 .dash-card {
-    background: rgba(30, 38, 56, 0.96);
+    background: linear-gradient(135deg, #232634 70%, #4b91fa22 100%);
     border-radius: 20px;
-    box-shadow: 0 2px 24px 0 rgba(22,32,52,0.11);
+    box-shadow: 0 2px 20px 0 rgba(44,54,82,0.11);
+    border: 1.5px solid #4b91fa33;
     width: 100%;
-    max-width: 220px;
+    max-width: 290px;
     min-width: 220px;
     min-height: 195px;
     display: flex;
