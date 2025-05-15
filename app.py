@@ -218,11 +218,40 @@ def excluir_chamado(id):
     return redirect('/listar')
 
 
-# Dashboard: todos usuários logados podem acessar
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    conn = sqlite3.connect('chamados.db')
+    cursor = conn.cursor()
+
+    # Total de chamados
+    cursor.execute('SELECT COUNT(*) FROM chamados')
+    total_chamados = cursor.fetchone()[0]
+
+    # Chamados por status
+    cursor.execute('SELECT status, COUNT(*) FROM chamados GROUP BY status')
+    status_data = cursor.fetchall()
+    chamados_por_status = {status: count for status, count in status_data}
+
+    # Chamados por prioridade
+    cursor.execute('SELECT prioridade, COUNT(*) FROM chamados GROUP BY prioridade')
+    prioridade_data = cursor.fetchall()
+    chamados_por_prioridade = {prioridade: count for prioridade, count in prioridade_data}
+
+    # Top 5 empresas com mais chamados
+    cursor.execute('SELECT empresa, COUNT(*) FROM chamados GROUP BY empresa ORDER BY COUNT(*) DESC LIMIT 5')
+    empresa_data = cursor.fetchall()
+    chamados_por_empresa = {empresa: count for empresa, count in empresa_data}
+
+    conn.close()
+    return render_template(
+        "dashboard.html",
+        total_chamados=total_chamados,
+        chamados_por_status=chamados_por_status,
+        chamados_por_prioridade=chamados_por_prioridade,
+        chamados_por_empresa=chamados_por_empresa
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

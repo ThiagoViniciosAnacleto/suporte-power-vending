@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <h1>Dashboard</h1>
+        <form action="/logout" method="get" class="logout-form">
+            <button type="submit">Sair</button>
+        </form>
+    </header>
+
+    <main class="home-main">
+        <section class="dashboard-cards">
+            <div class="dash-card">
+                <h3>Total de Chamados</h3>
+                <p class="dash-value">{{ total_chamados }}</p>
+            </div>
+            <div class="dash-card">
+                <h3>Chamados por Status</h3>
+                <ul>
+                {% for status, qtd in chamados_por_status.items() %}
+                    <li><strong>{{ status }}:</strong> {{ qtd }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="dash-card">
+                <h3>Chamados por Prioridade</h3>
+                <ul>
+                {% for prioridade, qtd in chamados_por_prioridade.items() %}
+                    <li><strong>{{ prioridade }}:</strong> {{ qtd }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="dash-card">
+                <h3>Top 5 Empresas</h3>
+                <ul>
+                {% for empresa, qtd in chamados_por_empresa.items() %}
+                    <li><strong>{{ empresa }}:</strong> {{ qtd }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
