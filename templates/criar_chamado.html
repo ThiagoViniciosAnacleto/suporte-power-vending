@@ -6,67 +6,71 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div style="text-align: right;">
-        <form action="/logout" method="get" style="display: inline;">
+    <header class="topbar">
+        <h1>Registro de Atendimentos</h1>
+        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
+            <button type="submit">← Voltar para Home</button>
+        </form>
+        <form action="/logout" method="get" class="logout-form">
             <button type="submit">Sair</button>
         </form>
-    </div>
-    <h1>Registro de Atendimentos</h1>
+    </header>
+    <main class="form-main">
+        <form method="POST" action="/novo" class="form-card">
+            <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+            <input type="text" name="responsavel_atendimento" id="responsavel_atendimento" required>
 
-    <form method="POST" action="/novo">
-        <label>Responsável pelo Atendimento:</label><br>
-        <input type="text" name="responsavel_atendimento"><br><br>
+            <label for="data">Data:</label>
+            <input type="date" name="data" id="data">
 
-        <label>Data:</label><br>
-        <input type="date" name="data"><br><br>
+            <label for="horario">Horário:</label>
+            <input type="time" name="horario" id="horario">
 
-        <label>Horário:</label><br>
-        <input type="time" name="horario"><br><br>
+            <label for="cliente">Nome do Cliente:</label>
+            <input type="text" name="cliente" id="cliente" required>
 
-        <label>Nome do Cliente:</label><br>
-        <input type="text" name="cliente"><br><br>
+            <label for="empresa">Empresa:</label>
+            <input type="text" name="empresa" id="empresa" required>
 
-        <label>Empresa:</label><br>
-        <input type="text" name="empresa"><br><br>
+            <label for="porta_ssh">Porta SSH da Máquina:</label>
+            <input type="text" name="porta_ssh" id="porta_ssh">
 
-        <label>Porta SSH da Máquina:</label><br>
-        <input type="text" name="porta_ssh"><br><br>
+            <label for="tipo_maquina">Tipo da Máquina:</label>
+            <input type="text" name="tipo_maquina" id="tipo_maquina">
 
-        <label>Tipo da Máquina:</label><br>
-        <input type="text" name="tipo_maquina"><br><br>
+            <label for="relato">Relato / Solicitação do Cliente:</label>
+            <textarea name="relato" id="relato" rows="3"></textarea>
 
-        <label>Relato / Solicitação do Cliente:</label><br>
-        <textarea name="relato" rows="3"></textarea><br><br>
+            <label for="prioridade">Prioridade:</label>
+            <select name="prioridade" id="prioridade">
+                <option>Baixa</option>
+                <option>Média</option>
+                <option>Alta</option>
+                <option>Crítica</option>
+            </select>
 
-        <label>Prioridade:</label><br>
-        <select name="prioridade">
-            <option>Baixa</option>
-            <option>Média</option>
-            <option>Alta</option>
-            <option>Crítica</option>
-        </select><br><br>
+            <label for="origem">Origem do Caso:</label>
+            <input type="text" name="origem" id="origem">
 
-        <label>Origem do Caso:</label><br>
-        <input type="text" name="origem"><br><br>
+            <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
+            <input type="text" name="tipo_acao" id="tipo_acao">
 
-        <label>Tipo de Atendimento / Ação Necessária:</label><br>
-        <input type="text" name="tipo_acao"><br><br>
+            <label for="responsavel_acao">Responsável pela Ação:</label>
+            <input type="text" name="responsavel_acao" id="responsavel_acao">
 
-        <label>Responsável pela Ação:</label><br>
-        <input type="text" name="responsavel_acao"><br><br>
+            <label for="descricao_acao">Ação Realizada / Descrição:</label>
+            <textarea name="descricao_acao" id="descricao_acao" rows="3"></textarea>
 
-        <label>Ação Realizada / Descrição:</label><br>
-        <textarea name="descricao_acao" rows="3"></textarea><br><br>
+            <label for="status">Status do Caso:</label>
+            <select name="status" id="status">
+                <option>Aberto</option>
+                <option>Em andamento</option>
+                <option>Resolvido</option>
+                <option>Fechado</option>
+            </select>
 
-        <label>Status do Caso:</label><br>
-        <select name="status">
-            <option>Aberto</option>
-            <option>Em andamento</option>
-            <option>Resolvido</option>
-            <option>Fechado</option>
-        </select><br><br>
-
-        <button type="submit">Salvar Atendimento</button>
-    </form>
+            <button type="submit">Salvar Atendimento</button>
+        </form>
+    </main>
 </body>
 </html>

@@ -6,26 +6,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Login de Acesso</h1>
+    <main class="form-main">
+        <form method="POST" action="/login" class="form-card" style="margin-top: 70px;">
+            <h1 style="margin-bottom: 24px; font-size: 1.8rem;">Login de Acesso</h1>
 
-    {% if erro %}
-        <p style="color: red;">{{ erro }}</p>
-    {% endif %}
+            {% if erro %}
+                <div class="login-erro">{{ erro }}</div>
+            {% endif %}
 
-    <form method="POST" action="/login">
-        <label>Usuário:</label><br>
-        <input type="text" name="usuario"><br><br>
+            <label for="usuario">Usuário:</label>
+            <input type="text" name="usuario" id="usuario" autocomplete="username" required>
 
-        <label>Senha:</label><br>
-        <input type="password" name="senha"><br><br>
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" id="senha" autocomplete="current-password" required>
 
-        <button type="submit">Entrar</button>
-        <div style="margin-top: 10px;">
-        <a href="#" onclick="alert('Procure o administrador do sistema para redefinir sua senha.'); return false;">
-        Esqueci minha senha
-    </a>
-</div>
+            <button type="submit">Entrar</button>
 
-    </form>
+            <div class="login-footer">
+                <a href="#" onclick="alert('Procure o administrador do sistema para redefinir sua senha.'); return false;">
+                    Esqueci minha senha
+                </a>
+            </div>
+        </form>
+    </main>
 </body>
 </html>
