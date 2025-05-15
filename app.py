@@ -171,18 +171,20 @@ def editar_chamado(id):
 def listar_chamados():
     status_filtro = request.args.get("status", "todos")
     empresa_filtro = request.args.get("empresa", "").strip()
-    cliente_filtro = request.args.get("cliente", "").strip()
     responsavel_filtro = request.args.get("responsavel", "").strip()
-    data_ini_filtro = request.args.get("data_ini", "").strip()
-    data_fim_filtro = request.args.get("data_fim", "").strip()
+    cliente_filtro = request.args.get("cliente", "").strip()
+    data_inicio = request.args.get("data_inicio", "").strip()
+    data_fim = request.args.get("data_fim", "").strip()
 
     conn = sqlite3.connect("chamados.db")
     cursor = conn.cursor()
 
-    sql = """
-        SELECT id, responsavel_atendimento, data, cliente, empresa, status
-        FROM chamados WHERE 1=1
-    """
+    # Total geral SEM filtro
+    cursor.execute("SELECT COUNT(*) FROM chamados")
+    total_geral = cursor.fetchone()[0]
+
+    # Monta SQL filtrado
+    sql = "SELECT id, responsavel_atendimento, data, cliente, empresa, status FROM chamados WHERE 1=1"
     params = []
 
     if status_filtro != "todos":
@@ -191,18 +193,18 @@ def listar_chamados():
     if empresa_filtro:
         sql += " AND empresa LIKE ?"
         params.append(f"%{empresa_filtro}%")
-    if cliente_filtro:
-        sql += " AND cliente LIKE ?"
-        params.append(f"%{cliente_filtro}%")
     if responsavel_filtro:
         sql += " AND responsavel_atendimento LIKE ?"
         params.append(f"%{responsavel_filtro}%")
-    if data_ini_filtro:
+    if cliente_filtro:
+        sql += " AND cliente LIKE ?"
+        params.append(f"%{cliente_filtro}%")
+    if data_inicio:
         sql += " AND date(data) >= date(?)"
-        params.append(data_ini_filtro)
-    if data_fim_filtro:
+        params.append(data_inicio)
+    if data_fim:
         sql += " AND date(data) <= date(?)"
-        params.append(data_fim_filtro)
+        params.append(data_fim)
 
     sql += " ORDER BY id DESC"
     cursor.execute(sql, params)
@@ -217,17 +219,20 @@ def listar_chamados():
         )
         for row in cursor.fetchall()
     ]
+    total_filtrados = len(chamados)
     conn.close()
-    return render_template(
-        "lista_chamados.html",
+    return render_template("lista_chamados.html",
         chamados=chamados,
         status_filtro=status_filtro,
         empresa_filtro=empresa_filtro,
-        cliente_filtro=cliente_filtro,
         responsavel_filtro=responsavel_filtro,
-        data_ini_filtro=data_ini_filtro,
-        data_fim_filtro=data_fim_filtro
+        cliente_filtro=cliente_filtro,
+        data_inicio=data_inicio,
+        data_fim=data_fim,
+        total_geral=total_geral,
+        total_filtrados=total_filtrados
     )
+
 
 
 @app.route('/excluir/<int:id>', methods=['POST'])

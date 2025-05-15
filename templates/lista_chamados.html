@@ -29,34 +29,47 @@
     {% endwith %}
 
     <main class="home-main">
-<form method="get" action="/listar" class="filtro-container" autocomplete="off">
-
-    <label for="responsavel">Responsável:</label>
-    <input type="text" name="responsavel" id="responsavel" value="{{ responsavel_filtro }}" placeholder="Responsável">
-
-    <label for="data_ini">Data início:</label>
-    <input type="date" name="data_ini" id="data_ini" value="{{ data_ini_filtro }}">
-
-    <label for="data_fim">Data fim:</label>
-    <input type="date" name="data_fim" id="data_fim" value="{{ data_fim_filtro }}">
-
-    <label for="cliente">Cliente:</label>
-    <input type="text" name="cliente" id="cliente" value="{{ cliente_filtro }}" placeholder="Nome do cliente">
-
-    <label for="empresa">Empresa:</label>
-    <input type="text" name="empresa" id="empresa" value="{{ empresa_filtro }}" placeholder="Nome da empresa">
-
+<form class="filtro-container" method="get" action="/listar">
+    <div class="filtro-item">
+        <label for="responsavel">Responsável:</label>
+        <input type="text" name="responsavel" id="responsavel" placeholder="Responsável">
+    </div>
+    <div class="filtro-item">
+        <label for="data_inicio">Data início:</label>
+        <input type="date" name="data_inicio" id="data_inicio">
+    </div>
+    <div class="filtro-item">
+        <label for="data_fim">Data fim:</label>
+        <input type="date" name="data_fim" id="data_fim">
+    </div>
+    <div class="filtro-item">
+        <label for="cliente">Cliente:</label>
+        <input type="text" name="cliente" id="cliente" placeholder="Nome do cliente">
+    </div>
+    <div class="filtro-item">
+        <label for="empresa">Empresa:</label>
+        <input type="text" name="empresa" id="empresa" placeholder="Nome da empresa">
+    </div>
+    <div class="filtro-item">
         <label for="status">Status:</label>
-    <select name="status" id="status">
-        <option value="todos" {% if status_filtro == 'todos' %}selected{% endif %}>Todos</option>
-        <option value="Aberto" {% if status_filtro == 'Aberto' %}selected{% endif %}>Abertos</option>
-        <option value="Em andamento" {% if status_filtro == 'Em andamento' %}selected{% endif %}>Em andamento</option>
-        <option value="Resolvido" {% if status_filtro == 'Resolvido' %}selected{% endif %}>Resolvidos</option>
-        <option value="Fechado" {% if status_filtro == 'Fechado' %}selected{% endif %}>Fechados</option>
-    </select>
-
-    <button type="submit">Filtrar</button>
+        <select name="status" id="status">
+            <option value="todos">Todos</option>
+            <option value="Aberto">Abertos</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Resolvido">Resolvidos</option>
+            <option value="Fechado">Fechados</option>
+        </select>
+    </div>
+    <!-- TRUQUE: botão ocupa a linha toda e vai pra direita! -->
+    <div class="filtro-btn-full">
+        <button type="submit">Filtrar</button>
+    </div>
 </form>
+    {% if total_geral %}
+<div class="table-feedback">
+    Filtro está exibindo {{ total_filtrados }} chamados (de {{ total_geral }})
+</div>
+{% endif %}
 
 
         <table>
