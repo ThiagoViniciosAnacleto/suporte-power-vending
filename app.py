@@ -1,13 +1,15 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from datetime import datetime
 from functools import wraps
-from flask import flash, get_flashed_messages
-import sqlite3
+from flask import get_flashed_messages
 from werkzeug.security import check_password_hash
+from conexao import conectar
+import os
 
 app = Flask(__name__)
-app.secret_key = "suporte2025"
+app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
 
+# --- MIDDLEWARES ---
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -19,12 +21,12 @@ def login_required(f):
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        # is_admin pode vir como int (1) ou str ('1')
         if "usuario" not in session or int(session.get("is_admin", 0)) != 1:
             return redirect("/dashboard")
         return f(*args, **kwargs)
     return decorated_function
 
+# --- ROTAS ---
 @app.route("/login", methods=["GET", "POST"])
 def login():
     erro = None
@@ -32,37 +34,30 @@ def login():
         usuario = request.form["usuario"]
         senha = request.form["senha"]
 
-        conn = sqlite3.connect("usuarios.db")
+        conn = conectar()
         cursor = conn.cursor()
-        cursor.execute("SELECT senha_hash, is_admin FROM usuarios WHERE usuario = ?", (usuario,))
+        cursor.execute("SELECT senha_hash, is_admin FROM usuarios WHERE usuario = %s", (usuario,))
         resultado = cursor.fetchone()
         conn.close()
 
         if resultado and check_password_hash(resultado[0], senha):
             session["usuario"] = usuario
-            # Garante que sempre armazene int (e não bytes ou string)
             session["is_admin"] = int(resultado[1]) if resultado[1] is not None else 0
-            # Redireciona para home (admin) ou dashboard (user comum)
-            if session["is_admin"] == 1:
-                return redirect("/")
-            else:
-                return redirect("/dashboard")
+            return redirect("/") if session["is_admin"] == 1 else redirect("/dashboard")
         else:
             erro = "Usuário ou senha inválidos!"
     return render_template("login.html", erro=erro)
 
 @app.route("/logout")
 def logout():
-    session.pop("usuario", None)
-    session.pop("is_admin", None)
+    session.clear()
     return redirect("/login")
 
-# Home (menu/admin): só para admin
 @app.route("/")
 @login_required
 @admin_required
 def home():
-    conn = sqlite3.connect("chamados.db")
+    conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato, prioridade, origem, tipo_maquina, porta_ssh, tipo_acao, responsavel_acao, descricao_acao, horario
@@ -71,64 +66,32 @@ def home():
         ORDER BY id DESC
         LIMIT 8
     """)
-    chamados_abertos = [
-        dict(
-            id=row[0],
-            responsavel_atendimento=row[1],
-            data=row[2],
-            cliente=row[3],
-            empresa=row[4],
-            status=row[5],
-            relato=row[6],
-            prioridade=row[7],
-            origem=row[8],
-            tipo_maquina=row[9],
-            porta_ssh=row[10],
-            tipo_acao=row[11],
-            responsavel_acao=row[12],
-            descricao_acao=row[13],
-            horario=row[14]
-        )
-        for row in cursor.fetchall()
-    ]
+    chamados_abertos = [dict(zip((
+        "id", "responsavel_atendimento", "data", "cliente", "empresa", "status",
+        "relato", "prioridade", "origem", "tipo_maquina", "porta_ssh", "tipo_acao",
+        "responsavel_acao", "descricao_acao", "horario"
+    ), row)) for row in cursor.fetchall()]
     conn.close()
     return render_template("index.html", chamados_abertos=chamados_abertos)
 
-
-# Criar chamado: só para admin
 @app.route("/novo", methods=["GET", "POST"])
 @login_required
 @admin_required
 def criar_chamado():
     if request.method == "POST":
-        responsavel_atendimento = request.form["responsavel_atendimento"]
-        data = request.form["data"] or datetime.now().strftime("%d/%m/%Y")
-        horario = request.form["horario"] or datetime.now().strftime("%H:%M")
-        cliente = request.form["cliente"]
-        empresa = request.form["empresa"]
-        porta_ssh = request.form["porta_ssh"]
-        tipo_maquina = request.form["tipo_maquina"]
-        relato = request.form["relato"]
-        prioridade = request.form["prioridade"]
-        origem = request.form["origem"]
-        tipo_acao = request.form["tipo_acao"]
-        responsavel_acao = request.form["responsavel_acao"]
-        descricao_acao = request.form["descricao_acao"]
-        status = request.form["status"]
+        campos = (
+            "responsavel_atendimento", "data", "horario", "cliente", "empresa", "porta_ssh",
+            "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
+            "responsavel_acao", "descricao_acao", "status"
+        )
+        dados = [request.form.get(c, "") or datetime.now().strftime("%d/%m/%Y" if c == "data" else "%H:%M" if c == "horario" else "") for c in campos]
 
-        conn = sqlite3.connect("chamados.db")
+        conn = conectar()
         cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO chamados (
-                responsavel_atendimento, data, horario, cliente, empresa,
-                porta_ssh, tipo_maquina, relato, prioridade, origem,
-                tipo_acao, responsavel_acao, descricao_acao, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            responsavel_atendimento, data, horario, cliente, empresa,
-            porta_ssh, tipo_maquina, relato, prioridade, origem,
-            tipo_acao, responsavel_acao, descricao_acao, status
-        ))
+        cursor.execute(f"""
+            INSERT INTO chamados ({', '.join(campos)})
+            VALUES ({', '.join(['%s'] * len(campos))})
+        """, dados)
         conn.commit()
         conn.close()
 
@@ -140,36 +103,21 @@ def criar_chamado():
 @login_required
 @admin_required
 def editar_chamado(id):
-    conn = sqlite3.connect("chamados.db")
+    conn = conectar()
     cursor = conn.cursor()
 
     if request.method == "POST":
-        responsavel_atendimento = request.form["responsavel_atendimento"]
-        data = request.form["data"]
-        horario = request.form["horario"]
-        cliente = request.form["cliente"]
-        empresa = request.form["empresa"]
-        porta_ssh = request.form["porta_ssh"]
-        tipo_maquina = request.form["tipo_maquina"]
-        relato = request.form["relato"]
-        prioridade = request.form["prioridade"]
-        origem = request.form["origem"]
-        tipo_acao = request.form["tipo_acao"]
-        responsavel_acao = request.form["responsavel_acao"]
-        descricao_acao = request.form["descricao_acao"]
-        status = request.form["status"]
+        campos = (
+            "responsavel_atendimento", "data", "horario", "cliente", "empresa", "porta_ssh",
+            "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
+            "responsavel_acao", "descricao_acao", "status"
+        )
+        dados = [request.form[c] for c in campos]
+        dados.append(id)
 
-        cursor.execute("""
-            UPDATE chamados SET
-                responsavel_atendimento=?, data=?, horario=?, cliente=?, empresa=?,
-                porta_ssh=?, tipo_maquina=?, relato=?, prioridade=?, origem=?,
-                tipo_acao=?, responsavel_acao=?, descricao_acao=?, status=?
-            WHERE id=?
-        """, (
-            responsavel_atendimento, data, horario, cliente, empresa,
-            porta_ssh, tipo_maquina, relato, prioridade, origem,
-            tipo_acao, responsavel_acao, descricao_acao, status, id
-        ))
+        cursor.execute(f"""
+            UPDATE chamados SET {', '.join(f"{c}=%s" for c in campos)} WHERE id=%s
+        """, dados)
 
         conn.commit()
         conn.close()
@@ -177,8 +125,7 @@ def editar_chamado(id):
         flash("Chamado atualizado com sucesso!")
         return redirect("/listar")
 
-    # Método GET: buscar chamado pelo ID
-    cursor.execute("SELECT * FROM chamados WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM chamados WHERE id = %s", (id,))
     chamado = cursor.fetchone()
     conn.close()
 
@@ -186,133 +133,98 @@ def editar_chamado(id):
         flash("Chamado não encontrado.")
         return redirect("/")
 
-    # Mapear os campos da tupla para nomes do formulário
     campos = [
         "id", "responsavel_atendimento", "data", "horario", "cliente", "empresa",
         "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem",
         "tipo_acao", "responsavel_acao", "descricao_acao", "status"
     ]
     chamado_dict = dict(zip(campos, chamado))
-
     return render_template("editar_chamado.html", chamado=chamado_dict)
 
 @app.route("/listar")
 @login_required
 @admin_required
 def listar_chamados():
-    status_filtro = request.args.get("status", "todos")
-    empresa_filtro = request.args.get("empresa", "").strip()
-    responsavel_filtro = request.args.get("responsavel", "").strip()
-    cliente_filtro = request.args.get("cliente", "").strip()
-    data_inicio = request.args.get("data_inicio", "").strip()
-    data_fim = request.args.get("data_fim", "").strip()
+    filtros = {
+        "status": request.args.get("status", "todos"),
+        "empresa": request.args.get("empresa", "").strip(),
+        "responsavel": request.args.get("responsavel", "").strip(),
+        "cliente": request.args.get("cliente", "").strip(),
+        "data_inicio": request.args.get("data_inicio", "").strip(),
+        "data_fim": request.args.get("data_fim", "").strip()
+    }
 
-    conn = sqlite3.connect("chamados.db")
+    conn = conectar()
     cursor = conn.cursor()
-
-    # Total geral SEM filtro
     cursor.execute("SELECT COUNT(*) FROM chamados")
     total_geral = cursor.fetchone()[0]
 
-    # Monta SQL filtrado
     sql = "SELECT id, responsavel_atendimento, data, cliente, empresa, status FROM chamados WHERE 1=1"
     params = []
 
-    if status_filtro != "todos":
-        sql += " AND status = ?"
-        params.append(status_filtro)
-    if empresa_filtro:
-        sql += " AND empresa LIKE ?"
-        params.append(f"%{empresa_filtro}%")
-    if responsavel_filtro:
-        sql += " AND responsavel_atendimento LIKE ?"
-        params.append(f"%{responsavel_filtro}%")
-    if cliente_filtro:
-        sql += " AND cliente LIKE ?"
-        params.append(f"%{cliente_filtro}%")
-    if data_inicio:
-        sql += " AND date(data) >= date(?)"
-        params.append(data_inicio)
-    if data_fim:
-        sql += " AND date(data) <= date(?)"
-        params.append(data_fim)
+    if filtros["status"] != "todos":
+        sql += " AND status = %s"
+        params.append(filtros["status"])
+    if filtros["empresa"]:
+        sql += " AND empresa ILIKE %s"
+        params.append(f"%{filtros['empresa']}%")
+    if filtros["responsavel"]:
+        sql += " AND responsavel_atendimento ILIKE %s"
+        params.append(f"%{filtros['responsavel']}%")
+    if filtros["cliente"]:
+        sql += " AND cliente ILIKE %s"
+        params.append(f"%{filtros['cliente']}%")
+    if filtros["data_inicio"]:
+        sql += " AND data >= %s"
+        params.append(filtros["data_inicio"])
+    if filtros["data_fim"]:
+        sql += " AND data <= %s"
+        params.append(filtros["data_fim"])
 
     sql += " ORDER BY id DESC"
     cursor.execute(sql, params)
-    chamados = [
-        dict(
-            id=row[0],
-            responsavel_atendimento=row[1],
-            data=row[2],
-            cliente=row[3],
-            empresa=row[4],
-            status=row[5]
-        )
-        for row in cursor.fetchall()
-    ]
-    total_filtrados = len(chamados)
+    chamados = [dict(zip(("id", "responsavel_atendimento", "data", "cliente", "empresa", "status"), row)) for row in cursor.fetchall()]
     conn.close()
-    return render_template("lista_chamados.html",
-        chamados=chamados,
-        status_filtro=status_filtro,
-        empresa_filtro=empresa_filtro,
-        responsavel_filtro=responsavel_filtro,
-        cliente_filtro=cliente_filtro,
-        data_inicio=data_inicio,
-        data_fim=data_fim,
-        total_geral=total_geral,
-        total_filtrados=total_filtrados
-    )
 
-
+    return render_template("lista_chamados.html", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
 
 @app.route('/excluir/<int:id>', methods=['POST'])
 @login_required
 @admin_required
 def excluir_chamado(id):
-    conn = sqlite3.connect('chamados.db')
+    conn = conectar()
     cursor = conn.cursor()
-    cursor.execute('DELETE FROM chamados WHERE id = ?', (id,))
+    cursor.execute('DELETE FROM chamados WHERE id = %s', (id,))
     conn.commit()
     conn.close()
     flash("Chamado excluído!")
     return redirect('/listar')
 
-
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    conn = sqlite3.connect('chamados.db')
+    conn = conectar()
     cursor = conn.cursor()
 
-    # Total de chamados
     cursor.execute('SELECT COUNT(*) FROM chamados')
     total_chamados = cursor.fetchone()[0]
 
-    # Chamados por status
     cursor.execute('SELECT status, COUNT(*) FROM chamados GROUP BY status')
-    status_data = cursor.fetchall()
-    chamados_por_status = {status: count for status, count in status_data}
+    chamados_por_status = {status: count for status, count in cursor.fetchall()}
 
-    # Chamados por prioridade
     cursor.execute('SELECT prioridade, COUNT(*) FROM chamados GROUP BY prioridade')
-    prioridade_data = cursor.fetchall()
-    chamados_por_prioridade = {prioridade: count for prioridade, count in prioridade_data}
+    chamados_por_prioridade = {prioridade: count for prioridade, count in cursor.fetchall()}
 
-    # Top 5 empresas com mais chamados
     cursor.execute('SELECT empresa, COUNT(*) FROM chamados GROUP BY empresa ORDER BY COUNT(*) DESC LIMIT 5')
-    empresa_data = cursor.fetchall()
-    chamados_por_empresa = {empresa: count for empresa, count in empresa_data}
+    chamados_por_empresa = {empresa: count for empresa, count in cursor.fetchall()}
 
     conn.close()
-    return render_template(
-        "dashboard.html",
+    return render_template("dashboard.html",
         total_chamados=total_chamados,
         chamados_por_status=chamados_por_status,
         chamados_por_prioridade=chamados_por_prioridade,
         chamados_por_empresa=chamados_por_empresa
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)
