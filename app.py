@@ -32,6 +32,43 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+@app.route("/redefinir_senha", methods=["GET", "POST"])
+def redefinir_senha():
+    if request.method == "POST":
+        usuario = request.form.get("usuario", "").strip()
+        nova = request.form.get("nova_senha", "")
+        confirmar = request.form.get("confirmar_senha", "")
+
+        if not usuario or not nova or not confirmar:
+            flash("Preencha todos os campos.")
+            return redirect("/redefinir_senha")
+
+        if nova != confirmar:
+            flash("As senhas não coincidem.")
+            return redirect("/redefinir_senha")
+
+        nova_hash = generate_password_hash(nova, method="scrypt")
+
+        try:
+            conn = conectar()
+            cursor = conn.cursor()
+            cursor.execute("UPDATE usuarios SET senha_hash = %s WHERE usuario = %s", (nova_hash, usuario))
+            if cursor.rowcount == 0:
+                flash("Usuário não encontrado.")
+            else:
+                conn.commit()
+                flash("Senha redefinida com sucesso!")
+        except Exception as e:
+            conn.rollback()
+            flash("Erro ao redefinir senha.")
+            print(f"Erro: {e}")
+        finally:
+            conn.close()
+
+        return redirect("/redefinir_senha")
+
+    return render_template("redefinir_senha.html")
+
 # --- NOVA ROTA: Cadastrar Usuário ---
 @app.route("/cadastrar_usuario", methods=["GET", "POST"])
 @login_required

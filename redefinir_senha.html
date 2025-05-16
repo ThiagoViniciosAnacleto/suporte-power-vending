@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <h1>Redefinir Senha</h1>
+        <a href="/login" class="logout-form">
+            <button type="button">← Voltar ao Login</button>
+        </a>
+    </header>
+
+    <main class="form-main">
+        <form method="POST" action="/redefinir_senha" class="form-card">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <label for="usuario">Nome de Usuário:</label>
+            <input type="text" name="usuario" id="usuario" required>
+
+            <label for="nova_senha">Nova Senha:</label>
+            <input type="password" name="nova_senha" id="nova_senha" required>
+
+            <label for="confirmar_senha">Confirmar Nova Senha:</label>
+            <input type="password" name="confirmar_senha" id="confirmar_senha" required>
+
+            <button type="submit">Redefinir Senha</button>
+        </form>
+    </main>
+
+    {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            <div class="toast" id="toast">
+                {{ mensagens[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
