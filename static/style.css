@@ -589,6 +589,182 @@ body.darkmode .toast {
     border: 1px solid #2a3a54;
 }
 
+.cards-abertos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    margin: 36px 0 16px 0;
+}
+
+.chamado-card {
+    background: #222836;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(34, 51, 84, 0.11);
+    padding: 22px 28px 18px 28px;
+    color: #fff;
+    min-width: 250px;
+    max-width: 320px;
+    flex: 1 1 260px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.13s, box-shadow 0.13s;
+    border: 1.5px solid #4b91fa22;
+}
+
+.chamado-card:hover {
+    transform: translateY(-4px) scale(1.025);
+    box-shadow: 0 8px 28px 0 rgba(34,51,84,0.14);
+    border-color: #4b91fa77;
+}
+
+.chamado-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 1.12rem;
+}
+
+.chamado-id {
+    font-weight: 700;
+    color: #4b91fa;
+    font-size: 1.11rem;
+}
+
+.chamado-status.aberto {
+    color: #ffcc00;
+    background: #232323;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.97rem;
+}
+
+.chamado-card-main span {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1.03rem;
+    color: #d6dfff;
+}
+
+/* ---------------------- MODAL DE CHAMADO ---------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(22, 26, 35, 0.76);
+    z-index: 1090;
+    display: none;
+    transition: opacity 0.2s;
+}
+
+.modal-chamado {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 330px;
+    max-width: 98vw;
+    max-height: 94vh;
+    background: #232634;
+    border-radius: 18px;
+    box-shadow: 0 8px 44px rgba(22,28,40,0.19), 0 1.5px 18px #4b91fa22;
+    z-index: 1100;
+    display: none;
+    flex-direction: column;
+    padding: 0;
+    overflow: auto;
+    animation: modal-appear 0.18s;
+}
+
+@keyframes modal-appear {
+    from { opacity: 0; transform: translate(-50%, -55%) scale(0.96);}
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1);}
+}
+
+.modal-content {
+    padding: 38px 42px 26px 42px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    position: relative;
+    min-width: 320px;
+    max-width: 530px;
+    font-size: 1.10rem;
+}
+
+.close-modal {
+    position: absolute;
+    top: 18px;
+    right: 28px;
+    font-size: 2rem;
+    color: #bfc3ca;
+    cursor: pointer;
+    transition: color 0.18s;
+    font-weight: 600;
+    z-index: 2;
+}
+.close-modal:hover {
+    color: #ff3d54;
+}
+
+.modal-content h2 {
+    color: #80b3fa;
+    font-size: 1.5rem;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+}
+
+.modal-content p {
+    margin: 0 0 12px 0;
+    font-size: 1.12rem;
+}
+.modal-content strong {
+    color: #ffee8c;
+    font-weight: 600;
+}
+
+/* DARKMODE: modal acompanha tema */
+body.darkmode .modal-chamado,
+body.darkmode .modal-content {
+    background: #20242e !important;
+    color: #e1e6ef !important;
+}
+body.darkmode .modal-content strong {
+    color: #fff4b8;
+}
+body.darkmode .modal-content h2 {
+    color: #8ac5ff !important;
+}
+body.darkmode .close-modal {
+    color: #a7c0f7;
+}
+body.darkmode .close-modal:hover {
+    color: #ff7f7f;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 24px 10px 14px 16px;
+        min-width: 95vw;
+        max-width: 99vw;
+        font-size: 1rem;
+    }
+    .close-modal {
+        top: 9px;
+        right: 14px;
+        font-size: 1.35rem;
+    }
+    .modal-chamado {
+        min-width: 95vw;
+        border-radius: 12px;
+        padding: 0;
+    }
+}
+
+
+
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
 @media (min-width: 1600px) {
     html { font-size: 18px; }

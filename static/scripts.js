@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Toast
     const toast = document.getElementById("toast");
     if (toast) {
-    setTimeout(function () {
-        toast.style.display = "none";
-    }, 4000);
-}
-});
+        setTimeout(function () {
+            toast.style.display = "none";
+        }, 4000);
+    }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Sempre aplica o darkmode salvo no localStorage, mesmo ao trocar de página
+    // Darkmode
     if (localStorage.getItem('darkmode') === 'on') {
         document.body.classList.add('darkmode');
     } else {
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const btn = document.getElementById('toggle-darkmode');
     if (btn) {
-        // Atualiza botão conforme modo
         function updateButton() {
             if (document.body.classList.contains('darkmode')) {
                 btn.textContent = '☀️ Modo Claro';
@@ -29,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         btn.onclick = function () {
             document.body.classList.toggle('darkmode');
-            // Salva preferência
             if (document.body.classList.contains('darkmode')) {
                 localStorage.setItem('darkmode', 'on');
             } else {
@@ -38,4 +35,29 @@ document.addEventListener('DOMContentLoaded', function () {
             updateButton();
         };
     }
+
+    // Fechar modal ao clicar fora do conteúdo
+    var modais = document.querySelectorAll('.modal-chamado');
+    modais.forEach(function(modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
 });
+
+// Funções globais para os modais
+window.abrirModalChamado = function(id) {
+    var modal = document.getElementById('modal-chamado-' + id);
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+};
+
+window.fecharModalChamado = function(id) {
+    var modal = document.getElementById('modal-chamado-' + id);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+};

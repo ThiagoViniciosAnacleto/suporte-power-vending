@@ -62,7 +62,38 @@ def logout():
 @login_required
 @admin_required
 def home():
-    return render_template("index.html")
+    conn = sqlite3.connect("chamados.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato, prioridade, origem, tipo_maquina, porta_ssh, tipo_acao, responsavel_acao, descricao_acao, horario
+        FROM chamados
+        WHERE status = 'Aberto'
+        ORDER BY id DESC
+        LIMIT 8
+    """)
+    chamados_abertos = [
+        dict(
+            id=row[0],
+            responsavel_atendimento=row[1],
+            data=row[2],
+            cliente=row[3],
+            empresa=row[4],
+            status=row[5],
+            relato=row[6],
+            prioridade=row[7],
+            origem=row[8],
+            tipo_maquina=row[9],
+            porta_ssh=row[10],
+            tipo_acao=row[11],
+            responsavel_acao=row[12],
+            descricao_acao=row[13],
+            horario=row[14]
+        )
+        for row in cursor.fetchall()
+    ]
+    conn.close()
+    return render_template("index.html", chamados_abertos=chamados_abertos)
+
 
 # Criar chamado: só para admin
 @app.route("/novo", methods=["GET", "POST"])
