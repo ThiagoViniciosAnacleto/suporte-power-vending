@@ -1,40 +1,37 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Login de Acesso</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>Login de Acesso</title>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
 <body>
-    <header class="topbar">
-        <button id="toggle-darkmode" class="darkmode-btn" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
+<header class="topbar">
+<button class="darkmode-btn" id="toggle-darkmode" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
         🌙 Modo Escuro
         </button>
-    </header>
-    <main class="form-main">
-        <form method="POST" action="/login" class="form-card" style="margin-top: 70px;">
-            <h1 style="margin-bottom: 24px; font-size: 1.8rem;">Login de Acesso</h1>
+</header>
+<main class="form-main">
+<form action="/login" class="form-card" method="POST" style="margin-top: 70px;"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<h1 style="margin-bottom: 24px; font-size: 1.8rem;">Login de Acesso</h1>
 
             {% if erro %}
                 <div class="login-erro">{{ erro }}</div>
             {% endif %}
 
             <label for="usuario">Usuário:</label>
-            <input type="text" name="usuario" id="usuario" autocomplete="username" required>
-
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" id="senha" autocomplete="current-password" required>
-
-            <button type="submit">Entrar</button>
-
-            <div class="login-footer">
-                <a href="#" onclick="alert('Procure o administrador do sistema para redefinir sua senha.'); return false;">
+<input autocomplete="username" id="usuario" name="usuario" required="" type="text"/>
+<label for="senha">Senha:</label>
+<input autocomplete="current-password" id="senha" name="senha" required="" type="password"/>
+<button type="submit">Entrar</button>
+<div class="login-footer">
+<a href="#" onclick="alert('Procure o administrador do sistema para redefinir sua senha.'); return false;">
                     Esqueci minha senha
                 </a>
-            </div>
-        </form>
-    </main>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-
+</div>
+</form>
+</main>
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

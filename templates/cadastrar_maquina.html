@@ -1,29 +1,28 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Tipo de Máquina</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>Cadastrar Tipo de Máquina</title>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
 <body>
-    <header class="topbar">
-        <h1>Cadastrar Tipo de Máquina</h1>
-        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
-            <button type="submit">← Voltar para Home</button>
-        </form>
-        <form action="/logout" method="get" class="logout-form">
-            <button type="submit">Sair</button>
-        </form>
-    </header>
-
-    <main class="form-main">
-        <form method="POST" action="/cadastrar_maquina" class="form-card">
-            <label for="modelo">Modelo da Máquina:</label>
-            <input type="text" name="modelo" id="modelo" placeholder="Ex: PV-3000" required>
-
-            <button type="submit">Cadastrar Máquina</button>
-        </form>
-    </main>
+<header class="topbar">
+<h1>Cadastrar Tipo de Máquina</h1>
+<form action="/" class="logout-form" method="get" style="margin-right: 12px;">
+<button type="submit">← Voltar para Home</button>
+</form>
+<form action="/logout" class="logout-form" method="get">
+<button type="submit">Sair</button>
+</form>
+</header>
+<main class="form-main">
+<form action="/cadastrar_maquina" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<label for="modelo">Modelo da Máquina:</label>
+<input id="modelo" name="modelo" placeholder="Ex: PV-3000" required="" type="text"/>
+<button type="submit">Cadastrar Máquina</button>
+</form>
+</main>
 
     {% with mensagens = get_flashed_messages() %}
         {% if mensagens %}

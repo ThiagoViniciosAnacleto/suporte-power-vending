@@ -1,82 +1,67 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Editar Chamado #{{ chamado.id }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>Editar Chamado #{{ chamado.id }}</title>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
 <body>
-    <header class="topbar">
-        <h1>Editar Chamado #{{ chamado.id }}</h1>
-        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
-            <button type="submit">← Voltar para Home</button>
-        </form>
-        <form action="/logout" method="get" class="logout-form">
-            <button type="submit">Sair</button>
-        </form>
-        <button id="toggle-darkmode" class="darkmode-btn" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
+<header class="topbar">
+<h1>Editar Chamado #{{ chamado.id }}</h1>
+<form action="/" class="logout-form" method="get" style="margin-right: 12px;">
+<button type="submit">← Voltar para Home</button>
+</form>
+<form action="/logout" class="logout-form" method="get">
+<button type="submit">Sair</button>
+</form>
+<button class="darkmode-btn" id="toggle-darkmode" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
         🌙 Modo Escuro
         </button>
-    </header>
-
-    <main class="form-main">
-        <form method="POST" class="form-card">
-            <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
-            <input type="text" name="responsavel_atendimento" id="responsavel_atendimento" value="{{ chamado.responsavel_atendimento }}" required>
-
-            <label for="data">Data:</label>
-            <input type="date" name="data" id="data" value="{{ chamado.data }}">
-
-            <label for="horario">Horário:</label>
-            <input type="time" name="horario" id="horario" value="{{ chamado.horario }}">
-
-            <label for="cliente">Nome do Cliente:</label>
-            <input type="text" name="cliente" id="cliente" value="{{ chamado.cliente }}" required>
-
-            <label for="empresa">Empresa:</label>
-            <input type="text" name="empresa" id="empresa" value="{{ chamado.empresa }}">
-
-            <label for="porta_ssh">Porta SSH da Máquina:</label>
-            <input type="text" name="porta_ssh" id="porta_ssh" value="{{ chamado.porta_ssh }}">
-
-            <label for="tipo_maquina">Tipo da Máquina:</label>
-            <input type="text" name="tipo_maquina" id="tipo_maquina" value="{{ chamado.tipo_maquina }}">
-
-            <label for="relato">Relato / Solicitação do Cliente:</label>
-            <textarea name="relato" id="relato" rows="3">{{ chamado.relato }}</textarea>
-
-            <label for="prioridade">Prioridade:</label>
-            <select name="prioridade" id="prioridade">
-                <option {% if chamado.prioridade == "Baixa" %}selected{% endif %}>Baixa</option>
-                <option {% if chamado.prioridade == "Média" %}selected{% endif %}>Média</option>
-                <option {% if chamado.prioridade == "Alta" %}selected{% endif %}>Alta</option>
-                <option {% if chamado.prioridade == "Crítica" %}selected{% endif %}>Crítica</option>
-            </select>
-
-            <label for="origem">Origem do Caso:</label>
-            <input type="text" name="origem" id="origem" value="{{ chamado.origem }}">
-
-            <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
-            <input type="text" name="tipo_acao" id="tipo_acao" value="{{ chamado.tipo_acao }}">
-
-            <label for="responsavel_acao">Responsável pela Ação:</label>
-            <input type="text" name="responsavel_acao" id="responsavel_acao" value="{{ chamado.responsavel_acao }}">
-
-            <label for="descricao_acao">Ação Realizada / Descrição:</label>
-            <textarea name="descricao_acao" id="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea>
-
-            <label for="status">Status do Caso:</label>
-            <select name="status" id="status">
-                <option {% if chamado.status == "Aberto" %}selected{% endif %}>Aberto</option>
-                <option {% if chamado.status == "Em andamento" %}selected{% endif %}>Em andamento</option>
-                <option {% if chamado.status == "Resolvido" %}selected{% endif %}>Resolvido</option>
-                <option {% if chamado.status == "Fechado" %}selected{% endif %}>Fechado</option>
-            </select>
-
-            <button type="submit">Salvar Alterações</button>
-        </form>
-    </main>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-
+</header>
+<main class="form-main">
+<form class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+<input id="responsavel_atendimento" name="responsavel_atendimento" required="" type="text" value="{{ chamado.responsavel_atendimento }}"/>
+<label for="data">Data:</label>
+<input id="data" name="data" type="date" value="{{ chamado.data }}"/>
+<label for="horario">Horário:</label>
+<input id="horario" name="horario" type="time" value="{{ chamado.horario }}"/>
+<label for="cliente">Nome do Cliente:</label>
+<input id="cliente" name="cliente" required="" type="text" value="{{ chamado.cliente }}"/>
+<label for="empresa">Empresa:</label>
+<input id="empresa" name="empresa" type="text" value="{{ chamado.empresa }}"/>
+<label for="porta_ssh">Porta SSH da Máquina:</label>
+<input id="porta_ssh" name="porta_ssh" type="text" value="{{ chamado.porta_ssh }}"/>
+<label for="tipo_maquina">Tipo da Máquina:</label>
+<input id="tipo_maquina" name="tipo_maquina" type="text" value="{{ chamado.tipo_maquina }}"/>
+<label for="relato">Relato / Solicitação do Cliente:</label>
+<textarea id="relato" name="relato" rows="3">{{ chamado.relato }}</textarea>
+<label for="prioridade">Prioridade:</label>
+<select id="prioridade" name="prioridade">
+<option %}="" %}selected{%="" chamado.prioridade="Baixa" endif="" if="" {%="">Baixa</option>
+<option %}="" %}selected{%="" chamado.prioridade="Média" endif="" if="" {%="">Média</option>
+<option %}="" %}selected{%="" chamado.prioridade="Alta" endif="" if="" {%="">Alta</option>
+<option %}="" %}selected{%="" chamado.prioridade="Crítica" endif="" if="" {%="">Crítica</option>
+</select>
+<label for="origem">Origem do Caso:</label>
+<input id="origem" name="origem" type="text" value="{{ chamado.origem }}"/>
+<label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
+<input id="tipo_acao" name="tipo_acao" type="text" value="{{ chamado.tipo_acao }}"/>
+<label for="responsavel_acao">Responsável pela Ação:</label>
+<input id="responsavel_acao" name="responsavel_acao" type="text" value="{{ chamado.responsavel_acao }}"/>
+<label for="descricao_acao">Ação Realizada / Descrição:</label>
+<textarea id="descricao_acao" name="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea>
+<label for="status">Status do Caso:</label>
+<select id="status" name="status">
+<option %}="" %}selected{%="" chamado.status="Aberto" endif="" if="" {%="">Aberto</option>
+<option %}="" %}selected{%="" chamado.status="Em andamento" endif="" if="" {%="">Em andamento</option>
+<option %}="" %}selected{%="" chamado.status="Resolvido" endif="" if="" {%="">Resolvido</option>
+<option %}="" %}selected{%="" chamado.status="Fechado" endif="" if="" {%="">Fechado</option>
+</select>
+<button type="submit">Salvar Alterações</button>
+</form>
+</main>
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

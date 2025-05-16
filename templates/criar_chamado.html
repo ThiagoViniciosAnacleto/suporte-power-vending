@@ -1,88 +1,75 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Registro de Atendimentos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>Registro de Atendimentos</title>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
 <body>
-    <header class="topbar">
-        <h1>Registro de Atendimentos</h1>
-        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
-            <button type="submit">← Voltar para Home</button>
-        </form>
-        <form action="/logout" method="get" class="logout-form">
-            <button type="submit">Sair</button>
-        </form>
-        <button id="toggle-darkmode" class="darkmode-btn" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
+<header class="topbar">
+<h1>Registro de Atendimentos</h1>
+<form action="/" class="logout-form" method="get" style="margin-right: 12px;">
+<button type="submit">← Voltar para Home</button>
+</form>
+<form action="/logout" class="logout-form" method="get">
+<button type="submit">Sair</button>
+</form>
+<button class="darkmode-btn" id="toggle-darkmode" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
         🌙 Modo Escuro
         </button>
-    </header>
-    <main class="form-main">
-        <form method="POST" action="/novo" class="form-card">
-            <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
-            <input type="text" name="responsavel_atendimento" id="responsavel_atendimento" value="{{ usuario_logado }}" readonly required>
-
-            <label for="data">Data:</label>
-            <input type="date" name="data" id="data" value="{{ data_atual }}" required>
-
-            <label for="horario">Horário:</label>
-            <input type="time" name="horario" id="horario" value="{{ hora_atual }}" required>
-
-            <label for="cliente">Nome do Cliente:</label>
-            <input type="text" name="cliente" id="cliente" required>
-
-            <label for="empresa">Empresa:</label>
-            <select name="empresa" id="empresa" required>
+</header>
+<main class="form-main">
+<form action="/novo" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+<input id="responsavel_atendimento" name="responsavel_atendimento" readonly="" required="" type="text" value="{{ usuario_logado }}"/>
+<label for="data">Data:</label>
+<input id="data" name="data" required="" type="date" value="{{ data_atual }}"/>
+<label for="horario">Horário:</label>
+<input id="horario" name="horario" required="" type="time" value="{{ hora_atual }}"/>
+<label for="cliente">Nome do Cliente:</label>
+<input id="cliente" name="cliente" required="" type="text"/>
+<label for="empresa">Empresa:</label>
+<select id="empresa" name="empresa" required="">
                 {% for empresa in lista_empresas %}
                 <option value="{{ empresa }}">{{ empresa }}</option>
                 {% endfor %}
             </select>
-
-            <label for="porta_ssh">Porta SSH da Máquina:</label>
-            <input type="text" name="porta_ssh" id="porta_ssh">
-
-            <label for="tipo_maquina">Tipo da Máquina:</label>
-            <select name="tipo_maquina" id="tipo_maquina">
+<label for="porta_ssh">Porta SSH da Máquina:</label>
+<input id="porta_ssh" name="porta_ssh" type="text"/>
+<label for="tipo_maquina">Tipo da Máquina:</label>
+<select id="tipo_maquina" name="tipo_maquina">
                 {% for modelo in lista_maquinas %}
                 <option value="{{ modelo }}">{{ modelo }}</option>
                 {% endfor %}
             </select>
-
-            <label for="relato">Relato / Solicitação do Cliente:</label>
-            <textarea name="relato" id="relato" rows="3"></textarea>
-
-            <label for="prioridade">Prioridade:</label>
-            <select name="prioridade" id="prioridade">
-                <option>Baixa</option>
-                <option>Média</option>
-                <option>Alta</option>
-                <option>Crítica</option>
-            </select>
-
-            <label for="origem">Origem do Caso:</label>
-            <input type="text" name="origem" id="origem">
-
-            <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
-            <input type="text" name="tipo_acao" id="tipo_acao">
-
-            <label for="responsavel_acao">Responsável pela Ação:</label>
-            <input type="text" name="responsavel_acao" id="responsavel_acao">
-
-            <label for="descricao_acao">Ação Realizada / Descrição:</label>
-            <textarea name="descricao_acao" id="descricao_acao" rows="3"></textarea>
-
-            <label for="status">Status do Caso:</label>
-            <select name="status" id="status">
-                <option>Aberto</option>
-                <option>Em andamento</option>
-                <option>Resolvido</option>
-                <option>Fechado</option>
-            </select>
-
-            <button type="submit">Salvar Atendimento</button>
-        </form>
-    </main>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+<label for="relato">Relato / Solicitação do Cliente:</label>
+<textarea id="relato" name="relato" rows="3"></textarea>
+<label for="prioridade">Prioridade:</label>
+<select id="prioridade" name="prioridade">
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+<option>Crítica</option>
+</select>
+<label for="origem">Origem do Caso:</label>
+<input id="origem" name="origem" type="text"/>
+<label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
+<input id="tipo_acao" name="tipo_acao" type="text"/>
+<label for="responsavel_acao">Responsável pela Ação:</label>
+<input id="responsavel_acao" name="responsavel_acao" type="text"/>
+<label for="descricao_acao">Ação Realizada / Descrição:</label>
+<textarea id="descricao_acao" name="descricao_acao" rows="3"></textarea>
+<label for="status">Status do Caso:</label>
+<select id="status" name="status">
+<option>Aberto</option>
+<option>Em andamento</option>
+<option>Resolvido</option>
+<option>Fechado</option>
+</select>
+<button type="submit">Salvar Atendimento</button>
+</form>
+</main>
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

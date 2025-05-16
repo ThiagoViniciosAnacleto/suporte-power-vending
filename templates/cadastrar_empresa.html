@@ -1,29 +1,28 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Empresa</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>Cadastrar Empresa</title>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
 <body>
-    <header class="topbar">
-        <h1>Cadastrar Empresa</h1>
-        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
-            <button type="submit">← Voltar para Home</button>
-        </form>
-        <form action="/logout" method="get" class="logout-form">
-            <button type="submit">Sair</button>
-        </form>
-    </header>
-
-    <main class="form-main">
-        <form method="POST" action="/cadastrar_empresa" class="form-card">
-            <label for="nome">Nome da Empresa:</label>
-            <input type="text" name="nome" id="nome" placeholder="Ex: Power Vending" required>
-
-            <button type="submit">Cadastrar Empresa</button>
-        </form>
-    </main>
+<header class="topbar">
+<h1>Cadastrar Empresa</h1>
+<form action="/" class="logout-form" method="get" style="margin-right: 12px;">
+<button type="submit">← Voltar para Home</button>
+</form>
+<form action="/logout" class="logout-form" method="get">
+<button type="submit">Sair</button>
+</form>
+</header>
+<main class="form-main">
+<form action="/cadastrar_empresa" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<label for="nome">Nome da Empresa:</label>
+<input id="nome" name="nome" placeholder="Ex: Power Vending" required="" type="text"/>
+<button type="submit">Cadastrar Empresa</button>
+</form>
+</main>
 
     {% with mensagens = get_flashed_messages() %}
         {% if mensagens %}

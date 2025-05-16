@@ -8,10 +8,12 @@ from functools import wraps
 from flask import get_flashed_messages
 from werkzeug.security import check_password_hash
 from conexao import conectar
-from pytz import timezone  # Adicione esse import no topo do arquivo
+from pytz import timezone
+from flask_wtf import CSRFProtect  # 🔒 Novo import para proteção CSRF
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
+csrf = CSRFProtect(app)  # 🔐 Inicializa proteção CSRF
 
 # --- MIDDLEWARES ---
 def login_required(f):
@@ -82,7 +84,6 @@ def home():
 @login_required
 @admin_required
 def criar_chamado():
-    from pytz import timezone
     fuso_brasilia = timezone("America/Sao_Paulo")
     agora = datetime.now(fuso_brasilia)
 
@@ -111,7 +112,6 @@ def criar_chamado():
             conn.close()
         return redirect("/")
 
-    # Agora os dados vêm do banco
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT nome FROM empresas ORDER BY nome")
@@ -256,7 +256,7 @@ def dashboard():
         chamados_por_prioridade=chamados_por_prioridade,
         chamados_por_empresa=chamados_por_empresa
     )
-    
+
 @app.route("/cadastrar_empresa", methods=["GET", "POST"])
 @login_required
 @admin_required
