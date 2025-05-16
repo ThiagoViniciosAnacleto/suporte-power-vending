@@ -1,10 +1,13 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from flask import Flask, render_template, request, redirect, session, flash
 from datetime import datetime
 from functools import wraps
 from flask import get_flashed_messages
 from werkzeug.security import check_password_hash
 from conexao import conectar
-import os
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
