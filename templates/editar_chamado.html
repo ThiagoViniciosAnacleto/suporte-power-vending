@@ -39,10 +39,10 @@
 <textarea id="relato" name="relato" rows="3">{{ chamado.relato }}</textarea>
 <label for="prioridade">Prioridade:</label>
 <select id="prioridade" name="prioridade">
-<option %}="" %}selected{%="" chamado.prioridade="Baixa" endif="" if="" {%="">Baixa</option>
-<option %}="" %}selected{%="" chamado.prioridade="Média" endif="" if="" {%="">Média</option>
-<option %}="" %}selected{%="" chamado.prioridade="Alta" endif="" if="" {%="">Alta</option>
-<option %}="" %}selected{%="" chamado.prioridade="Crítica" endif="" if="" {%="">Crítica</option>
+<option {% if chamado.prioridade == "Baixa" %}selected{% endif %}>Baixa</option>
+<option {% if chamado.prioridade == "Média" %}selected{% endif %}>Média</option>
+<option {% if chamado.prioridade == "Alta" %}selected{% endif %}>Alta</option>
+<option {% if chamado.prioridade == "Crítica" %}selected{% endif %}>Crítica</option>
 </select>
 <label for="origem">Origem do Caso:</label>
 <input id="origem" name="origem" type="text" value="{{ chamado.origem }}"/>
