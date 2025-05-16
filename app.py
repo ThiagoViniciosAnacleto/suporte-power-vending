@@ -249,6 +249,50 @@ def dashboard():
         chamados_por_prioridade=chamados_por_prioridade,
         chamados_por_empresa=chamados_por_empresa
     )
+    
+@app.route("/cadastrar_empresa", methods=["GET", "POST"])
+@login_required
+@admin_required
+def cadastrar_empresa():
+    if request.method == "POST":
+        nome = request.form.get("nome", "").strip()
+        if nome:
+            try:
+                conn = conectar()
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO empresas (nome) VALUES (%s)", (nome,))
+                conn.commit()
+                flash("Empresa cadastrada com sucesso!")
+            except Exception as e:
+                conn.rollback()
+                flash("Erro ao cadastrar empresa.")
+                print(f"Erro: {e}")
+            finally:
+                conn.close()
+        return redirect("/cadastrar_empresa")
+    return render_template("cadastrar_empresa.html")
+
+@app.route("/cadastrar_maquina", methods=["GET", "POST"])
+@login_required
+@admin_required
+def cadastrar_maquina():
+    if request.method == "POST":
+        modelo = request.form.get("modelo", "").strip()
+        if modelo:
+            try:
+                conn = conectar()
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO maquinas (modelo) VALUES (%s)", (modelo,))
+                conn.commit()
+                flash("Máquina cadastrada com sucesso!")
+            except Exception as e:
+                conn.rollback()
+                flash("Erro ao cadastrar máquina.")
+                print(f"Erro: {e}")
+            finally:
+                conn.close()
+        return redirect("/cadastrar_maquina")
+    return render_template("cadastrar_maquina.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
