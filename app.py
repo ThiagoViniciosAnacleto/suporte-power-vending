@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, redirect, session, flash
 from datetime import datetime
 from functools import wraps
 from flask import get_flashed_messages
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from conexao import conectar
 from pytz import timezone
 from flask_wtf import CSRFProtect  # 🔒 Novo import para proteção CSRF
@@ -31,6 +31,43 @@ def admin_required(f):
             return redirect("/dashboard")
         return f(*args, **kwargs)
     return decorated_function
+
+# --- NOVA ROTA: Cadastrar Usuário ---
+@app.route("/cadastrar_usuario", methods=["GET", "POST"])
+@login_required
+@admin_required
+def cadastrar_usuario():
+    if request.method == "POST":
+        usuario = request.form.get("usuario", "").strip()
+        senha = request.form.get("senha", "")
+        confirmar = request.form.get("confirmar_senha", "")
+        is_admin = 1 if request.form.get("is_admin") else 0
+
+        if not usuario or not senha or not confirmar:
+            flash("Todos os campos são obrigatórios.")
+            return redirect("/cadastrar_usuario")
+
+        if senha != confirmar:
+            flash("As senhas não coincidem.")
+            return redirect("/cadastrar_usuario")
+
+        senha_hash = generate_password_hash(senha, method="scrypt")
+
+        try:
+            conn = conectar()
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO usuarios (usuario, senha_hash, is_admin) VALUES (%s, %s, %s)", (usuario, senha_hash, is_admin))
+            conn.commit()
+            flash("Usuário cadastrado com sucesso!")
+        except Exception as e:
+            conn.rollback()
+            flash("Erro ao cadastrar usuário. Talvez o nome já exista.")
+            print(f"Erro: {e}")
+        finally:
+            conn.close()
+        return redirect("/cadastrar_usuario")
+
+    return render_template("cadastrar_usuario.html")
 
 # --- ROTAS ---
 @app.route("/login", methods=["GET", "POST"])
