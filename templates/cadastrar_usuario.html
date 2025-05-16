@@ -30,7 +30,10 @@
             <input type="password" name="confirmar_senha" id="confirmar_senha" required>
 
             <label for="is_admin">
-                <input type="checkbox" name="is_admin" id="is_admin"> Tornar administrador
+                <select name="is_admin" id="is_admin" required>
+                <option value="0">Usuário Comum</option>
+                <option value="1">Administrador</option>
+                <option value="2">Técnico</option>
             </label>
 
             <button type="submit">Cadastrar Usuário</button>
