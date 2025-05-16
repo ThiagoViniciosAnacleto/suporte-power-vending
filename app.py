@@ -8,6 +8,7 @@ from functools import wraps
 from flask import get_flashed_messages
 from werkzeug.security import check_password_hash
 from conexao import conectar
+from pytz import timezone  # Adicione esse import no topo do arquivo
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
@@ -81,26 +82,46 @@ def home():
 @login_required
 @admin_required
 def criar_chamado():
+    fuso_brasilia = timezone("America/Sao_Paulo")
+    agora = datetime.now(fuso_brasilia)
+
     if request.method == "POST":
         campos = (
             "responsavel_atendimento", "data", "horario", "cliente", "empresa", "porta_ssh",
             "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
             "responsavel_acao", "descricao_acao", "status"
         )
-        dados = [request.form.get(c, "") or datetime.now().strftime("%d/%m/%Y" if c == "data" else "%H:%M" if c == "horario" else "") for c in campos]
+        dados = [request.form.get(c, "") or agora.strftime("%d/%m/%Y" if c == "data" else "%H:%M" if c == "horario" else "") for c in campos]
 
-        conn = conectar()
-        cursor = conn.cursor()
-        cursor.execute(f"""
-            INSERT INTO chamados ({', '.join(campos)})
-            VALUES ({', '.join(['%s'] * len(campos))})
-        """, dados)
-        conn.commit()
-        conn.close()
-
-        flash("Chamado aberto com sucesso!")
+        try:
+            conn = conectar()
+            cursor = conn.cursor()
+            cursor.execute(f"""
+                INSERT INTO chamados ({', '.join(campos)})
+                VALUES ({', '.join(['%s'] * len(campos))})
+            """, dados)
+            conn.commit()
+            flash("Chamado aberto com sucesso!")
+        except Exception as e:
+            conn.rollback()
+            flash("Erro ao criar chamado.")
+            print(f"Erro ao inserir chamado: {e}")
+        finally:
+            conn.close()
         return redirect("/")
-    return render_template("criar_chamado.html")
+
+    # Dados mockados por enquanto – você pode substituir por queries do banco
+    lista_empresas = ["Empresa 1", "Empresa 2", "Empresa 3"]
+    lista_maquinas = ["Máquina A", "Máquina B", "Máquina C"]
+
+    return render_template(
+        "criar_chamado.html",
+        usuario_logado=session.get("usuario"),
+        data_atual=agora.strftime("%Y-%m-%d"),
+        hora_atual=agora.strftime("%H:%M"),
+        lista_empresas=lista_empresas,
+        lista_maquinas=lista_maquinas
+    )
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @login_required

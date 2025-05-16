@@ -21,25 +21,33 @@
     <main class="form-main">
         <form method="POST" action="/novo" class="form-card">
             <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
-            <input type="text" name="responsavel_atendimento" id="responsavel_atendimento" required>
+            <input type="text" name="responsavel_atendimento" id="responsavel_atendimento" value="{{ usuario_logado }}" readonly required>
 
             <label for="data">Data:</label>
-            <input type="date" name="data" id="data">
+            <input type="date" name="data" id="data" value="{{ data_atual }}" required>
 
             <label for="horario">Horário:</label>
-            <input type="time" name="horario" id="horario">
+            <input type="time" name="horario" id="horario" value="{{ hora_atual }}" required>
 
             <label for="cliente">Nome do Cliente:</label>
             <input type="text" name="cliente" id="cliente" required>
 
             <label for="empresa">Empresa:</label>
-            <input type="text" name="empresa" id="empresa" required>
+            <select name="empresa" id="empresa" required>
+                {% for empresa in lista_empresas %}
+                <option value="{{ empresa }}">{{ empresa }}</option>
+                {% endfor %}
+            </select>
 
             <label for="porta_ssh">Porta SSH da Máquina:</label>
             <input type="text" name="porta_ssh" id="porta_ssh">
 
             <label for="tipo_maquina">Tipo da Máquina:</label>
-            <input type="text" name="tipo_maquina" id="tipo_maquina">
+            <select name="tipo_maquina" id="tipo_maquina">
+                {% for modelo in lista_maquinas %}
+                <option value="{{ modelo }}">{{ modelo }}</option>
+                {% endfor %}
+            </select>
 
             <label for="relato">Relato / Solicitação do Cliente:</label>
             <textarea name="relato" id="relato" rows="3"></textarea>
