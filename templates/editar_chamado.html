@@ -54,10 +54,10 @@
 <textarea id="descricao_acao" name="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea>
 <label for="status">Status do Caso:</label>
 <select id="status" name="status">
-<option %}="" %}selected{%="" chamado.status="Aberto" endif="" if="" {%="">Aberto</option>
-<option %}="" %}selected{%="" chamado.status="Em andamento" endif="" if="" {%="">Em andamento</option>
-<option %}="" %}selected{%="" chamado.status="Resolvido" endif="" if="" {%="">Resolvido</option>
-<option %}="" %}selected{%="" chamado.status="Fechado" endif="" if="" {%="">Fechado</option>
+<option {% if chamado.status == "Aberto" %}selected{% endif %}>Aberto</option>
+<option {% if chamado.status == "Em andamento" %}selected{% endif %}>Em andamento</option>
+<option {% if chamado.status == "Resolvido" %}selected{% endif %}>Resolvido</option>
+<option {% if chamado.status == "Fechado" %}selected{% endif %}>Fechado</option>
 </select>
 <button type="submit">Salvar Alterações</button>
 </form>
