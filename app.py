@@ -32,6 +32,14 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def tec_or_admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "usuario" not in session or int(session.get("is_admin", 0)) not in (1, 2):
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route("/redefinir_senha", methods=["GET", "POST"])
 def redefinir_senha():
     if request.method == "POST":
@@ -156,7 +164,7 @@ def home():
 
 @app.route("/novo", methods=["GET", "POST"])
 @login_required
-@admin_required
+@tec_or_admin_required
 def criar_chamado():
     fuso_brasilia = timezone("America/Sao_Paulo")
     agora = datetime.now(fuso_brasilia)
@@ -248,7 +256,7 @@ def editar_chamado(id):
 
 @app.route("/listar")
 @login_required
-@admin_required
+@tec_or_admin_required
 def listar_chamados():
     filtros = {
         "status": request.args.get("status", "todos"),
