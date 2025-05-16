@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Empresa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Cadastrar nova empresa</h2>
-    <form method="POST">
-        <input type="text" name="nome" placeholder="Nome da empresa" required>
-        <button type="submit">Salvar</button>
-    </form>
-    <a href="/">← Voltar para Home</a>
+    <header class="topbar">
+        <h1>Cadastrar Empresa</h1>
+        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
+            <button type="submit">← Voltar para Home</button>
+        </form>
+        <form action="/logout" method="get" class="logout-form">
+            <button type="submit">Sair</button>
+        </form>
+    </header>
+
+    <main class="form-main">
+        <form method="POST" action="/cadastrar_empresa" class="form-card">
+            <label for="nome">Nome da Empresa:</label>
+            <input type="text" name="nome" id="nome" placeholder="Ex: Power Vending" required>
+
+            <button type="submit">Cadastrar Empresa</button>
+        </form>
+    </main>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

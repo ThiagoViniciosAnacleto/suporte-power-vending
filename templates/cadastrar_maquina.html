@@ -2,14 +2,29 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Máquina</title>
+    <title>Cadastrar Tipo de Máquina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Cadastrar novo tipo de máquina</h2>
-    <form method="POST">
-        <input type="text" name="modelo" placeholder="Modelo da máquina" required>
-        <button type="submit">Salvar</button>
-    </form>
-    <a href="/">← Voltar para Home</a>
+    <header class="topbar">
+        <h1>Cadastrar Tipo de Máquina</h1>
+        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
+            <button type="submit">← Voltar para Home</button>
+        </form>
+        <form action="/logout" method="get" class="logout-form">
+            <button type="submit">Sair</button>
+        </form>
+    </header>
+
+    <main class="form-main">
+        <form method="POST" action="/cadastrar_maquina" class="form-card">
+            <label for="modelo">Modelo da Máquina:</label>
+            <input type="text" name="modelo" id="modelo" placeholder="Ex: PV-3000" required>
+
+            <button type="submit">Cadastrar Máquina</button>
+        </form>
+    </main>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

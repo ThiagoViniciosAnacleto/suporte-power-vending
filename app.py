@@ -82,6 +82,7 @@ def home():
 @login_required
 @admin_required
 def criar_chamado():
+    from pytz import timezone
     fuso_brasilia = timezone("America/Sao_Paulo")
     agora = datetime.now(fuso_brasilia)
 
@@ -110,9 +111,15 @@ def criar_chamado():
             conn.close()
         return redirect("/")
 
-    # Dados mockados por enquanto – você pode substituir por queries do banco
-    lista_empresas = ["Empresa 1", "Empresa 2", "Empresa 3"]
-    lista_maquinas = ["Máquina A", "Máquina B", "Máquina C"]
+    # Agora os dados vêm do banco
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT nome FROM empresas ORDER BY nome")
+    lista_empresas = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
+    lista_maquinas = [row[0] for row in cursor.fetchall()]
+    conn.close()
 
     return render_template(
         "criar_chamado.html",
