@@ -28,7 +28,7 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if "usuario" not in session or int(session.get("is_admin", 0)) != 1:
-            return redirect("/")
+            return redirect("/dashboard")
         return f(*args, **kwargs)
     return decorated_function
 
@@ -132,9 +132,16 @@ def login():
         if resultado and check_password_hash(resultado[0], senha):
             session["usuario"] = usuario
             session["is_admin"] = int(resultado[1]) if resultado[1] is not None else 0
-            return redirect("/") if session["is_admin"] == 1 else redirect("/dashboard")
+
+            if session["is_admin"] == 1:
+                return redirect("/")
+            elif session["is_admin"] == 2:
+                return redirect("/")
+            else:
+                return redirect("/dashboard")
         else:
             erro = "Usuário ou senha inválidos!"
+
     return render_template("login.html", erro=erro)
 
 @app.route("/logout")
