@@ -86,7 +86,8 @@ def cadastrar_usuario():
         usuario = request.form.get("usuario", "").strip()
         senha = request.form.get("senha", "")
         confirmar = request.form.get("confirmar_senha", "")
-        is_admin = 1 if request.form.get("is_admin") else 0
+        is_admin = int(request.form.get("is_admin", 0))
+
 
         if not usuario or not senha or not confirmar:
             flash("Todos os campos são obrigatórios.")
