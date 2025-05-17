@@ -45,6 +45,37 @@ body {
     flex-wrap: wrap;
 }
 
+.usuario-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.usuario-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2e3d55;
+}
+
+.usuario-dados {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: var(--text-color, #2e3d55);
+}
+
+.usuario-nome {
+    font-weight: 600;
+}
+
+.usuario-cargo {
+    font-size: 0.85rem;
+    color: #6c7a89;
+}
+
 .topbar-form button {
     padding: 8px 20px;
     font-size: 1rem;
