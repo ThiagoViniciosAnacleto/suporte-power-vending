@@ -222,7 +222,7 @@ def criar_chamado():
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @login_required
-@admin_required
+@tec_or_admin_required
 def editar_chamado(id):
     conn = conectar()
     cursor = conn.cursor()
