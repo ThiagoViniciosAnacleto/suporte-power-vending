@@ -144,7 +144,7 @@ def logout():
 
 @app.route("/")
 @login_required
-@admin_required
+@tec_or_admin_required
 def home():
     conn = conectar()
     cursor = conn.cursor()
