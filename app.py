@@ -196,7 +196,6 @@ def criar_chamado():
         finally:
             conn.close()
         return redirect("/")
-        return render_template(titulo_pagina="Chamados Abertos")
 
     conn = conectar()
     cursor = conn.cursor()
@@ -213,7 +212,8 @@ def criar_chamado():
         data_atual=agora.strftime("%Y-%m-%d"),
         hora_atual=agora.strftime("%H:%M"),
         lista_empresas=lista_empresas,
-        lista_maquinas=lista_maquinas
+        lista_maquinas=lista_maquinas,
+        titulo_pagina="Criar Chamado"
     )
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
