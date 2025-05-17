@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Usuários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <h1>Gerenciar Usuários</h1>
+        <form action="/" method="get" class="logout-form" style="margin-right: 12px;">
+            <button type="submit">← Voltar para Home</button>
+        </form>
+        <form action="/logout" method="get" class="logout-form">
+            <button type="submit">Sair</button>
+        </form>
+    </header>
+
+    <main class="form-main">
+        <section class="form-card">
+            <h2 style="margin-bottom: 20px;">Lista de Usuários</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Privilégio Atual</th>
+                        <th>Alterar Privilégio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.usuario }}</td>
+                        <td>
+                            {% if usuario.is_admin == 1 %}Administrador
+                            {% elif usuario.is_admin == 2 %}Técnico
+                            {% else %}Comum
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST" action="/alterar_privilegio/{{ usuario.id }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <select name="novo_nivel" required>
+                                    <option value="0" {% if usuario.is_admin == 0 %}selected{% endif %}>Comum</option>
+                                    <option value="1" {% if usuario.is_admin == 1 %}selected{% endif %}>Administrador</option>
+                                    <option value="2" {% if usuario.is_admin == 2 %}selected{% endif %}>Técnico</option>
+                                </select>
+                                <button type="submit" style="margin-left: 8px;">Atualizar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            <div class="toast" id="toast">
+                {{ mensagens[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

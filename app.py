@@ -384,5 +384,41 @@ def cadastrar_maquina():
         return redirect("/cadastrar_maquina")
     return render_template("cadastrar_maquina.html")
 
+# --- GERENCIAR USUÁRIOS ---
+@app.route("/gerenciar_usuarios")
+@login_required
+@admin_required
+def gerenciar_usuarios():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, usuario, is_admin FROM usuarios ORDER BY id")
+    usuarios = [dict(zip(["id", "usuario", "is_admin"], row)) for row in cursor.fetchall()]
+    conn.close()
+    return render_template("alterar_privilegio.html", usuarios=usuarios)
+
+@app.route("/alterar_privilegio/<int:id>", methods=["POST"])
+@login_required
+@admin_required
+def alterar_privilegio(id):
+    novo_nivel = request.form.get("novo_nivel")
+    if novo_nivel is None:
+        flash("Privilégio inválido.")
+        return redirect("/gerenciar_usuarios")
+
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE usuarios SET is_admin = %s WHERE id = %s", (int(novo_nivel), id))
+        conn.commit()
+        flash("Privilégio atualizado com sucesso!")
+    except Exception as e:
+        conn.rollback()
+        flash("Erro ao atualizar privilégio.")
+        print(f"Erro: {e}")
+    finally:
+        conn.close()
+
+    return redirect("/gerenciar_usuarios")
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
