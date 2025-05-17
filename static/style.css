@@ -825,7 +825,7 @@ body.darkmode .close-modal:hover {
     .dashboard-cards { max-width: 3400px; }
     .form-card { max-width: 1600px; }
 }
-@media (max-width: 1500px) {
+@media (max-width: 1526px) {
     html { font-size: 16px; }
     .dashboard-cards { max-width: 1400px; }
     .form-card { max-width: 1000px; }
