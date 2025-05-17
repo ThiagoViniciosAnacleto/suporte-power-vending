@@ -168,9 +168,7 @@ def home():
         "responsavel_acao", "descricao_acao", "horario"
     ), row)) for row in cursor.fetchall()]
     conn.close()
-    return render_template("index.html", 
-                           chamados_abertos=chamados_abertos, 
-                           titulo_pagina="Chamados Abertos")
+    return render_template("index.html", chamados_abertos=chamados_abertos, titulo_pagina="Chamados Abertos")
 
 @app.route("/novo", methods=["GET", "POST"])
 @login_required
@@ -353,7 +351,7 @@ def dashboard():
 
 @app.route("/cadastrar_empresa", methods=["GET", "POST"])
 @login_required
-@admin_required
+@tec_or_admin_required
 def cadastrar_empresa():
     if request.method == "POST":
         nome = request.form.get("nome", "").strip()
@@ -375,7 +373,7 @@ def cadastrar_empresa():
 
 @app.route("/cadastrar_maquina", methods=["GET", "POST"])
 @login_required
-@admin_required
+@tec_or_admin_required
 def cadastrar_maquina():
     if request.method == "POST":
         modelo = request.form.get("modelo", "").strip()
