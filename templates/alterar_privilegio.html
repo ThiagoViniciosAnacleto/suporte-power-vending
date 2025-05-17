@@ -33,8 +33,11 @@
     </header>
 
     <main class="form-main">
+        {% extends "base.html" %}
+
+        {% block conteudo %}
         <section class="form-card">
-            <h2 style="margin-bottom: 20px;">Lista de Usuários</h2>
+            <h2>Lista de Usuários</h2>
             <table>
                 <thead>
                     <tr>
@@ -61,7 +64,7 @@
                                     <option value="1" {% if usuario.is_admin == 1 %}selected{% endif %}>Administrador</option>
                                     <option value="2" {% if usuario.is_admin == 2 %}selected{% endif %}>Técnico</option>
                                 </select>
-                                <button type="submit" style="margin-left: 8px;">Atualizar</button>
+                                <button type="submit">Atualizar</button>
                             </form>
                         </td>
                     </tr>
@@ -69,6 +72,7 @@
                 </tbody>
             </table>
         </section>
+        {% endblock %}
     </main>
 
     {% with mensagens = get_flashed_messages() %}

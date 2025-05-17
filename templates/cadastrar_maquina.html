@@ -33,11 +33,22 @@
         </div>
     </header>
 <main class="form-main">
-<form action="/cadastrar_maquina" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
-<label for="modelo">Modelo da Máquina:</label>
-<input id="modelo" name="modelo" placeholder="Ex: PV-3000" required="" type="text"/>
-<button type="submit">Cadastrar Máquina</button>
-</form>
+    {% extends "base.html" %}
+
+    {% block conteudo %}
+    <section class="form-card">
+        <h2>Cadastro de Máquina</h2>
+        <form method="POST" action="/cadastrar_maquina">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+            <label for="modelo">Modelo da Máquina:</label>
+            <input type="text" name="modelo" id="modelo" required>
+    
+            <button type="submit">Cadastrar</button>
+        </form>
+    </section>
+    {% endblock %}
+    
 </main>
 
     {% with mensagens = get_flashed_messages() %}

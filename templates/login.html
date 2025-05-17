@@ -13,24 +13,33 @@
         </button>
 </header>
 <main class="form-main">
-<form action="/login" class="form-card" method="POST" style="margin-top: 70px;"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
-<h1 style="margin-bottom: 24px; font-size: 1.8rem;">Login de Acesso</h1>
+    {% extends "base.html" %}
 
+    {% block conteudo %}
+    <section class="form-card" style="max-width: 400px; margin: 60px auto;">
+        <form action="/login" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+            <h2 style="text-align: center; margin-bottom: 24px;">Login de Acesso</h2>
+    
             {% if erro %}
-                <div class="login-erro">{{ erro }}</div>
+            <div class="login-erro">{{ erro }}</div>
             {% endif %}
-
+    
             <label for="usuario">Usuário:</label>
-<input autocomplete="username" id="usuario" name="usuario" required="" type="text"/>
-<label for="senha">Senha:</label>
-<input autocomplete="current-password" id="senha" name="senha" required="" type="password"/>
-<button type="submit">Entrar</button>
-<div class="login-footer">
-    <a href="/redefinir_senha">
-        Esqueci minha senha
-    </a>
-</div>
-</form>
+            <input type="text" name="usuario" id="usuario" autocomplete="username" required>
+    
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" id="senha" autocomplete="current-password" required>
+    
+            <button type="submit">Entrar</button>
+    
+            <div class="login-footer" style="margin-top: 12px; text-align: center;">
+                <a href="/redefinir_senha">Esqueci minha senha</a>
+            </div>
+        </form>
+    </section>
+    {% endblock %}    
 </main>
 <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
