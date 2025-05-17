@@ -336,6 +336,7 @@ def dashboard():
 
     conn.close()
     return render_template("dashboard.html",
+        titulo_pagina="Dashboard",
         total_chamados=total_chamados,
         chamados_por_status=chamados_por_status,
         chamados_por_prioridade=chamados_por_prioridade,
@@ -362,7 +363,7 @@ def cadastrar_empresa():
             finally:
                 conn.close()
         return redirect("/cadastrar_empresa")
-    return render_template("cadastrar_empresa.html")
+    return render_template("cadastrar_empresa.html", titulo_pagina="Cadastrar Empresa")
 
 @app.route("/cadastrar_maquina", methods=["GET", "POST"])
 @login_required
@@ -384,7 +385,7 @@ def cadastrar_maquina():
             finally:
                 conn.close()
         return redirect("/cadastrar_maquina")
-    return render_template("cadastrar_maquina.html")
+    return render_template("cadastrar_maquina.html", titulo_pagina="Cadastrar Máquina")
 
 # --- GERENCIAR USUÁRIOS ---
 @app.route("/gerenciar_usuarios")
@@ -396,7 +397,7 @@ def gerenciar_usuarios():
     cursor.execute("SELECT id, usuario, is_admin FROM usuarios ORDER BY id")
     usuarios = [dict(zip(["id", "usuario", "is_admin"], row)) for row in cursor.fetchall()]
     conn.close()
-    return render_template("alterar_privilegio.html", usuarios=usuarios)
+    return render_template("alterar_privilegio.html", usuarios=usuarios, titulo_pagina="Gerenciar Usuários")
 
 @app.route("/alterar_privilegio/<int:id>", methods=["POST"])
 @login_required
