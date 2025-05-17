@@ -161,7 +161,9 @@ def home():
         "responsavel_acao", "descricao_acao", "horario"
     ), row)) for row in cursor.fetchall()]
     conn.close()
-    return render_template("index.html", chamados_abertos=chamados_abertos)
+    return render_template("index.html", 
+                           chamados_abertos=chamados_abertos, 
+                           titulo_pagina="Chamados Abertos")
 
 @app.route("/novo", methods=["GET", "POST"])
 @login_required
