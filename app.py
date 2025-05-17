@@ -138,7 +138,7 @@ def login():
             elif session["is_admin"] == 2:
                 return redirect("/")
             else:
-                return redirect("/dashboard")
+                return redirect("/")
         else:
             erro = "Usuário ou senha inválidos!"
 
