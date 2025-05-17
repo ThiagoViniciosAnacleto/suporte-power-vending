@@ -33,78 +33,55 @@
         </div>
     </header>
 <main class="form-main">
-    {% extends "base.html" %}
-
-    {% block conteudo %}
-    <section class="form-card">
-        <h2>Abrir Novo Chamado</h2>
-        <form method="POST" action="/novo">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    
-            <label for="responsavel_atendimento">Responsável:</label>
-            <input type="text" name="responsavel_atendimento" id="responsavel_atendimento" value="{{ usuario_logado }}" required>
-    
-            <label for="data">Data:</label>
-            <input type="date" name="data" id="data" value="{{ data_atual }}" required>
-    
-            <label for="horario">Horário:</label>
-            <input type="time" name="horario" id="horario" value="{{ hora_atual }}" required>
-    
-            <label for="cliente">Nome do Cliente:</label>
-            <input type="text" name="cliente" id="cliente" required>
-    
-            <label for="empresa">Empresa:</label>
-            <select name="empresa" id="empresa" required>
+<form action="/novo" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+<input id="responsavel_atendimento" name="responsavel_atendimento" readonly="" required="" type="text" value="{{ usuario_logado }}"/>
+<label for="data">Data:</label>
+<input id="data" name="data" required="" type="date" value="{{ data_atual }}"/>
+<label for="horario">Horário:</label>
+<input id="horario" name="horario" required="" type="time" value="{{ hora_atual }}"/>
+<label for="cliente">Nome do Cliente:</label>
+<input id="cliente" name="cliente" required="" type="text"/>
+<label for="empresa">Empresa:</label>
+<select id="empresa" name="empresa" required="">
                 {% for empresa in lista_empresas %}
                 <option value="{{ empresa }}">{{ empresa }}</option>
                 {% endfor %}
             </select>
-    
-            <label for="porta_ssh">Porta SSH:</label>
-            <input type="text" name="porta_ssh" id="porta_ssh">
-    
-            <label for="tipo_maquina">Tipo de Máquina:</label>
-            <select name="tipo_maquina" id="tipo_maquina" required>
-                {% for maquina in lista_maquinas %}
-                <option value="{{ maquina }}">{{ maquina }}</option>
+<label for="porta_ssh">Porta SSH da Máquina:</label>
+<input id="porta_ssh" name="porta_ssh" type="text"/>
+<label for="tipo_maquina">Tipo da Máquina:</label>
+<select id="tipo_maquina" name="tipo_maquina">
+                {% for modelo in lista_maquinas %}
+                <option value="{{ modelo }}">{{ modelo }}</option>
                 {% endfor %}
             </select>
-    
-            <label for="relato">Relato/Solicitação do Cliente:</label>
-            <textarea name="relato" id="relato" rows="4" required></textarea>
-    
-            <label for="prioridade">Prioridade:</label>
-            <select name="prioridade" id="prioridade" required>
-                <option value="Baixa">Baixa</option>
-                <option value="Média">Média</option>
-                <option value="Alta">Alta</option>
-                <option value="Crítica">Crítica</option>
-            </select>
-    
-            <label for="origem">Origem do Caso:</label>
-            <input type="text" name="origem" id="origem">
-    
-            <label for="tipo_acao">Tipo de Atendimento:</label>
-            <input type="text" name="tipo_acao" id="tipo_acao">
-    
-            <label for="responsavel_acao">Responsável pela Ação:</label>
-            <input type="text" name="responsavel_acao" id="responsavel_acao">
-    
-            <label for="descricao_acao">Descrição da Ação:</label>
-            <textarea name="descricao_acao" id="descricao_acao" rows="4"></textarea>
-    
-            <label for="status">Status:</label>
-            <select name="status" id="status" required>
-                <option value="Aberto">Aberto</option>
-                <option value="Em andamento">Em andamento</option>
-                <option value="Resolvido">Resolvido</option>
-                <option value="Fechado">Fechado</option>
-            </select>
-    
-            <button type="submit">Criar Chamado</button>
-        </form>
-    </section>
-    {% endblock %}    
+<label for="relato">Relato / Solicitação do Cliente:</label>
+<textarea id="relato" name="relato" rows="3"></textarea>
+<label for="prioridade">Prioridade:</label>
+<select id="prioridade" name="prioridade">
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+<option>Crítica</option>
+</select>
+<label for="origem">Origem do Caso:</label>
+<input id="origem" name="origem" type="text"/>
+<label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
+<input id="tipo_acao" name="tipo_acao" type="text"/>
+<label for="responsavel_acao">Responsável pela Ação:</label>
+<input id="responsavel_acao" name="responsavel_acao" type="text"/>
+<label for="descricao_acao">Ação Realizada / Descrição:</label>
+<textarea id="descricao_acao" name="descricao_acao" rows="3"></textarea>
+<label for="status">Status do Caso:</label>
+<select id="status" name="status">
+<option>Aberto</option>
+<option>Em andamento</option>
+<option>Resolvido</option>
+<option>Fechado</option>
+</select>
+<button type="submit">Salvar Atendimento</button>
+</form>
 </main>
 <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>

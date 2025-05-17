@@ -42,72 +42,96 @@
     {% endwith %}
 
     <main class="home-main">
-        {% extends "base.html" %}
+<form class="filtro-container" method="get" action="/listar">
+    <div class="filtro-item">
+        <label for="responsavel">Responsável:</label>
+        <input type="text" name="responsavel" id="responsavel" placeholder="Responsável">
+    </div>
+    <div class="filtro-item">
+        <label for="data_inicio">Data início:</label>
+        <input type="date" name="data_inicio" id="data_inicio">
+    </div>
+    <div class="filtro-item">
+        <label for="data_fim">Data fim:</label>
+        <input type="date" name="data_fim" id="data_fim">
+    </div>
+    <div class="filtro-item">
+        <label for="cliente">Cliente:</label>
+        <input type="text" name="cliente" id="cliente" placeholder="Nome do cliente">
+    </div>
+    <div class="filtro-item">
+        <label for="empresa">Empresa:</label>
+        <input type="text" name="empresa" id="empresa" placeholder="Nome da empresa">
+    </div>
+    <div class="filtro-item">
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+            <option value="todos">Todos</option>
+            <option value="Aberto">Abertos</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Resolvido">Resolvidos</option>
+            <option value="Fechado">Fechados</option>
+        </select>
+    </div>
+    <!-- TRUQUE: botão ocupa a linha toda e vai pra direita! -->
+    <div class="filtro-btn-full">
+        <button type="submit">Filtrar</button>
+    </div>
+</form>
+    {% if total_geral %}
+<div class="table-feedback">
+    Filtro está exibindo {{ total_filtrados }} chamados (de {{ total_geral }})
+</div>
+{% endif %}
 
-        {% block conteudo %}
-        <section class="form-card">
-            <h2>Lista de Chamados</h2>
-            <form method="GET" action="/listar" class="filtro-container">
-                <input type="text" name="empresa" placeholder="Empresa" value="{{ empresa }}">
-                <input type="text" name="responsavel" placeholder="Responsável" value="{{ responsavel }}">
-                <input type="text" name="cliente" placeholder="Cliente" value="{{ cliente }}">
-                <input type="date" name="data_inicio" value="{{ data_inicio }}">
-                <input type="date" name="data_fim" value="{{ data_fim }}">
-                <select name="status">
-                    <option value="todos" {% if status == 'todos' %}selected{% endif %}>Todos</option>
-                    <option value="Aberto" {% if status == 'Aberto' %}selected{% endif %}>Aberto</option>
-                    <option value="Em andamento" {% if status == 'Em andamento' %}selected{% endif %}>Em andamento</option>
-                    <option value="Resolvido" {% if status == 'Resolvido' %}selected{% endif %}>Resolvido</option>
-                    <option value="Fechado" {% if status == 'Fechado' %}selected{% endif %}>Fechado</option>
-                </select>
-                <button type="submit">Filtrar</button>
-            </form>
-        
-            <p>Total geral: {{ total_geral }} | Exibidos: {{ total_filtrados }}</p>
-        
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Responsável</th>
-                        <th>Data</th>
-                        <th>Cliente</th>
-                        <th>Empresa</th>
-                        <th>Status</th>
-                        {% if session["is_admin"] == 1 %}
-                        <th>Ações</th>
-                        {% endif %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for chamado in chamados %}
-                    <tr>
-                        <td>{{ chamado.id }}</td>
-                        <td>{{ chamado.responsavel_atendimento }}</td>
-                        <td>{{ chamado.data }}</td>
-                        <td>{{ chamado.cliente }}</td>
-                        <td>{{ chamado.empresa }}</td>
-                        <td>{{ chamado.status }}</td>
-                        {% if session["is_admin"] == 1 %}
-                        <td>
-                            <a class="edit-icon" href="/editar/{{ chamado.id }}" title="Editar chamado">
-                                <!-- ícone SVG lápis -->
-                            </a>
-                            <form method="POST" action="/excluir/{{ chamado.id }}" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este chamado?');">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="delete-icon" title="Excluir chamado">
-                                    <!-- ícone SVG lixeira -->
-                                </button>
-                            </form>
-                        </td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
-        {% endblock %}
-        
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Responsável</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Empresa</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            {% for chamado in chamados %}
+            <tr>
+                <td>{{ chamado.id }}</td>
+                <td>{{ chamado.responsavel_atendimento }}</td>
+                <td>{{ chamado.data }}</td>
+                <td>{{ chamado.cliente }}</td>
+                <td>{{ chamado.empresa }}</td>
+                <td>{{ chamado.status }}</td>
+                <td>
+                {% if session["is_admin"] == 1 %}
+                    <a class="edit-icon" href="/editar/{{ chamado.id }}" title="Editar chamado">
+                        <!-- SVG do lápis -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                        </svg>
+                    </a>
+
+                    <form method="POST" action="/excluir/{{ chamado.id }}" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este chamado?');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="delete-icon" title="Excluir chamado">
+                        <!-- SVG lixeira -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </button>
+                    </form>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
     </main>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 
