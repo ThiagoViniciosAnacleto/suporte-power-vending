@@ -36,13 +36,22 @@
     <main class="home-main">
         <nav class="home-nav">
             <ul>
+                {% if session["is_admin"] in [1, 2] %}
                 <li><a href="/novo">➕ Abrir Novo Chamado</a></li>
+                {% endif %}
+
                 <li><a href="/listar">📂 Lista de Chamados</a></li>
                 <li><a href="/dashboard">📊 Dashboard</a></li>
+                
+                {% if session["is_admin"] in [1, 2] %}
                 <li><a href="/cadastrar_empresa">➕ Cadastrar Empresa</a></li>
                 <li><a href="/cadastrar_maquina">➕ Cadastrar Novo Tipo de Máquina</a></li>
-                <li><a href="/cadastrar_usuario">➕ Cadastrar Novo Usuário</a></li>
-                <li><a href="/gerenciar_usuarios">➕ Editar Privilégios</a></li>
+                {% endif %}
+
+                {% if session["is_admin"] == 1 %}
+                <li><a href="/cadastrar_usuario" class="botao-acao">+ Cadastrar Novo Usuário</a></li>
+                <li><a href="/gerenciar_usuarios" class="botao-acao">+ Editar Privilégios</a></li>
+                {% endif %}
             </ul>
         </nav>
 
