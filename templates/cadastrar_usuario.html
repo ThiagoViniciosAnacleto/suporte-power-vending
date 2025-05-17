@@ -12,7 +12,7 @@
             <div class="usuario-dados">
                 <span class="usuario-nome">{{ session["usuario"] }}</span>
                 <span class="usuario-cargo">
-                    {% if session["is_admin"] == 0 %}Administrador
+                    {% if session["is_admin"] == 1 %}Administrador
                     {% elif session["is_admin"] == 2 %}Técnico
                     {% else %}Usuário Comum
                     {% endif %}
@@ -47,9 +47,9 @@
 
             <label for="is_admin">Nível de Privilégio:</label>
             <select name="is_admin" id="is_admin" required>
-                <option value="3">Usuário Comum</option>
+                <option value="0">Usuário Comum</option>
                 <option value="2">Técnico</option>
-                <option value="0">Administrador</option>
+                <option value="1">Administrador</option>
             </select>
 
             <button type="submit">Cadastrar Usuário</button>
