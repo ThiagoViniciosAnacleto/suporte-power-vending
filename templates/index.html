@@ -7,14 +7,19 @@
 </head>
 <body>
     <header class="topbar">
-        <h1>Central de Suporte Técnico</h1>
-        <form action="/logout" method="get" class="logout-form">
-            <button type="submit">Sair</button>
-        </form>
-        <button id="toggle-darkmode" class="darkmode-btn" style="margin-right: 16px; background: #222; color: #f6f6fa; border: 1px solid #333;">
-            🌙 Modo Escuro
-        </button>
+        <div class="topbar-left">
+            <h1>{{ titulo_pagina }}</h1>
+        </div>
+        <div class="topbar-right">
+            <form action="/" method="get" class="topbar-form">
+                <button type="submit">← Voltar</button>
+            </form>
+            <form action="/logout" method="get" class="topbar-form">
+                <button type="submit">Sair</button>
+            </form>
+        </div>
     </header>
+
 
     <main class="home-main">
         <nav class="home-nav">
