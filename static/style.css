@@ -806,7 +806,7 @@ body.darkmode .close-modal:hover {
         padding-right: 96px;
         gap: 36px 60px;
     }
-    .form-card { max-width: 1000px; }
+    .form-card { max-width: 1150px; }
 }
 @media (min-width: 2000px) {
     html { font-size: 21px; }
@@ -827,13 +827,13 @@ body.darkmode .close-modal:hover {
 }
 @media (max-width: 1500px) {
     html { font-size: 16px; }
-    .dashboard-cards { max-width: 1300px; }
+    .dashboard-cards { max-width: 1400px; }
     .form-card { max-width: 1000px; }
 }
 
 @media (max-width: 1440px) {
     html { font-size: 16px; }
-    .dashboard-cards { max-width: 1200px; }
+    .dashboard-cards { max-width: 1300px; }
     .form-card { max-width: 900px; }
 }
 @media (max-width: 1280px) {
