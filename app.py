@@ -28,7 +28,7 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if "usuario" not in session or int(session.get("is_admin", 0)) != 1:
-            return redirect("/dashboard")
+            return redirect("/")
         return f(*args, **kwargs)
     return decorated_function
 
