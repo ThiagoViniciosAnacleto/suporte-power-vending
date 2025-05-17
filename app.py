@@ -303,7 +303,7 @@ def listar_chamados():
     chamados = [dict(zip(("id", "responsavel_atendimento", "data", "cliente", "empresa", "status"), row)) for row in cursor.fetchall()]
     conn.close()
 
-    return render_template("lista_chamados.html", titulo_pagina="Dashboard", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
+    return render_template("lista_chamados.html", titulo_pagina="Chamados", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
 
 @app.route('/excluir/<int:id>', methods=['POST'])
 @login_required
