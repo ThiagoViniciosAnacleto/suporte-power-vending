@@ -394,6 +394,42 @@ tr:last-child td {
     flex-direction: column;
     gap: 8px;
 }
+
+.form-card h2 {
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 24px;
+    padding-left: 8px;
+}
+
+.form-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.form-card th,
+.form-card td {
+    padding: 14px 12px;
+    text-align: left;
+    font-size: 0.95rem;
+    color: #d6d6e2;
+}
+
+.form-card th {
+    background-color: #1d2735;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    border-bottom: 1px solid #2c3747;
+}
+
+.form-card tr:not(:last-child) {
+    border-bottom: 1px solid #2b3645;
+}
+
+
 .form-card label {
     font-weight: 600;
     color: #2e3d55;
@@ -819,36 +855,39 @@ body.darkmode .close-modal:hover {
     }
 }
 
-
 .form-inline-privilegio {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 12px;
-    justify-content: space-between;
 }
 
 .form-inline-privilegio select {
-    flex: 1;
-    max-width: 160px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #4a5568;
+    background: #121926;
+    color: #ffffff;
+    font-size: 0.95rem;
+    width: 160px;
 }
 
+
 .form-inline-privilegio button {
-    padding: 10px 18px;
-    font-size: 0.95rem;
-    font-weight: 600;
+    padding: 10px 20px;
     border-radius: 6px;
-    background: #2e3d55;
-    color: white;
     border: none;
+    background: #2e3d55;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: background 0.18s;
+    transition: background 0.2s ease;
 }
 
 .form-inline-privilegio button:hover {
     background: #4361b7;
 }
-
-
 
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
 @media (min-width: 1600px) {
