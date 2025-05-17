@@ -151,7 +151,6 @@ def logout():
 
 @app.route("/")
 @login_required
-@tec_or_admin_required
 def home():
     conn = conectar()
     cursor = conn.cursor()
@@ -265,7 +264,6 @@ def editar_chamado(id):
 
 @app.route("/listar")
 @login_required
-@tec_or_admin_required
 def listar_chamados():
     filtros = {
         "status": request.args.get("status", "todos"),
