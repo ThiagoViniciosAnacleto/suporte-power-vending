@@ -195,7 +195,7 @@ def criar_chamado():
             print(f"Erro ao inserir chamado: {e}")
         finally:
             conn.close()
-        return redirect("/")
+        return redirect("/", titulo_pagina="Dashboard")
 
     conn = conectar()
     cursor = conn.cursor()
