@@ -562,12 +562,12 @@ tr:last-child td {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 }
 
 .edit-icon img,
 .delete-icon img,
 .btn-historico img {
-    gap: 10px;
     vertical-align: middle;
     transition: transform 0.2s ease, filter 0.2s ease;
 }
