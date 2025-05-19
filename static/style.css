@@ -878,11 +878,13 @@ body.darkmode .toast {
     background: transparent;
     color: #fff;
     border: none;
-    font-size: 1.4rem;
+    font-size: 167%;
     font-weight: bold;
     cursor: pointer;
-    margin-left: 36px;
-    transform: translateY(-2px);  
+    margin-left: 50px;
+    margin-bottom: 50px;
+    transform: translateY(-2px);
+    background-color: black;
 }
 
 .modal-header {
@@ -894,7 +896,7 @@ body.darkmode .toast {
 
 .modal-titulo {
     margin: 0;
-    font-size: 1.3rem;
+    font-size: 36px;
 }
 
 .modal-header h2 {
