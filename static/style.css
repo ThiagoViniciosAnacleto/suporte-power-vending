@@ -897,25 +897,32 @@ body.darkmode .close-modal:hover {
     }
 }
 
-.form-inline-privilegio {
+.alinha-select-e-botao {
     display: flex;
     align-items: center;
-    gap: 12px;
+    height: 100%;
 }
 
+.form-inline-privilegio {
+    display: flex;
+    gap: 10px;
+}
+
+.select-privilegio,
+.botao-atualizar {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 12px;
+    border-radius: 6px;
+}
 
 .select-privilegio {
-    height: 40px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
     background-color: #1f2937;
     color: #fff;
-    font-size: 14px;
-    line-height: 1.2;
-    appearance: none;
+    border: 1px solid #ccc;
 }
-
 
 .form-inline-privilegio button {
     padding: 10px 20px;
@@ -930,19 +937,13 @@ body.darkmode .close-modal:hover {
 }
 
 .botao-atualizar {
-    height: 40px;
-    padding: 8px 16px;
     background-color: #3b82f6;
     border: none;
     border-radius: 6px;
     color: #fff;
     font-weight: 600;
     font-size: 14px;
-    line-height: 1.2;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: background-color 0.3s ease;
 }
 

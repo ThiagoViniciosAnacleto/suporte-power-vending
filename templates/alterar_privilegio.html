@@ -54,15 +54,17 @@
                             {% endif %}
                         </td>
                         <td>
-                            <form method="POST" action="/alterar_privilegio/{{ usuario.id }}" class="form-inline-privilegio">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <select name="novo_nivel" required class="select-privilegio">
-                                    <option value="0" {% if usuario.is_admin == 0 %}selected{% endif %}>Comum</option>
-                                    <option value="1" {% if usuario.is_admin == 1 %}selected{% endif %}>Administrador</option>
-                                    <option value="2" {% if usuario.is_admin == 2 %}selected{% endif %}>Técnico</option>
-                                </select>
-                                <button type="submit" class="botao-atualizar">Atualizar</button>
-                            </form>
+                            <div class="alinha-select-e-botao">
+                                <form method="POST" action="/alterar_privilegio/{{ usuario.id }}" class="form-inline-privilegio">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <select name="novo_nivel" required class="select-privilegio">
+                                        <option value="0" {% if usuario.is_admin == 0 %}selected{% endif %}>Comum</option>
+                                        <option value="1" {% if usuario.is_admin == 1 %}selected{% endif %}>Administrador</option>
+                                        <option value="2" {% if usuario.is_admin == 2 %}selected{% endif %}>Técnico</option>
+                                    </select>
+                                    <button type="submit" class="botao-atualizar">Atualizar</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
