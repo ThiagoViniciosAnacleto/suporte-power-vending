@@ -32,49 +32,62 @@
             </form>
         </div>
     </header>
-<main class="form-main">
-<form class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
-<label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
-<input id="responsavel_atendimento" name="responsavel_atendimento" required="" type="text" value="{{ chamado.responsavel_atendimento }}"/>
-<label for="data">Data:</label>
-<input id="data" name="data" type="date" value="{{ chamado.data }}"/>
-<label for="horario">Horário:</label>
-<input id="horario" name="horario" type="time" value="{{ chamado.horario }}"/>
-<label for="cliente">Nome do Cliente:</label>
-<input id="cliente" name="cliente" required="" type="text" value="{{ chamado.cliente }}"/>
-<label for="empresa">Empresa:</label>
-<input id="empresa" name="empresa" type="text" value="{{ chamado.empresa }}"/>
-<label for="porta_ssh">Porta SSH da Máquina:</label>
-<input id="porta_ssh" name="porta_ssh" type="text" value="{{ chamado.porta_ssh }}"/>
-<label for="tipo_maquina">Tipo da Máquina:</label>
-<input id="tipo_maquina" name="tipo_maquina" type="text" value="{{ chamado.tipo_maquina }}"/>
-<label for="relato">Relato / Solicitação do Cliente:</label>
-<textarea id="relato" name="relato" rows="3">{{ chamado.relato }}</textarea>
-<label for="prioridade">Prioridade:</label>
-<select id="prioridade" name="prioridade">
-<option {% if chamado.prioridade == "Baixa" %}selected{% endif %}>Baixa</option>
-<option {% if chamado.prioridade == "Média" %}selected{% endif %}>Média</option>
-<option {% if chamado.prioridade == "Alta" %}selected{% endif %}>Alta</option>
-<option {% if chamado.prioridade == "Crítica" %}selected{% endif %}>Crítica</option>
-</select>
-<label for="origem">Origem do Caso:</label>
-<input id="origem" name="origem" type="text" value="{{ chamado.origem }}"/>
-<label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
-<input id="tipo_acao" name="tipo_acao" type="text" value="{{ chamado.tipo_acao }}"/>
-<label for="responsavel_acao">Responsável pela Ação:</label>
-<input id="responsavel_acao" name="responsavel_acao" type="text" value="{{ chamado.responsavel_acao }}"/>
-<label for="descricao_acao">Ação Realizada / Descrição:</label>
-<textarea id="descricao_acao" name="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea>
-<label for="status">Status do Caso:</label>
-<select id="status" name="status">
-<option {% if chamado.status == "Aberto" %}selected{% endif %}>Aberto</option>
-<option {% if chamado.status == "Em andamento" %}selected{% endif %}>Em andamento</option>
-<option {% if chamado.status == "Resolvido" %}selected{% endif %}>Resolvido</option>
-<option {% if chamado.status == "Fechado" %}selected{% endif %}>Fechado</option>
-</select>
-<button type="submit">Salvar Alterações</button>
-</form>
-</main>
+
+    <main class="form-main">
+        <section class="historico-logs">
+            <h2>📜 Histórico de Alterações</h2>
+                {% if historico_logs %}
+                <ul class="log-lista">
+                    {% for acao, data_hora, usuario in historico_logs %}
+                    <li><strong>{{ usuario }}</strong> - {{ acao }} em {{ data_hora.strftime('%d/%m/%Y %H:%M') }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Nenhuma alteração registrada para este chamado.</p>
+                {% endif %}
+        </section>
+        <form class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+            <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+            <input id="responsavel_atendimento" name="responsavel_atendimento" required="" type="text" value="{{ chamado.responsavel_atendimento }}"/>
+            <label for="data">Data:</label>
+            <input id="data" name="data" type="date" value="{{ chamado.data }}"/>
+            <label for="horario">Horário:</label>
+            <input id="horario" name="horario" type="time" value="{{ chamado.horario }}"/>
+            <label for="cliente">Nome do Cliente:</label>
+            <input id="cliente" name="cliente" required="" type="text" value="{{ chamado.cliente }}"/>
+            <label for="empresa">Empresa:</label>
+            <input id="empresa" name="empresa" type="text" value="{{ chamado.empresa }}"/>
+            <label for="porta_ssh">Porta SSH da Máquina:</label>
+            <input id="porta_ssh" name="porta_ssh" type="text" value="{{ chamado.porta_ssh }}"/>
+            <label for="tipo_maquina">Tipo da Máquina:</label>
+            <input id="tipo_maquina" name="tipo_maquina" type="text" value="{{ chamado.tipo_maquina }}"/>
+            <label for="relato">Relato / Solicitação do Cliente:</label>
+            <textarea id="relato" name="relato" rows="3">{{ chamado.relato }}</textarea>
+            <label for="prioridade">Prioridade:</label>
+        <select id="prioridade" name="prioridade">
+            <option {% if chamado.prioridade == "Baixa" %}selected{% endif %}>Baixa</option>
+            <option {% if chamado.prioridade == "Média" %}selected{% endif %}>Média</option>
+            <option {% if chamado.prioridade == "Alta" %}selected{% endif %}>Alta</option>
+            <option {% if chamado.prioridade == "Crítica" %}selected{% endif %}>Crítica</option>
+        </select>
+        <label for="origem">Origem do Caso:</label>
+        <input id="origem" name="origem" type="text" value="{{ chamado.origem }}"/>
+        <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
+        <input id="tipo_acao" name="tipo_acao" type="text" value="{{ chamado.tipo_acao }}"/>
+        <label for="responsavel_acao">Responsável pela Ação:</label>
+        <input id="responsavel_acao" name="responsavel_acao" type="text" value="{{ chamado.responsavel_acao }}"/>
+        <label for="descricao_acao">Ação Realizada / Descrição:</label>
+        <textarea id="descricao_acao" name="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea>
+        <label for="status">Status do Caso:</label>
+        <select id="status" name="status">
+            <option {% if chamado.status == "Aberto" %}selected{% endif %}>Aberto</option>
+            <option {% if chamado.status == "Em andamento" %}selected{% endif %}>Em andamento</option>
+            <option {% if chamado.status == "Resolvido" %}selected{% endif %}>Resolvido</option>
+            <option {% if chamado.status == "Fechado" %}selected{% endif %}>Fechado</option>
+        </select>
+        <button type="submit">Salvar Alterações</button>
+        </form>
+    </main>
 <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>
