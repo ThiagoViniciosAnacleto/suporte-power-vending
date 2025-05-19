@@ -561,21 +561,36 @@ tr:last-child td {
 .botoes-lista-chamados {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
+    justify-content: flex-start;
+    gap: 14px;
 }
 
-.edit-icon img,
-.delete-icon img,
-.btn-historico img {
-    vertical-align: middle;
-    transition: transform 0.2s ease, filter 0.2s ease;
+.botoes-lista-chamados a,
+.botoes-lista-chamados button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #80b3fa;
+    text-decoration: none;
+    font-weight: 500;
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-.edit-icon img:hover,
-.delete-icon img:hover,
-.btn-historico img:hover {
-    transform: scale(1.1);
+.botoes-lista-chamados a:hover,
+.botoes-lista-chamados button:hover {
+    color: #b6d5ff;
+    transform: scale(1.05);
+}
+
+.botoes-lista-chamados a + a,
+.botoes-lista-chamados button + a {
+    margin-left: 12px;
+    border-left: 1px solid #444;
+    padding-left: 12px;
 }
 
 /* ---------------------- LOGIN ---------------------- */
