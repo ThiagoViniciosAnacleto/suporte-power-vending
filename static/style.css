@@ -566,6 +566,17 @@ td:last-child {
 
 /* ---------------------- ICONS LISTA ---------------------- */
 
+.tabela-chamados-corpo tr {
+    vertical-align: middle;
+    height: 100%;
+}
+
+.tabela-chamados-corpo td {
+    vertical-align: middle;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 .botoes-lista-chamados {
     padding-top: 12px;
     padding-bottom: 12px;
