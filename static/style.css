@@ -794,9 +794,9 @@ body.darkmode .toast {
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-}
+    padding: 0; /* mantemos padding zero */
+    margin-left: 1rem; /* espaço entre título e X */
+    line-height: 1;
 }
 
 .modal-header {
@@ -804,7 +804,11 @@ body.darkmode .toast {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-    gap: 1rem;
+}
+
+.modal-titulo {
+  margin: 0;
+  font-size: 1.3rem;
 }
 
 .modal-header h2 {

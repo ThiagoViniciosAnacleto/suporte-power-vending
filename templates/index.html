@@ -74,7 +74,7 @@
             <div class="modal-chamado" id="modal-chamado-{{ chamado.id }}" style="display: none;">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h2>Chamado #{{ chamado.id }} - {{ chamado.status }}</h2>
+                    <h2 class="modal-titulo">Chamado #{{ chamado.id }} - {{ chamado.status }}</h2>
                     <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})">&times;</button>
                     </div>
                     <p><strong>Responsável:</strong> {{ chamado.responsavel_atendimento }}</p>
