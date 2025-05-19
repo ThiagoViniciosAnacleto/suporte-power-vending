@@ -23,11 +23,11 @@
             <h1>{{ titulo_pagina }}</h1>
         </div>
         <div class="topbar-right">
-            <form action="/" method="get" class="topbar-form">
-                <button type="submit">← Voltar</button>
-            </form>
-            <form action="/logout" method="get" class="topbar-form">
-                <button type="submit">Sair</button>
+            <button class="darkmode-btn" id="toggle-darkmode">
+            🌙 Modo Escuro
+            </button>
+            <form action="/login" method="get" class="topbar-form">
+                <button type="submit">Login</button>
             </form>
         </div>
     </header>
