@@ -788,15 +788,17 @@ body.darkmode .toast {
 
 .close-modal {
     position: absolute;
-    top: 0.8rem;
-    right: 1.5rem;
+    top: 14px;
+    right: 18px;
     background: transparent;
     color: #fff;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;
 }
+
 
 .close-modal:hover {
     color: #ff4d4d;
