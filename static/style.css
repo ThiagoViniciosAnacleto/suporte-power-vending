@@ -912,11 +912,10 @@ body.darkmode .close-modal:hover {
 
 .form-inline-privilegio {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
     gap: 8px;
-    flex-wrap: nowrap;
     max-width: 100%;
 }
 
