@@ -897,63 +897,6 @@ body.darkmode .close-modal:hover {
     }
 }
 
-.select-privilegio {
-    height: 36px;
-    padding: 6px 12px;
-    min-width: 160px;
-    background-color: red;
-    color: #fff;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    white-space: nowrap;
-}
-
-.form-inline-privilegio {
-    display: flex;
-    align-items: center;   /* ✅ Centraliza verticalmente */
-    justify-content: flex-start;
-    gap: 10px;
-    flex-wrap: nowrap;
-}
-
-.select-privilegio,
-.botao-atualizar {
-    height: 40px;            /* ✅ Mesma altura para os dois */
-    font-size: 14px;
-    border-radius: 6px;
-    box-sizing: border-box;
-    padding: 0 16px;         /* ✅ Apenas horizontal, para equilibrar */
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-
-.select-privilegio {
-    min-width: 160px;
-    background-color: #1f2937;
-    color: #fff;
-    border: 1px solid #ccc;
-}
-
-.botao-atualizar {
-    background-color: #3b82f6;
-    color: white;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.botao-atualizar:hover {
-    background-color: #2563eb;
-}
-
-.form-inline-privilegio button:hover {
-    background: blue;
-}
-
 .historico-logs {
     margin-top: 2rem;
     padding: 1rem;
