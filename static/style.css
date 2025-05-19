@@ -936,6 +936,13 @@ body.darkmode .close-modal:hover {
     margin-left: 0.5rem;
 }
 
+.form-inline-privilegio {
+    display: flex;
+    align-items: center;    /* Alinha verticalmente */
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
 @media (min-width: 1600px) {
     html { font-size: 18px; }
