@@ -577,9 +577,9 @@ td:last-child {
 
 td.botoes-lista-chamados {
     vertical-align: middle;
-    height: auto;
+    height: 70px;
     padding: 12px 18px;
-    line-height: auto; /* Ajusta o alinhamento do texto */
+    line-height: 70px; /* Ajusta o alinhamento do texto */
 }
 
 .botoes-lista-chamados > .acoes-flex {
