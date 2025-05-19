@@ -787,9 +787,6 @@ body.darkmode .toast {
 }
 
 .close-modal {
-    position: absolute;
-    top: 24px;
-    right: 28px;
     background: transparent;
     color: #fff;
     border: none;
@@ -797,6 +794,7 @@ body.darkmode .toast {
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;
+    padding: 0 0.5rem;
 }
 
 .modal-header {
