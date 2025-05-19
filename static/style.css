@@ -938,25 +938,18 @@ body.darkmode .close-modal:hover {
 
 .form-inline-privilegio {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 10px;
     flex-wrap: nowrap;
 }
 
 .select-privilegio {
-    height: 36px;
-    padding: 0 12px;
-    font-size: 14px;
-    border-radius: 6px;
     border: 1px solid #ccc;
     background-color: #1f2937;
     color: #f9fafb;
 }
 
 .botao-atualizar {
-    height: 36px;
-    padding: 0 16px;
-    font-size: 14px;
     font-weight: bold;
     background-color: #3b82f6;
     color: white;
