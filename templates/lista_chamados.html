@@ -105,25 +105,27 @@
                     <td>{{ chamado.empresa }}</td>
                     <td>{{ chamado.status }}</td>
                     <td class="botoes-lista-chamados">
-                        {% if session["is_admin"] in [1, 2] %}
-                        <a class="edit-icon" href="/editar/{{ chamado.id }}" title="Editar chamado">
-                            <img src="{{ url_for('static', filename='img/editar.png') }}" alt="Editar" width="18" height="18">
-                            Editar
-                        </a>
-                        {% if session["is_admin"] == 1 %}
-                        <form method="POST" action="/excluir/{{ chamado.id }}" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este chamado?');">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="delete-icon" title="Excluir chamado" style="background: none; border: none; padding: 0;">
-                                <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="18" height="18">
-                                Excluir
-                            </button>
-                        </form>
-                        {% endif %}
-                        {% endif %}
-                        <a class="btn-historico" href="/historico/{{ chamado.id }}" title="Histórico do chamado">
-                            <img src="{{ url_for('static', filename='img/documento.png') }}" alt="Histórico" width="18" height="18">
-                            Histórico
-                        </a>
+                        <div class="acoes-flex">
+                            {% if session["is_admin"] in [1, 2] %}
+                            <a href="/editar/{{ chamado.id }}" title="Editar chamado">
+                                <img src="{{ url_for('static', filename='img/editar.png') }}" alt="Editar" width="18" height="18">
+                                Editar
+                            </a>
+                            {% if session["is_admin"] == 1 %}
+                            <form method="POST" action="/excluir/{{ chamado.id }}" onsubmit="return confirm('Tem certeza que deseja excluir este chamado?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" title="Excluir chamado">
+                                    <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="18" height="18">
+                                    Excluir
+                                </button>
+                            </form>
+                            {% endif %}
+                            {% endif %}
+                            <a href="/historico/{{ chamado.id }}" title="Histórico do chamado">
+                                <img src="{{ url_for('static', filename='img/documento.png') }}" alt="Histórico" width="18" height="18">
+                                Histórico
+                            </a>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}

@@ -567,6 +567,9 @@ td:last-child {
 /* ---------------------- ICONS LISTA ---------------------- */
 
 .botoes-lista-chamados {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    vertical-align: middle;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -601,6 +604,35 @@ td:last-child {
     margin-left: 12px;
     border-left: 1px solid #444;
     padding-left: 12px;
+}
+
+.acoes-flex {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.acoes-flex a,
+.acoes-flex button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.95rem;
+    background: none;
+    border: none;
+    color: #80b3fa;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.acoes-flex a:hover,
+.acoes-flex button:hover {
+    color: #b6d5ff;
+    transform: scale(1.05);
 }
 
 /* ---------------------- LOGIN ---------------------- */
