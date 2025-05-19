@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo_pagina }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <h1>{{ titulo_pagina }}</h1>
+        </div>
+        <div class="topbar-right">
+            <form action="/listar" method="get" class="topbar-form">
+                <button type="submit">← Voltar para a lista</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="form-main">
+        <section class="form-card">
+            <h2>📋 Histórico de Alterações</h2>
+            {% if logs %}
+            <ul class="log-lista">
+                {% for acao, data_hora, usuario in logs %}
+                    <li><strong>{{ usuario }}</strong> - {{ acao }} em {{ data_hora.strftime('%d/%m/%Y %H:%M') }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Nenhuma alteração registrada para este chamado.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

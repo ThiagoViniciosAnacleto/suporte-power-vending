@@ -324,6 +324,39 @@ def editar_chamado(id):
 
     return render_template("editar_chamado.html", chamado=chamado_dict, historico_logs=historico_logs)
 
+@app.route("/historico/<int:id>")
+@login_required
+def historico_chamado(id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT log_acoes.acao, log_acoes.data_hora, usuarios.usuario
+        FROM log_acoes
+        JOIN usuarios ON log_acoes.usuario_id = usuarios.id
+        WHERE log_acoes.chamado_id = %s
+        ORDER BY log_acoes.data_hora DESC
+    """, (id,))
+    logs = cursor.fetchall()
+    conn.close()
+
+    return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f\"Histórico do Chamado #{id}\")
+
+@app.route("/historico/<int:id>")
+@login_required
+def historico_chamado(id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT log_acoes.acao, log_acoes.data_hora, usuarios.usuario
+        FROM log_acoes
+        JOIN usuarios ON log_acoes.usuario_id = usuarios.id
+        WHERE log_acoes.chamado_id = %s
+        ORDER BY log_acoes.data_hora DESC
+    """, (id,))
+    logs = cursor.fetchall()
+    conn.close()
+
+    return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f"Histórico do Chamado #{id}")
 
 @app.route("/listar")
 @login_required
