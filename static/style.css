@@ -573,22 +573,23 @@ td:last-child {
 
 .tabela-chamados-corpo td {
     vertical-align: middle;
-    padding-top: 12px;
-    padding-bottom: 12px;
 }
 
 td.botoes-lista-chamados {
-    line-height: 1 !important;
+    vertical-align: middle;
+    padding: 0;
+    height: 100%;
 }
 
-.botoes-lista-chamados * {
-    line-height: 1;
-    vertical-align: middle;
+td.botoes-lista-chamados > .acoes-flex {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 100%;
+    padding: 12px 0;
 }
 
 .botoes-lista-chamados {
-    padding-top: 14px;
-    padding-bottom: 14px;
     vertical-align: middle;
     display: flex;
     align-items: center;
