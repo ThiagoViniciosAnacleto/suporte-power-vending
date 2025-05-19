@@ -562,14 +562,14 @@ tr:last-child td {
     display: flex;
     align-items: left;
     justify-content: flex-start;
-    gap: 14px;
+    gap: 6px;
 }
 
 .botoes-lista-chamados a,
 .botoes-lista-chamados button {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 4px;
     color: #80b3fa;
     text-decoration: none;
     font-weight: 500;
