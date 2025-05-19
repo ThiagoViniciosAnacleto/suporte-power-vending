@@ -252,6 +252,17 @@ def editar_chamado(id):
     cursor = conn.cursor()
 
     if request.method == "POST":
+        # Buscar dados antigos
+        cursor.execute("SELECT * FROM chamados WHERE id = %s", (id,))
+        dados_antigos = cursor.fetchone()
+        campos_completos = [
+            "id", "responsavel_atendimento", "data", "horario", "cliente", "empresa",
+            "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem",
+            "tipo_acao", "responsavel_acao", "descricao_acao", "status"
+        ]
+        chamado_antigo = dict(zip(campos_completos, dados_antigos))
+
+        # Preparar atualização
         campos = (
             "responsavel_atendimento", "data", "horario", "cliente", "empresa", "porta_ssh",
             "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
@@ -263,15 +274,29 @@ def editar_chamado(id):
         cursor.execute(f"""
             UPDATE chamados SET {', '.join(f"{c}=%s" for c in campos)} WHERE id=%s
         """, dados)
-
         conn.commit()
-        registrar_log("editou chamado", id)
+
+        # Comparar alterações
+        dados_novos = {campo: request.form[campo] for campo in campos}
+        mudancas = []
+        for campo in dados_novos:
+            antigo = chamado_antigo[campo]
+            novo = dados_novos[campo]
+            if str(antigo) != str(novo):
+                mudancas.append(f"{campo} ({antigo} → {novo})")
+
+        if mudancas:
+            descricao = "Alterou os campos: " + ", ".join(mudancas)
+        else:
+            descricao = "Editou chamado (sem alterações detectadas)"
+
+        registrar_log(descricao, id)
         conn.close()
 
         flash("Chamado atualizado com sucesso!")
         return redirect("/listar")
 
-    # BLOCO GET (visualização do chamado)
+    # BLOCO GET
     cursor.execute("SELECT * FROM chamados WHERE id = %s", (id,))
     chamado = cursor.fetchone()
 
@@ -298,6 +323,7 @@ def editar_chamado(id):
     conn.close()
 
     return render_template("editar_chamado.html", chamado=chamado_dict, historico_logs=historico_logs)
+
 
 @app.route("/listar")
 @login_required
