@@ -557,19 +557,19 @@ tr:last-child td {
 }
 
 /* ---------------------- ICONS LISTA ---------------------- */
+
 .edit-icon img,
 .delete-icon img,
 .btn-historico img {
+    gap: 4px;
     vertical-align: middle;
     transition: transform 0.2s ease, filter 0.2s ease;
-    filter: brightness(0.95);
 }
 
 .edit-icon img:hover,
 .delete-icon img:hover,
 .btn-historico img:hover {
     transform: scale(1.1);
-    filter: brightness(1.2);
 }
 
 /* ---------------------- LOGIN ---------------------- */

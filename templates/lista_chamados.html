@@ -104,7 +104,7 @@
                     <td>{{ chamado.cliente }}</td>
                     <td>{{ chamado.empresa }}</td>
                     <td>{{ chamado.status }}</td>
-                    <td>
+                    <td class="botoes-lista-chamados">
                         {% if session["is_admin"] in [1, 2] %}
                         <a class="edit-icon" href="/editar/{{ chamado.id }}" title="Editar chamado">
                             <img src="{{ url_for('static', filename='img/editar.png') }}" alt="Editar" width="18" height="18">
