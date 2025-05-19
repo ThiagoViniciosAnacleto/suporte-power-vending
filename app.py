@@ -3,17 +3,19 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, render_template, request, redirect, session, flash
+from flask_socketio import SocketIO
 from datetime import datetime
 from functools import wraps
 from flask import get_flashed_messages
 from werkzeug.security import check_password_hash, generate_password_hash
 from conexao import conectar
 from pytz import timezone
-from flask_wtf import CSRFProtect  # 🔒 Novo import para proteção CSRF
+from flask_wtf import CSRFProtect
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
-csrf = CSRFProtect(app)  # 🔐 Inicializa proteção CSRF
+csrf = CSRFProtect(app)
+socketio = SocketIO(app)
 
 # --- Função de Log com horário de Brasília ---
 def registrar_log(acao, chamado_id=None):
@@ -449,6 +451,32 @@ def dashboard():
         chamados_por_prioridade=chamados_por_prioridade,
         chamados_por_empresa=chamados_por_empresa
     )
+    
+@socketio.on('solicitar_atualizacao')
+def atualizar_dashboard():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT COUNT(*) FROM chamados')
+    total_chamados = cursor.fetchone()[0]
+
+    cursor.execute('SELECT status, COUNT(*) FROM chamados GROUP BY status')
+    chamados_por_status = {status: count for status, count in cursor.fetchall()}
+
+    cursor.execute('SELECT prioridade, COUNT(*) FROM chamados GROUP BY prioridade')
+    chamados_por_prioridade = {prioridade: count for prioridade, count in cursor.fetchall()}
+
+    cursor.execute('SELECT empresa, COUNT(*) FROM chamados GROUP BY empresa ORDER BY COUNT(*) DESC LIMIT 5')
+    chamados_por_empresa = {empresa: count for empresa, count in cursor.fetchall()}
+
+    conn.close()
+
+    socketio.emit('dashboard_update', {
+        'total': total_chamados,
+        'status': chamados_por_status,
+        'prioridade': chamados_por_prioridade,
+        'empresas': chamados_por_empresa
+    }, broadcast=True)
 
 @app.route("/cadastrar_empresa", methods=["GET", "POST"])
 @login_required
