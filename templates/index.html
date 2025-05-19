@@ -87,6 +87,8 @@
                     <p><strong>Responsável pela ação:</strong> {{ chamado.responsavel_acao }}</p>
                     <p><strong>Relato:</strong> {{ chamado.relato }}</p>
                     <p><strong>Descrição da ação:</strong> {{ chamado.descricao_acao }}</p>
+
+                    <a href="/editar/{{ chamado.id }}" class="btn-editar-modal">✏️ Editar Chamado</a>
                 </div>
             </div>
         {% endfor %}

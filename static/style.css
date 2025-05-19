@@ -788,15 +788,15 @@ body.darkmode .toast {
 
 .close-modal {
     position: absolute;
-    top: 18px;
-    right: 28px;
-    font-size: 2rem;
-    color: #bfc3ca;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: color 0.18s;
-    font-weight: 600;
-    z-index: 2;
 }
+
 .close-modal:hover {
     color: #ff3d54;
 }
@@ -815,6 +815,22 @@ body.darkmode .toast {
 .modal-content strong {
     color: #ffee8c;
     font-weight: 600;
+}
+
+.btn-editar-modal {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #0d6efd;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-editar-modal:hover {
+    background-color: #084ec1;
 }
 
 /* DARKMODE: modal acompanha tema */
@@ -900,7 +916,7 @@ body.darkmode .close-modal:hover {
 .historico-logs h2 {
     margin-top: 0;
     font-size: 1.25rem;
-    color: #333;
+    color: #f1f1f1;
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.5rem;
 }
