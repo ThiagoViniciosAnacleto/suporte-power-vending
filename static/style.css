@@ -374,9 +374,14 @@ th {
 td {
     border-bottom: 1px solid #f1f1f1;
     font-size: 1.06rem;
+    vertical-align: middle;
 }
 tr:last-child td {
     border-bottom: none;
+}
+
+td:last-child {
+    min-width: 180px;
 }
 
 /* ---------------------- FORMULÁRIO ---------------------- */
@@ -562,7 +567,9 @@ tr:last-child td {
     display: flex;
     align-items: left;
     justify-content: flex-start;
-    gap: 6px;
+    gap: 14px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
 }
 
 .botoes-lista-chamados a,
