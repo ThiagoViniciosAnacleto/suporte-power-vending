@@ -943,6 +943,26 @@ body.darkmode .close-modal:hover {
     flex-wrap: nowrap;
 }
 
+.select-privilegio,
+.botao-atualizar {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.botao-atualizar {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
 @media (min-width: 1600px) {
     html { font-size: 18px; }
