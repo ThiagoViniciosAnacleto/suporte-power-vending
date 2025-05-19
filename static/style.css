@@ -799,6 +799,17 @@ body.darkmode .toast {
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
 
 .close-modal:hover {
     color: #ff4d4d;
