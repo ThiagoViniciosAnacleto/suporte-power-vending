@@ -903,13 +903,6 @@ body.darkmode .close-modal:hover {
     height: 100%;
 }
 
-.form-inline-privilegio {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-
 .select-privilegio,
 .botao-atualizar {
     height: 36px;
@@ -1039,20 +1032,7 @@ body.darkmode .close-modal:hover {
 @media (max-width: 1280px) {
     html { font-size: 15px; }
     .dashboard-cards { max-width: 950px; padding: 0 14px;}
-    .form-inline-privilegio {
-    flex-direction: column;
-    align-items: stretch;
-    }
     .form-card { max-width: 1300px; }
-    .form-inline-privilegio select,
-    .form-inline-privilegio button {
-    width: 100%;
-    max-width: none;
-    }
-
-    .form-inline-privilegio button {
-    margin-top: 10px;
-    }
 }
 @media (max-width: 1100px) {
     .dashboard-cards { grid-template-columns: repeat(2, 1fr); }
@@ -1061,19 +1041,6 @@ body.darkmode .close-modal:hover {
         padding: 18px 2vw;
         gap: 16px 10px;
         max-width: 98vw;
-    }
-    .form-inline-privilegio {
-    flex-direction: column;
-    gap: 12px;
-    }
-
-    .form-inline-privilegio select,
-    .form-inline-privilegio button {
-    width: 100%;
-    }
-
-    .form-inline-privilegio button {
-    margin-top: 8px;
     }
 }
 @media (max-width: 900px) {
@@ -1088,10 +1055,6 @@ body.darkmode .close-modal:hover {
     .filtro-container button {
         width: 100%;
         min-width: unset;
-    }
-    .form-inline-privilegio select,
-    .form-inline-privilegio button {
-    font-size: 1rem;
     }
 }
 @media (max-width: 700px) {
@@ -1123,15 +1086,6 @@ body.darkmode .close-modal:hover {
     }
     .filtro-btn button {
         width: 100%;
-    }
-    .form-inline-privilegio {
-    gap: 8px;
-    }
-
-    .form-inline-privilegio select,
-    .form-inline-privilegio button {
-    font-size: 1rem;
-    padding: 10px;
     }
 }
 
