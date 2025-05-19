@@ -579,23 +579,20 @@ td.botoes-lista-chamados {
     vertical-align: middle;
     height: 50px;
     padding: 12px 18px;
+    line-height: 50px; /* Ajusta o alinhamento do texto */
 }
 
 .botoes-lista-chamados > .acoes-flex {
     display: flex;
     align-items: center;
     gap: 14px;
-    height: 100%;
 }
 
 .botoes-lista-chamados {
-    vertical-align: middle;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 14px;
     white-space: nowrap;
-    flex-wrap: nowrap;
     font-size: 1.06rem;
 }
 
@@ -604,14 +601,14 @@ td.botoes-lista-chamados {
     display: flex;
     align-items: center;
     gap: 4px;
-    color: #80b3fa;
-    text-decoration: none;
-    font-weight: 500;
     background: none;
     border: none;
+    color: #80b3fa;
+    font-weight: 500;
     font-size: 1.06rem;
     cursor: pointer;
     transition: color 0.2s;
+    text-decoration: none;
 }
 
 .botoes-lista-chamados a:hover,
@@ -627,10 +624,15 @@ td.botoes-lista-chamados {
     padding-left: 12px;
 }
 
+.botoes-lista-chamados img {
+    width: 18px;
+    height: 18px;
+    display: block; /* evita espaçamento vertical indesejado */
+}
+
 .botoes-lista-chamados img,
 .botoes-lista-chamados button,
 .botoes-lista-chamados a {
-    height: 100%;
     display: flex;
     align-items: center;
 }
