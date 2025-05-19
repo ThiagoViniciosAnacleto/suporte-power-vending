@@ -69,10 +69,10 @@
 <input id="origem" name="origem" type="text"/>
 <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
 <input id="tipo_acao" name="tipo_acao" type="text"/>
-<label for="responsavel_acao">Responsável pela Ação:</label>
-<select id="responsavel_acao" name="responsavel_acao">
+<select id="responsavel_acao" name="responsavel_acao" required>
+    <option value="" disabled selected>Selecione um responsável</option>
     {% for user in lista_usuarios %}
-    <option value="{{ user }}" {% if user == chamado.responsavel_acao %}selected{% endif %}>{{ user }}</option>
+    <option value="{{ user }}">{{ user }}</option>
     {% endfor %}
 </select>
 <label for="descricao_acao">Ação Realizada / Descrição:</label>
