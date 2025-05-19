@@ -943,12 +943,31 @@ body.darkmode .close-modal:hover {
     flex-wrap: nowrap;
 }
 
-.select-privilegio,
+.select-privilegio {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #1f2937;
+    color: #f9fafb;
+}
+
 .botao-atualizar {
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    white-space: nowrap;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botao-atualizar:hover {
+    background-color: #2563eb;
 }
 
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
