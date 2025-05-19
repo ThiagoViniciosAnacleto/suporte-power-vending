@@ -15,6 +15,26 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
 csrf = CSRFProtect(app)  # 🔐 Inicializa proteção CSRF
 
+# --- Função de Log ---
+def registrar_log(acao, chamado_id=None):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        usuario_nome = session.get("usuario")
+        cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (usuario_nome,))
+        resultado = cursor.fetchone()
+        if resultado:
+            usuario_id = resultado[0]
+            cursor.execute("""
+                INSERT INTO log_acoes (usuario_id, acao, chamado_id)
+                VALUES (%s, %s, %s)
+            """, (usuario_id, acao, chamado_id))
+            conn.commit()
+    except Exception as e:
+        print(f"Erro ao registrar log: {e}")
+    finally:
+        conn.close()
+
 # --- MIDDLEWARES ---
 def login_required(f):
     @wraps(f)
@@ -241,16 +261,18 @@ def editar_chamado(id):
         """, dados)
 
         conn.commit()
+        registrar_log("editou chamado", id)
         conn.close()
 
         flash("Chamado atualizado com sucesso!")
         return redirect("/listar")
 
+    # BLOCO GET (visualização do chamado)
     cursor.execute("SELECT * FROM chamados WHERE id = %s", (id,))
     chamado = cursor.fetchone()
-    conn.close()
 
     if not chamado:
+        conn.close()
         flash("Chamado não encontrado.")
         return redirect("/")
 
@@ -260,7 +282,18 @@ def editar_chamado(id):
         "tipo_acao", "responsavel_acao", "descricao_acao", "status"
     ]
     chamado_dict = dict(zip(campos, chamado))
-    return render_template("editar_chamado.html", chamado=chamado_dict)
+
+    cursor.execute("""
+        SELECT log_acoes.acao, log_acoes.data_hora, usuarios.usuario
+        FROM log_acoes
+        JOIN usuarios ON log_acoes.usuario_id = usuarios.id
+        WHERE log_acoes.chamado_id = %s
+        ORDER BY log_acoes.data_hora DESC
+    """, (id,))
+    historico_logs = cursor.fetchall()
+    conn.close()
+
+    return render_template("editar_chamado.html", chamado=chamado_dict, historico_logs=historico_logs)
 
 @app.route("/listar")
 @login_required
