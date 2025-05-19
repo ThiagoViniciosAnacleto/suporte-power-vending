@@ -607,14 +607,12 @@ td.botoes-lista-chamados {
     font-weight: 500;
     font-size: 1.06rem;
     cursor: pointer;
-    transition: color 0.2s;
     text-decoration: none;
 }
 
 .botoes-lista-chamados a:hover,
 .botoes-lista-chamados button:hover {
     color: #b6d5ff;
-    transform: scale(1.05);
 }
 
 .botoes-lista-chamados a + a,
@@ -657,13 +655,11 @@ td.botoes-lista-chamados {
     text-decoration: none;
     font-weight: 500;
     cursor: pointer;
-    transition: color 0.2s, transform 0.2s;
 }
 
 .acoes-flex a:hover,
 .acoes-flex button:hover {
     color: #b6d5ff;
-    transform: scale(1.05);
 }
 
 /* ---------------------- LOGIN ---------------------- */
