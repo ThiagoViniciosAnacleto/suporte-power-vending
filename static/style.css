@@ -788,17 +788,19 @@ body.darkmode .toast {
 
 .close-modal {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.8rem;
+    right: 1.5rem;
     background: transparent;
     color: #fff;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .close-modal:hover {
-    color: #ff3d54;
+    color: #ff4d4d;
+    transform: scale(1.15);
 }
 
 .modal-content h2 {
