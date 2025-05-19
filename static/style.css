@@ -794,9 +794,9 @@ body.darkmode .toast {
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;
-    padding: 0; /* mantemos padding zero */
-    margin-left: 1rem; /* espaço entre título e X */
-    line-height: 1;
+    margin-left: auto;
+    padding-right: 4px;
+    transform: translateY(-2px);  
 }
 
 .modal-header {
