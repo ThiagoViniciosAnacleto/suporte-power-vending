@@ -38,7 +38,10 @@
             {% if logs %}
             <ul class="log-lista">
                 {% for acao, data_hora, usuario in logs %}
-                    <li><strong>{{ usuario }}</strong> - {{ acao }} em {{ data_hora.strftime('%d/%m/%Y %H:%M') }}</li>
+                <li>
+                    <strong>{{ usuario }}</strong> - {{ acao }} 
+                    <span class="hora-log">em {{ data_hora.strftime('%d/%m/%Y %H:%M') }}</span>
+                </li>
                 {% endfor %}
             </ul>
             {% else %}
