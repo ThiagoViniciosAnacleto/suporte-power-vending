@@ -914,6 +914,14 @@ body.darkmode .close-modal:hover {
     width: 160px;
 }
 
+.select-privilegio {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #1f2937; /* cor escura que combina com seu tema */
+    color: #fff;
+    font-size: 14px;
+}
 
 .form-inline-privilegio button {
     padding: 10px 20px;
@@ -925,6 +933,23 @@ body.darkmode .close-modal:hover {
     font-size: 0.95rem;
     cursor: pointer;
     transition: background 0.2s ease;
+}
+
+.botao-atualizar {
+    padding: 6px 16px;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+
+.botao-atualizar:hover {
+    background-color: #2563eb;
 }
 
 .form-inline-privilegio button:hover {
