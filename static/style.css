@@ -912,14 +912,20 @@ body.darkmode .close-modal:hover {
 }
 
 .log-lista li {
-    padding: 0.5rem 0;
-    border-bottom: 1px dashed #ccc;
+    color: #f1f1f1;
     font-size: 0.95rem;
-    color: #444;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #888;
 }
 
 .log-lista li strong {
-    color: #2b2b2b;
+    color: #ffffff;
+}
+
+.log-lista li span.hora-log {
+    color: #cccccc;
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
 }
 
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
