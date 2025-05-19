@@ -558,6 +558,13 @@ tr:last-child td {
 
 /* ---------------------- ICONS LISTA ---------------------- */
 
+.botoes-lista-chamados {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
 .edit-icon img,
 .delete-icon img,
 .btn-historico img {
