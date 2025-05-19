@@ -897,23 +897,6 @@ body.darkmode .close-modal:hover {
     }
 }
 
-.alinha-select-e-botao {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.select-privilegio,
-.botao-atualizar {
-    height: 36px;
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    vertical-align: middle;
-}
-
 .select-privilegio {
     width: auto;
     min-width: 160px;
@@ -924,6 +907,7 @@ body.darkmode .close-modal:hover {
 
 .form-inline-privilegio {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: 8px;
