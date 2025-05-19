@@ -15,20 +15,24 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
 csrf = CSRFProtect(app)  # 🔐 Inicializa proteção CSRF
 
-# --- Função de Log ---
+# --- Função de Log com horário de Brasília ---
 def registrar_log(acao, chamado_id=None):
     try:
         conn = conectar()
         cursor = conn.cursor()
         usuario_nome = session.get("usuario")
+
+        fuso_brasilia = timezone("America/Sao_Paulo")
+        agora = datetime.now(fuso_brasilia)
+
         cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (usuario_nome,))
         resultado = cursor.fetchone()
         if resultado:
             usuario_id = resultado[0]
             cursor.execute("""
-                INSERT INTO log_acoes (usuario_id, acao, chamado_id)
-                VALUES (%s, %s, %s)
-            """, (usuario_id, acao, chamado_id))
+                INSERT INTO log_acoes (usuario_id, acao, chamado_id, data_hora)
+                VALUES (%s, %s, %s, %s)
+            """, (usuario_id, acao, chamado_id, agora))
             conn.commit()
     except Exception as e:
         print(f"Erro ao registrar log: {e}")
