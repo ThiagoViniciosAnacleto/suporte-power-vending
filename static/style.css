@@ -889,6 +889,39 @@ body.darkmode .close-modal:hover {
     background: #4361b7;
 }
 
+.historico-logs {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.historico-logs h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+}
+
+.log-lista {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.log-lista li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.log-lista li strong {
+    color: #2b2b2b;
+}
+
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
 @media (min-width: 1600px) {
     html { font-size: 18px; }
@@ -1029,4 +1062,6 @@ body.darkmode .close-modal:hover {
     padding: 10px;
     }
 }
+
+
 
