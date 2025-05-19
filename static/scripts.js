@@ -61,3 +61,20 @@ window.fecharModalChamado = function(id) {
         modal.style.display = 'none';
     }
 };
+
+function excluirChamado(id, csrf) {
+    if (confirm('Tem certeza que deseja excluir este chamado?')) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/excluir/${id}`;
+
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrf_token';
+        csrfInput.value = csrf;
+
+        form.appendChild(csrfInput);
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
