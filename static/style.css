@@ -912,16 +912,42 @@ body.darkmode .close-modal:hover {
 
 .form-inline-privilegio {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    align-items: center;   /* ✅ Centraliza verticalmente */
     justify-content: flex-start;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: nowrap;
-    max-width: 100%;
+}
+
+.select-privilegio,
+.botao-atualizar {
+    height: 40px;            /* ✅ Mesma altura para os dois */
+    font-size: 14px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    padding: 0 16px;         /* ✅ Apenas horizontal, para equilibrar */
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.select-privilegio {
+    min-width: 160px;
+    background-color: #1f2937;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+
+.botao-atualizar {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .botao-atualizar:hover {
-    background-color: red;
+    background-color: #2563eb;
 }
 
 .form-inline-privilegio button:hover {
