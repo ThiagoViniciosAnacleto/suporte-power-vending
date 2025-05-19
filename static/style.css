@@ -578,8 +578,8 @@ td:last-child {
 }
 
 .botoes-lista-chamados {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 14px;
+    padding-bottom: 14px;
     vertical-align: middle;
     display: flex;
     align-items: center;
