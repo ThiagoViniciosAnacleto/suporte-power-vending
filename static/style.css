@@ -577,6 +577,15 @@ td:last-child {
     padding-bottom: 12px;
 }
 
+td.botoes-lista-chamados {
+    line-height: 1 !important;
+}
+
+.botoes-lista-chamados * {
+    line-height: 1;
+    vertical-align: middle;
+}
+
 .botoes-lista-chamados {
     padding-top: 14px;
     padding-bottom: 14px;
