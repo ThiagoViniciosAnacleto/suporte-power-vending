@@ -378,17 +378,6 @@ td {
 tr:last-child td {
     border-bottom: none;
 }
-.edit-icon {
-    color: #2787f5;
-    text-decoration: none;
-    font-size: 1.25rem;
-    transition: color 0.18s;
-    display: inline-block;
-    vertical-align: middle;
-}
-.edit-icon:hover {
-    color: #1a5ea8;
-}
 
 /* ---------------------- FORMULÁRIO ---------------------- */
 .form-main {
@@ -567,25 +556,20 @@ tr:last-child td {
     font-weight: 600;
 }
 
-/* ---------------------- ICON DELETE ---------------------- */
-.delete-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 2px 6px;
+/* ---------------------- ICONS LISTA ---------------------- */
+.edit-icon img,
+.delete-icon img,
+.btn-historico img {
     vertical-align: middle;
-    color: #e15555;
-    font-size: 1.16rem;
-    transition: color 0.15s;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    filter: brightness(0.95);
 }
-.delete-icon:hover svg {
-    color: #a10000;
-    stroke: #a10000;
-}
-.delete-icon svg {
-    vertical-align: middle;
-    color: #e15555;
-    stroke: #e15555;
+
+.edit-icon img:hover,
+.delete-icon img:hover,
+.btn-historico img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
 }
 
 /* ---------------------- LOGIN ---------------------- */
