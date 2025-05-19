@@ -898,11 +898,16 @@ body.darkmode .close-modal:hover {
 }
 
 .select-privilegio {
-    width: auto;
+    height: 38px;
+    padding: 6px 12px;
     min-width: 160px;
     background-color: #1f2937;
     color: #fff;
+    font-size: 14px;
     white-space: nowrap;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .form-inline-privilegio {
@@ -927,15 +932,18 @@ body.darkmode .close-modal:hover {
 }
 
 .botao-atualizar {
-    padding: 8px 16px;
+    height: 38px;
+    padding: 0 16px;
     background-color: #3b82f6;
     color: white;
     font-weight: 600;
+    font-size: 14px;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    min-width: 100px;
     white-space: nowrap;
+    box-sizing: border-box;
 }
 
 .botao-atualizar:hover {
