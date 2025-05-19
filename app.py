@@ -339,7 +339,7 @@ def historico_chamado(id):
     logs = cursor.fetchall()
     conn.close()
 
-    return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f\"Histórico do Chamado #{id}\")
+    return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f"Histórico do Chamado #{id}")
 
 @app.route("/historico/<int:id>")
 @login_required
