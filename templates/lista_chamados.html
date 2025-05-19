@@ -111,12 +111,9 @@
                             Editar
                             </a>
                             {% if session["is_admin"] == 1 %}
-                            <button type="button"
-                                onclick="excluirChamado('{{ chamado.id }}', '{{ csrf_token() }}')"
-                                title="Excluir chamado">
-                            <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="18" height="18">
-                            Excluir
-                            </button>
+                            <a href="#" onclick="excluirChamado('{{ chamado.id }}', '{{ csrf_token() }}')" title="Excluir chamado">
+                                <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="18" height="18"> Excluir
+                            </a>
                             {% endif %}
                             <a href="/historico/{{ chamado.id }}" title="Histórico do chamado">
                             <img src="{{ url_for('static', filename='img/documento.png') }}" alt="Histórico" width="18" height="18">
