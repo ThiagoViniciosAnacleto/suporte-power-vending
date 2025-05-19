@@ -904,16 +904,6 @@ body.darkmode .close-modal:hover {
     gap: 12px;
 }
 
-.form-inline-privilegio select {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #4a5568;
-    background: #121926;
-    color: #ffffff;
-    font-size: 0.95rem;
-    width: 160px;
-}
-
 .select-privilegio {
     padding: 6px 12px;
     border-radius: 6px;
