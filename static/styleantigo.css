@@ -1,24 +1,3 @@
-/* ====== VARIÁVEIS CSS GLOBAIS ====== */
-:root {
-  --cor-primaria: #2e3d55;
-  --cor-secundaria: #4b91fa;
-  --cor-hover: #4361b7;
-  --cor-fundo: #f4f6fb;
-  --cor-fundo-dark: #181c24;
-  --cor-texto: #2e3d55;
-  --cor-texto-dark: #e1e6ef;
-  --cor-destaque: #ffeaa7;
-  --cor-verde: #28a745;
-  --cor-erro: #d63d26;
-  --cor-branca: #ffffff;
-  --cor-cinza-claro: #eaeef4;
-  --cor-cinza-escuro: #44495e;
-  --fonte-base: 'Segoe UI', system-ui, sans-serif;
-  --sombra-leve: 0 2px 10px rgba(34, 51, 84, 0.1);
-  --sombra-media: 0 4px 22px rgba(34, 51, 84, 0.11);
-  --sombra-pesada: 0 8px 32px rgba(22, 32, 52, 0.18);
-}
-
 /* ---------------------- BASE E GERAL ---------------------- */
 html {
     font-size: 17px;
@@ -30,11 +9,11 @@ html {
 }
 
 body {
-    font-family: var(--fonte-base);
-    background: var(--cor-fundo);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fb;
     margin: 0;
     padding: 0;
-    color: var(--cor-primaria);
+    color: #2e3d55;
     max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
@@ -55,7 +34,7 @@ body {
 .topbar-left h1 {
     margin: 0;
     font-size: 2.4rem;
-    color: var(--cor-primaria);
+    color: #2e3d55;
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -77,7 +56,7 @@ body {
     height: 48px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--cor-primaria);
+    border: 2px solid #2e3d55;
 }
 
 .usuario-dados {
@@ -85,7 +64,7 @@ body {
     flex-direction: column;
     font-size: 0.95rem;
     line-height: 1.2;
-    color: var(--text-color, var(--cor-primaria));
+    color: var(--text-color, #2e3d55);
 }
 
 .usuario-nome {
@@ -102,7 +81,7 @@ body {
     font-size: 1rem;
     font-weight: 600;
     border-radius: 6px;
-    background: var(--cor-primaria);
+    background: #2e3d55;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -110,13 +89,13 @@ body {
 }
 
 .topbar-form button:hover {
-    background: var(--cor-hover);
+    background: #4361b7;
 }
 
 .logout-form button {
     padding: 8px 22px;
     font-size: 1rem;
-    background: var(--cor-primaria);
+    background: #2e3d55;
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -126,10 +105,10 @@ body {
     box-shadow: 0 2px 6px rgba(30,40,90,0.09);
 }
 .logout-form button:hover {
-    background: var(--cor-hover);
+    background: #4361b7;
 }
 .darkmode-btn {
-    background: var(--cor-destaque);
+    background: #ffeaa7;
     color: #232736;
     border: none;
     border-radius: 6px;
@@ -143,7 +122,7 @@ body {
 }
 body.darkmode .darkmode-btn {
     background: #232736;
-    color: var(--cor-destaque);
+    color: #ffeaa7;
     border: 1px solid #ffd600;
 }
 .darkmode-btn:hover {
@@ -157,7 +136,7 @@ h1 {
     margin-bottom: 32px;
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--cor-primaria);
+    color: #2e3d55;
     letter-spacing: 1px;
 }
 
@@ -192,12 +171,12 @@ main.form-main {
     padding: 34px 56px;
     font-size: 1.32rem;
     font-weight: 600;
-    color: var(--cor-primaria);
+    color: #2e3d55;
     box-shadow: 0 2px 16px rgba(30,40,90,0.10);
     transition: background 0.18s, color 0.18s, box-shadow 0.18s;
     display: flex;
     align-items: center;
-    border: 1px solid var(--cor-cinza-claro);
+    border: 1px solid #eaeef4;
     text-decoration: none;
     gap: 18px;
     min-width: 250px;
@@ -244,7 +223,7 @@ main.form-main {
     position: fixed;
     bottom: 22px;
     right: 28px;
-    background-color: var(--cor-verde);
+    background-color: #28a745;
     color: #fff;
     padding: 14px 28px;
     border-radius: 8px;
@@ -300,10 +279,10 @@ main.form-main {
     width: 100%;
     min-width: 120px;
     padding: 10px 12px;
-    border: 1.5px solid var(--cor-cinza-escuro);
+    border: 1.5px solid #44495e;
     border-radius: 7px;
     background: #1c1e28;
-    color: var(--cor-texto-dark);
+    color: #e1e6ef;
     font-size: 1.08rem;
     margin-bottom: 0;
     box-sizing: border-box;
@@ -311,7 +290,7 @@ main.form-main {
 }
 .filtro-container input:focus,
 .filtro-container select:focus {
-    border-color: var(--cor-secundaria);
+    border-color: #4b91fa;
     outline: none;
     box-shadow: 0 1px 6px #28406744;
 }
@@ -337,7 +316,7 @@ main.form-main {
 .filtro-btn-full button {
     min-width: 130px;
     padding: 12px 24px;
-    background: var(--cor-hover);
+    background: #4361b7;
     color: #fff;
     border: none;
     border-radius: 7px;
@@ -365,7 +344,7 @@ th, td {
     text-align: left;
 }
 th {
-    background: var(--cor-cinza-claro);
+    background: #eaeef4;
     color: #233554;
     font-size: 1.08rem;
     font-weight: 700;
@@ -420,7 +399,7 @@ tr:last-child td {
     text-align: left;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--cor-branca);
+    color: #ffffff;
     margin-bottom: 24px;
     padding-left: 8px;
 }
@@ -440,7 +419,7 @@ tr:last-child td {
 
 .form-card th {
     background-color: #1d2735;
-    color: var(--cor-branca);
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     border-bottom: 1px solid #2c3747;
@@ -453,7 +432,7 @@ tr:last-child td {
 
 .form-card label {
     font-weight: 600;
-    color: var(--cor-primaria);
+    color: #2e3d55;
     margin-bottom: 2px;
 }
 .form-card input,
@@ -476,7 +455,7 @@ tr:last-child td {
 .form-card button {
     width: 100%;
     padding: 15px 0;
-    background: var(--cor-primaria);
+    background: #2e3d55;
     color: #fff;
     border: none;
     border-radius: 7px;
@@ -487,7 +466,7 @@ tr:last-child td {
     transition: background 0.18s;
 }
 .form-card button:hover {
-    background: var(--cor-hover);
+    background: #4361b7;
 }
 
 /* ---------------------- DASHBOARD ---------------------- */
@@ -508,10 +487,10 @@ tr:last-child td {
     padding: 0 40px;
 }
 .dash-card {
-    background: linear-gradient(135deg, #232634 70%, var(--cor-secundaria)22 100%);
+    background: linear-gradient(135deg, #232634 70%, #4b91fa22 100%);
     border-radius: 20px;
     box-shadow: 0 2px 20px 0 rgba(44,54,82,0.11);
-    border: 1.5px solid var(--cor-secundaria)33;
+    border: 1.5px solid #4b91fa33;
     width: 100%;
     max-width: 290px;
     min-width: 220px;
@@ -529,7 +508,7 @@ tr:last-child td {
 }
 .dash-card-icon {
     margin-bottom: 10px;
-    color: var(--cor-secundaria);
+    color: #4b91fa;
     filter: drop-shadow(0 1px 7px #28406733);
 }
 .dash-card h3 {
@@ -543,12 +522,12 @@ tr:last-child td {
 .dash-value {
     font-size: 2.6rem;
     font-weight: bold;
-    color: var(--cor-secundaria);
+    color: #4b91fa;
     text-shadow: 0 2px 8px rgba(30,40,100,0.09);
     margin-bottom: 8px;
     margin-top: 6px;
 }
-.dash-blue { color: var(--cor-secundaria); }
+.dash-blue { color: #4b91fa; }
 .dash-card ul {
     list-style: none;
     padding: 0;
@@ -590,7 +569,7 @@ tr:last-child td {
 
 /* ---------------------- LOGIN ---------------------- */
 .login-erro {
-    color: var(--cor-erro);
+    color: #d63d26;
     background: #ffeaea;
     border: 1px solid #efbfbf;
     border-radius: 6px;
@@ -605,7 +584,7 @@ tr:last-child td {
     text-align: center;
 }
 .login-footer a {
-    color: var(--cor-hover);
+    color: #4361b7;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
@@ -613,11 +592,11 @@ tr:last-child td {
 }
 .login-footer a:hover {
     text-decoration: underline;
-    color: var(--cor-primaria);
+    color: #2e3d55;
 }
 .voltar-form button {
-    background: var(--cor-cinza-claro);
-    color: var(--cor-primaria);
+    background: #eaeef4;
+    color: #2e3d55;
     border: 1px solid #bfc3ca;
     font-weight: 600;
     border-radius: 6px;
@@ -627,14 +606,14 @@ tr:last-child td {
     transition: background 0.18s, color 0.18s;
 }
 .voltar-form button:hover {
-    background: var(--cor-primaria);
+    background: #2e3d55;
     color: #fff;
 }
 
 /* ---------------------- DARK MODE ---------------------- */
 body.darkmode {
-    background: var(--cor-fundo-dark);
-    color: var(--cor-texto-dark);
+    background: #181c24;
+    color: #e1e6ef;
 }
 body.darkmode .topbar,
 body.darkmode .home-main,
@@ -642,12 +621,12 @@ body.darkmode .form-main,
 body.darkmode .future-options,
 body.darkmode .dashboard-cards {
     background: none !important;
-    color: var(--cor-texto-dark);
+    color: #e1e6ef;
 }
 body.darkmode h1,
 body.darkmode h3,
 body.darkmode .dash-card h3 {
-    color: var(--cor-texto-dark) !important;
+    color: #e1e6ef !important;
 }
 body.darkmode .dash-card,
 body.darkmode .form-card,
@@ -666,7 +645,7 @@ body.darkmode .filtro-container input,
 body.darkmode .filtro-container select {
     background: #232634;
     color: #f6f6fa;
-    border-color: var(--cor-cinza-escuro);
+    border-color: #44495e;
 }
 body.darkmode .form-card input:focus,
 body.darkmode .form-card select:focus,
@@ -723,13 +702,13 @@ body.darkmode .toast {
     flex-direction: column;
     cursor: pointer;
     transition: transform 0.13s, box-shadow 0.13s;
-    border: 1.5px solid var(--cor-secundaria)22;
+    border: 1.5px solid #4b91fa22;
 }
 
 .chamado-card:hover {
     transform: translateY(-4px) scale(1.025);
     box-shadow: 0 8px 28px 0 rgba(34,51,84,0.14);
-    border-color: var(--cor-secundaria)77;
+    border-color: #4b91fa77;
 }
 
 .chamado-card-header {
@@ -742,7 +721,7 @@ body.darkmode .toast {
 
 .chamado-id {
     font-weight: 700;
-    color: var(--cor-secundaria);
+    color: #4b91fa;
     font-size: 1.11rem;
 }
 
@@ -782,7 +761,7 @@ body.darkmode .toast {
     max-height: 94vh;
     background: #232634;
     border-radius: 18px;
-    box-shadow: 0 8px 44px rgba(22,28,40,0.19), 0 1.5px 18px var(--cor-secundaria)22;
+    box-shadow: 0 8px 44px rgba(22,28,40,0.19), 0 1.5px 18px #4b91fa22;
     z-index: 1100;
     display: none;
     flex-direction: column;
@@ -884,7 +863,7 @@ body.darkmode .toast {
 body.darkmode .modal-chamado,
 body.darkmode .modal-content {
     background: #20242e !important;
-    color: var(--cor-texto-dark) !important;
+    color: #e1e6ef !important;
 }
 body.darkmode .modal-content strong {
     color: #fff4b8;
@@ -948,7 +927,7 @@ body.darkmode .close-modal:hover {
 }
 
 .log-lista li strong {
-    color: var(--cor-branca);
+    color: #ffffff;
 }
 
 .log-lista li span.hora-log {
