@@ -818,19 +818,27 @@ body.darkmode .toast {
 }
 
 .btn-editar-modal {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     margin-top: 1.5rem;
-    padding: 0.6rem 1.2rem;
-    background-color: #0d6efd;
+    padding: 0.6rem 1rem;
+    background: linear-gradient(90deg, #0d6efd, #0a58ca);
     color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
 }
 
 .btn-editar-modal:hover {
-    background-color: #084ec1;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(13, 110, 253, 0.4);
+    background: linear-gradient(90deg, #0a58ca, #084ec1);
 }
 
 /* DARKMODE: modal acompanha tema */
