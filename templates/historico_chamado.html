@@ -7,12 +7,27 @@
 </head>
 <body>
     <header class="topbar">
+        <div class="usuario-info">
+            <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Foto do usuário" class="usuario-avatar">
+            <div class="usuario-dados">
+                <span class="usuario-nome">{{ session["usuario"] }}</span>
+                <span class="usuario-cargo">
+                    {% if session["is_admin"] == 1 %}Administrador
+                    {% elif session["is_admin"] == 2 %}Técnico
+                    {% else %}Usuário Comum
+                    {% endif %}
+                </span>
+            </div>
+        </div>
         <div class="topbar-left">
             <h1>{{ titulo_pagina }}</h1>
         </div>
         <div class="topbar-right">
-            <form action="/listar" method="get" class="topbar-form">
-                <button type="submit">← Voltar para a lista</button>
+            <form action="/" method="get" class="topbar-form">
+                <button type="submit">← Voltar</button>
+            </form>
+            <form action="/logout" method="get" class="topbar-form">
+                <button type="submit">Sair</button>
             </form>
         </div>
     </header>
