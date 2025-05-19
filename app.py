@@ -23,7 +23,7 @@ def registrar_log(acao, chamado_id=None):
         usuario_nome = session.get("usuario")
 
         fuso_brasilia = timezone("America/Sao_Paulo")
-        agora = datetime.now(fuso_brasilia)
+        agora = datetime.now(fuso_brasilia).replace(tzinfo=None)
 
         cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (usuario_nome,))
         resultado = cursor.fetchone()
