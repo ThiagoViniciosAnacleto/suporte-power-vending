@@ -382,6 +382,9 @@ tr:last-child td {
 
 td:last-child {
     min-width: 180px;
+    vertical-align: middle;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 /* ---------------------- FORMULÁRIO ---------------------- */
@@ -565,7 +568,7 @@ td:last-child {
 
 .botoes-lista-chamados {
     display: flex;
-    align-items: left;
+    align-items: center;
     justify-content: flex-start;
     gap: 14px;
     white-space: nowrap;
