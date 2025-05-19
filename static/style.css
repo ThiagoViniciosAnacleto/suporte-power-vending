@@ -938,20 +938,28 @@ body.darkmode .close-modal:hover {
 
 .form-inline-privilegio {
     display: flex;
-    align-items: center;    /* Alinha verticalmente */
+    align-items: center;
     gap: 10px;
     flex-wrap: nowrap;
 }
 
 .select-privilegio,
 .botao-atualizar {
-    height: 40px;
-    padding: 0 16px;
+    height: 36px;
+    padding: 0 12px;
     font-size: 14px;
     border-radius: 6px;
     box-sizing: border-box;
-    display: flex;
-    align-items: center;
+    white-space: nowrap;
+}
+
+/* Remove o display:flex do botão! */
+.select-privilegio {
+    min-width: 160px;
+    background-color: #1f2937;
+    color: #fff;
+    border: 1px solid #ccc;
+    appearance: none;
 }
 
 .botao-atualizar {
@@ -961,6 +969,8 @@ body.darkmode .close-modal:hover {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    min-width: 100px;           /* ✅ Largura mínima ideal */
+    width: auto;                /* ✅ Não deixa expandir à força */
 }
 
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
