@@ -34,7 +34,11 @@
 <main class="form-main">
 <form class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
 <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
-<input id="responsavel_atendimento" name="responsavel_atendimento" required="" type="text" value="{{ chamado.responsavel_atendimento }}"/>
+<select id="responsavel_atendimento" name="responsavel_atendimento" required>
+    {% for user in lista_usuarios %}
+    <option value="{{ user }}" {% if user == chamado.responsavel_atendimento %}selected{% endif %}>{{ user }}</option>
+    {% endfor %}
+</select>
 <label for="data">Data:</label>
 <input id="data" name="data" type="date" value="{{ chamado.data }}"/>
 <label for="horario">Horário:</label>
@@ -42,11 +46,19 @@
 <label for="cliente">Nome do Cliente:</label>
 <input id="cliente" name="cliente" required="" type="text" value="{{ chamado.cliente }}"/>
 <label for="empresa">Empresa:</label>
-<input id="empresa" name="empresa" type="text" value="{{ chamado.empresa }}"/>
+<select id="empresa" name="empresa">
+    {% for empresa in lista_empresas %}
+    <option value="{{ empresa }}" {% if empresa == chamado.empresa %}selected{% endif %}>{{ empresa }}</option>
+    {% endfor %}
+</select>
 <label for="porta_ssh">Porta SSH da Máquina:</label>
 <input id="porta_ssh" name="porta_ssh" type="text" value="{{ chamado.porta_ssh }}"/>
 <label for="tipo_maquina">Tipo da Máquina:</label>
-<input id="tipo_maquina" name="tipo_maquina" type="text" value="{{ chamado.tipo_maquina }}"/>
+<select id="tipo_maquina" name="tipo_maquina">
+    {% for maquina in lista_maquinas %}
+    <option value="{{ maquina }}" {% if maquina == chamado.tipo_maquina %}selected{% endif %}>{{ maquina }}</option>
+    {% endfor %}
+</select>
 <label for="relato">Relato / Solicitação do Cliente:</label>
 <textarea id="relato" name="relato" rows="3">{{ chamado.relato }}</textarea>
 <label for="prioridade">Prioridade:</label>
@@ -61,7 +73,11 @@
 <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
 <input id="tipo_acao" name="tipo_acao" type="text" value="{{ chamado.tipo_acao }}"/>
 <label for="responsavel_acao">Responsável pela Ação:</label>
-<input id="responsavel_acao" name="responsavel_acao" type="text" value="{{ chamado.responsavel_acao }}"/>
+<select id="responsavel_acao" name="responsavel_acao">
+    {% for user in lista_usuarios %}
+    <option value="{{ user }}" {% if user == chamado.responsavel_acao %}selected{% endif %}>{{ user }}</option>
+    {% endfor %}
+</select>
 <label for="descricao_acao">Ação Realizada / Descrição:</label>
 <textarea id="descricao_acao" name="descricao_acao" rows="3">{{ chamado.descricao_acao }}</textarea>
 <label for="status">Status do Caso:</label>

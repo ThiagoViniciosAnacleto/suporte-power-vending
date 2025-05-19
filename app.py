@@ -312,6 +312,16 @@ def editar_chamado(id):
     ]
     chamado_dict = dict(zip(campos, chamado))
 
+    # 🔁 Buscar listas de empresas e máquinas
+    cursor.execute("SELECT nome FROM empresas ORDER BY nome")
+    lista_empresas = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
+    lista_maquinas = [row[0] for row in cursor.fetchall()]
+    
+    cursor.execute("SELECT usuario FROM usuarios ORDER BY usuario")
+    lista_usuarios = [row[0] for row in cursor.fetchall()]
+
     cursor.execute("""
         SELECT log_acoes.acao, log_acoes.data_hora, usuarios.usuario
         FROM log_acoes
@@ -320,9 +330,18 @@ def editar_chamado(id):
         ORDER BY log_acoes.data_hora DESC
     """, (id,))
     historico_logs = cursor.fetchall()
+
     conn.close()
 
-    return render_template("editar_chamado.html", chamado=chamado_dict, historico_logs=historico_logs)
+    return render_template(
+        "editar_chamado.html",
+        chamado=chamado_dict,
+        historico_logs=historico_logs,
+        lista_empresas=lista_empresas,
+        lista_maquinas=lista_maquinas,
+        lista_usuarios=lista_usuarios
+    )
+
 
 @app.route("/historico/<int:id>")
 @login_required
