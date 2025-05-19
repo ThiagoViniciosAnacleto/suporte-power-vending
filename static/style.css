@@ -560,7 +560,7 @@ tr:last-child td {
 
 .botoes-lista-chamados {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: flex-start;
     gap: 14px;
 }
