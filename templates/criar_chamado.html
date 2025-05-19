@@ -70,7 +70,11 @@
 <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
 <input id="tipo_acao" name="tipo_acao" type="text"/>
 <label for="responsavel_acao">Responsável pela Ação:</label>
-<input id="responsavel_acao" name="responsavel_acao" type="text"/>
+<select id="responsavel_acao" name="responsavel_acao">
+    {% for user in lista_usuarios %}
+    <option value="{{ user }}" {% if user == chamado.responsavel_acao %}selected{% endif %}>{{ user }}</option>
+    {% endfor %}
+</select>
 <label for="descricao_acao">Ação Realizada / Descrição:</label>
 <textarea id="descricao_acao" name="descricao_acao" rows="3"></textarea>
 <label for="status">Status do Caso:</label>

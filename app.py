@@ -232,6 +232,10 @@ def criar_chamado():
 
     cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
     lista_maquinas = [row[0] for row in cursor.fetchall()]
+    
+    cursor.execute("SELECT usuario FROM usuarios ORDER BY usuario")
+    lista_usuarios = [row[0] for row in cursor.fetchall()]
+    
     conn.close()
 
     return render_template(
@@ -241,6 +245,7 @@ def criar_chamado():
         hora_atual=agora.strftime("%H:%M"),
         lista_empresas=lista_empresas,
         lista_maquinas=lista_maquinas,
+        lista_usuarios=lista_usuarios,
         titulo_pagina="Criar Chamado"
     )
 
