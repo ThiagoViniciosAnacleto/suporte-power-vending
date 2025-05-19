@@ -882,7 +882,7 @@ body.darkmode .toast {
     font-weight: bold;
     cursor: pointer;
     margin-left: 36px;
-    transform: translateY(-12px);  
+    transform: translateY(-2px);  
 }
 
 .modal-header {
