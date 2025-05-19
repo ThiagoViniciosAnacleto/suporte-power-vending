@@ -788,8 +788,8 @@ body.darkmode .toast {
 
 .close-modal {
     position: absolute;
-    top: 14px;
-    right: 18px;
+    top: 24px;
+    right: 28px;
     background: transparent;
     color: #fff;
     border: none;
