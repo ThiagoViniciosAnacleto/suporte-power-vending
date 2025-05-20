@@ -6,3 +6,5 @@ werkzeug
 pytz
 flask-wtf
 flask_socketio
+eventlet
+

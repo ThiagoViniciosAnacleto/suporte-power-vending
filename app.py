@@ -15,7 +15,7 @@ from flask_wtf import CSRFProtect
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
 csrf = CSRFProtect(app)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='eventlet')
 
 # --- Função de Log com horário de Brasília ---
 def registrar_log(acao, chamado_id=None):
@@ -559,4 +559,6 @@ def alterar_privilegio(id):
     return redirect("/gerenciar_usuarios")
 
 if __name__ == "__main__":
+    import eventlet
+    import eventlet.wsgi
     socketio.run(app, debug=True, host="0.0.0.0", port=8080)
