@@ -416,6 +416,8 @@ def historico_chamado(id):
 
 # Dicionário de nomes legíveis para campos no log
 NOMES_CAMPOS = {
+    "horario": "o horário"
+    "data": "a data",
     "status": "o status",
     "prioridade": "a prioridade",
     "descricao_acao": "a ação realizada",
