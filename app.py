@@ -279,7 +279,7 @@ def editar_chamado(id):
         # 🔒 Verificação: impedir finalização sem ação realizada
         status = request.form.get("status", "").strip()
         descricao_acao = request.form.get("descricao_acao", "").strip()
-        if status == "Finalizado" and not descricao_acao:
+        if status in ["Fechado", "Resolvido"] and not descricao_acao:
             flash("Para finalizar um chamado, é obrigatório informar a ação realizada.")
             conn.close()
             return redirect(f"/editar_chamado/{id}")
