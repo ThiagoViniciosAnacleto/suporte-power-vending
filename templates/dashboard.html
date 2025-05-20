@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/WZ0qf+5OBxzSUIB99T2Glb7N+G7r4G4OhYZlnIVG4ZPvXKqjHZVExL5O5B2XQfz" crossorigin="anonymous"></script>
 </head>
 <body>
     <header class="topbar">
@@ -25,9 +23,7 @@
             <h1>{{ titulo_pagina }}</h1>
         </div>
         <div class="topbar-right">
-            <button class="darkmode-btn" id="toggle-darkmode">
-            🌙 Modo Escuro
-            </button>
+            <button class="darkmode-btn" id="toggle-darkmode">🌙 Modo Escuro</button>
             <form action="/" method="get" class="topbar-form">
                 <button type="submit">Home</button>
             </form>
@@ -37,80 +33,83 @@
         </div>
     </header>
 
-<main class="home-main dashboard-main">
-    <section class="dashboard-cards">
-        <div class="dash-card">
-            <div class="dash-card-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="2" width="6" height="6" rx="2" />
-                    <path d="M4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" />
-                </svg>
+    <main class="home-main dashboard-main">
+        <section class="dashboard-cards">
+            <div class="dash-card">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="2" width="6" height="6" rx="2" />
+                        <path d="M4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" />
+                    </svg>
+                </div>
+                <h3>Total de Chamados</h3>
+                <p class="dash-value dash-blue" id="valor-total-chamados">{{ total_chamados }}</p>
             </div>
-            <h3>Total de Chamados</h3>
-            <p class="dash-value dash-blue" id="total_chamados">{{ total_chamados }}</p>
-        </div>
-        <div class="dash-card">
-            <div class="dash-card-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 6v6l4 2"/>
-                </svg>
+
+            <div class="dash-card">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3>Chamados por Status</h3>
+                <ul id="lista-status">
+                    {% for status, qtd in chamados_por_status.items() %}
+                        <li><strong>{{ status }}:</strong> {{ qtd }}</li>
+                    {% endfor %}
+                </ul>
             </div>
-            <h3>Chamados por Status</h3>
-            <canvas id="graficoStatus"></canvas>
-        </div>
-        <div class="dash-card">
-            <div class="dash-card-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 8v4l3 3"/>
-                </svg>
+
+            <div class="dash-card">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v4l3 3"/>
+                    </svg>
+                </div>
+                <h3>Chamados por Prioridade</h3>
+                <ul id="lista-prioridade">
+                    {% for prioridade, qtd in chamados_por_prioridade.items() %}
+                        <li><strong>{{ prioridade }}:</strong> {{ qtd }}</li>
+                    {% endfor %}
+                </ul>
             </div>
-            <h3>Chamados por Prioridade</h3>
-            <canvas id="graficoPrioridade"></canvas>
-        </div>
-        <div class="dash-card">
-            <div class="dash-card-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="7" width="18" height="13" rx="2"/>
-                    <path d="M16 3v4"/>
-                    <path d="M8 3v4"/>
-                    <path d="M3 11h18"/>
-                </svg>
+
+            <div class="dash-card">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="7" width="18" height="13" rx="2"/>
+                        <path d="M16 3v4"/>
+                        <path d="M8 3v4"/>
+                        <path d="M3 11h18"/>
+                    </svg>
+                </div>
+                <h3>Top 5 Empresas</h3>
+                <ul id="lista-empresa">
+                    {% for empresa, qtd in chamados_por_empresa.items() %}
+                        <li><strong>{{ empresa }}:</strong> {{ qtd }}</li>
+                    {% endfor %}
+                </ul>
             </div>
-            <h3>Top 5 Empresas</h3>
-            <canvas id="graficoEmpresa"></canvas>
-        </div>
-    </section>
-</main>
+        </section>
 
-<script>
-    const socket = io();
+        <!-- CANVASs dos Gráficos -->
+        <section style="margin-top: 60px; display: flex; flex-wrap: wrap; justify-content: center; gap: 50px;">
+            <canvas id="grafico-status" width="350" height="200"></canvas>
+            <canvas id="grafico-prioridade" width="350" height="200"></canvas>
+            <canvas id="grafico-empresa" width="350" height="200"></canvas>
+        </section>
+    </main>
 
-    function atualizarGrafico(id, labels, dados) {
-        const ctx = document.getElementById(id).getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: dados,
-                    backgroundColor: ['#4b91fa', '#ffcc00', '#28a745', '#dc3545', '#6f42c1']
-                }]
-            },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-        });
-    }
-
-    socket.on('dashboard_update', function(dados) {
-        document.getElementById('total_chamados').textContent = dados.total;
-        atualizarGrafico('graficoStatus', Object.keys(dados.status), Object.values(dados.status));
-        atualizarGrafico('graficoPrioridade', Object.keys(dados.prioridade), Object.values(dados.prioridade));
-        atualizarGrafico('graficoEmpresa', Object.keys(dados.empresas), Object.values(dados.empresas));
-    });
-
-    socket.emit('solicitar_atualizacao');
-</script>
-<script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
 </html>
