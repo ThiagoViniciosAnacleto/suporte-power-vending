@@ -1042,6 +1042,11 @@ body.darkmode .close-modal:hover {
 }
 
 /* GRÁFICOS */
+
+.graficos-dashboard {
+    max-width: 400px;
+}
+
 .dashboard-grid canvas {
     background-color: #fff;
     border-radius: 14px;
@@ -1049,6 +1054,7 @@ body.darkmode .close-modal:hover {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 360px;
+    max-height: 400px;
     height: auto;
     transition: transform 0.2s;
 }
