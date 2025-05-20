@@ -414,7 +414,40 @@ def historico_chamado(id):
 
     return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f"Histórico do Chamado #{id}")
 
+# Dicionário de nomes legíveis para campos no log
+NOMES_CAMPOS = {
+    "status": "status",
+    "prioridade": "prioridade",
+    "descricao_acao": "ação realizada",
+    "tipo_acao": "tipo da ação",
+    "origem": "origem do problema",
+    "relato": "relato do cliente",
+    "cliente": "cliente",
+    "responsavel_atendimento": "responsável",
+    "empresa": "empresa",
+    "porta_ssh": "porta SSH",
+    "tipo_maquina": "tipo de máquina"
+}
+
+# Dicionário de ícones por campo
+ICONE_CAMPO = {
+    "prioridade": "📌",
+    "status": "🔄",
+    "descricao_acao": "🛠️",
+    "tipo_acao": "🧭",
+    "origem": "🛠️",
+    "relato": "📝",
+    "cliente": "🧑",
+    "empresa": "🏢",
+    "porta_ssh": "🔐",
+    "tipo_maquina": "⚙️",
+    "responsavel_atendimento": "👷",
+}
+
 def formatar_acao_log(tipo, campo, valor_antigo, valor_novo, acao):
+    nome_legivel = NOMES_CAMPOS.get(campo, campo)
+    icone = ICONE_CAMPO.get(campo, "📋")
+
     if tipo == "prioridade":
         return f"📌 Alterou a prioridade de \"{valor_antigo}\" para \"{valor_novo}\""
     
@@ -430,9 +463,11 @@ def formatar_acao_log(tipo, campo, valor_antigo, valor_novo, acao):
     elif tipo == "criado":
         return f"🆕 Chamado criado"
 
-    # Fallback com o campo `acao` antigo
-    return f"📋 {acao or 'Ação registrada'}"
+    # Fallback: usa nome legível do campo e ícone específico
+    if valor_antigo and valor_novo:
+        return f"{icone} Alterou o {nome_legivel} de \"{valor_antigo}\" para \"{valor_novo}\""
 
+    return f"{icone} {acao or 'Ação registrada'}"
 
 @app.route("/listar")
 @login_required
