@@ -1045,12 +1045,12 @@ body.darkmode .close-modal:hover {
 
 .graficos-dashboard {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: wrap;         /* permite quebrar em telas pequenas */
+    justify-content: center; /* centraliza os gráficos */
     gap: 30px;
     padding: 20px 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 400px;
     box-sizing: border-box;
 }
 
