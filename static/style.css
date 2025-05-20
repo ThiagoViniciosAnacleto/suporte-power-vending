@@ -491,50 +491,40 @@ td:last-child {
 /* ---------------------- DASHBOARD ---------------------- */
 
 .dashboard-graficos {
-    width: 90%;
-    margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 28px;
+    gap: 30px;
+    padding: 0 10px;
 }
 
 .dashboard-graficos canvas {
+    width: 100%;
+    max-width: 360px;
     height: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-.dashboard-main {
-    width: 100%;
-    max-width: 1900px;
-    margin: 0 auto;
-    padding-top: 48px;
-}
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
-    gap: 40px;
-    justify-items: center;
-    width: 100%;
-    margin: 0 auto;
-    max-width: 1600px;
-    padding: 0 40px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
 }
+
 .dash-card {
-    background: linear-gradient(135deg, #232634 70%, var(--cor-secundaria)22 100%);
-    border-radius: 20px;
-    box-shadow: 0 2px 20px 0 rgba(44,54,82,0.11);
-    border: 1.5px solid var(--cor-secundaria)33;
-    width: 100%;
-    max-width: 290px;
-    min-width: 220px;
-    min-height: 195px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 28px 22px 22px 22px;
-    transition: transform 0.14s, box-shadow 0.14s;
-    position: relative;
+    background: linear-gradient(135deg, #232634 70%, var(--cor-secundaria, #3b82f6) 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    color: #fff;
+    text-align: center;
+    transition: transform 0.2s ease;
 }
+
 .dash-card:hover {
     transform: translateY(-3px) scale(1.028);
     box-shadow: 0 8px 32px 0 rgba(22,32,52,0.18);
@@ -546,20 +536,16 @@ td:last-child {
 }
 .dash-card h3 {
     color: #dee6ff;
-    font-weight: 700;
     font-size: 1.13rem;
     margin-bottom: 6px;
     text-align: center;
     letter-spacing: 0.3px;
 }
 .dash-value {
-    font-size: 2.6rem;
+    font-size: 28px;
     font-weight: bold;
-    color: var(--cor-secundaria);
-    text-shadow: 0 2px 8px rgba(30,40,100,0.09);
-    margin-bottom: 8px;
-    margin-top: 6px;
 }
+
 .dash-blue { color: var(--cor-secundaria); }
 .dash-card ul {
     list-style: none;
@@ -1080,6 +1066,15 @@ canvas:hover {
 }
 
 /* Seção de gráficos */
+
+.dashboard-main {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
 .dashboard-main canvas {
     max-width: 100%;
     width: 100%;
