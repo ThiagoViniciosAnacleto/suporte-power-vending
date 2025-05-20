@@ -753,9 +753,12 @@ body.darkmode .toast {
 }
 
 .prioridade {
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 6px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    background: #eee;
+    color: #222;
     display: inline-block;
 }
 

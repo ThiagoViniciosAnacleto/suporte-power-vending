@@ -204,7 +204,7 @@ def home():
     cursor.execute("""
         SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato, prioridade, origem, tipo_maquina, porta_ssh, tipo_acao, responsavel_acao, descricao_acao, horario
         FROM chamados
-        WHERE status NOT IN ('Resolvido', 'Arquivado')
+        WHERE status NOT IN ('Resolvido', 'Fechado', 'Arquivado')
         ORDER BY
             CASE prioridade
                 WHEN 'Crítica' THEN 1
