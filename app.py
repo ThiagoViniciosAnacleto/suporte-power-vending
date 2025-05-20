@@ -470,13 +470,13 @@ def atualizar_dashboard():
     chamados_por_empresa = {empresa: count for empresa, count in cursor.fetchall()}
 
     conn.close()
-
+    
     socketio.emit('dashboard_update', {
-        'total': total_chamados,
-        'status': chamados_por_status,
-        'prioridade': chamados_por_prioridade,
-        'empresas': chamados_por_empresa
-    }, broadcast=True)
+    'total': total_chamados,
+    'status': chamados_por_status,
+    'prioridade': chamados_por_prioridade,
+    'empresas': chamados_por_empresa
+})
 
 @app.route("/cadastrar_empresa", methods=["GET", "POST"])
 @login_required
