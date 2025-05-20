@@ -416,17 +416,17 @@ def historico_chamado(id):
 
 # Dicionário de nomes legíveis para campos no log
 NOMES_CAMPOS = {
-    "status": "status",
-    "prioridade": "prioridade",
-    "descricao_acao": "ação realizada",
-    "tipo_acao": "tipo da ação",
-    "origem": "origem do problema",
-    "relato": "relato do cliente",
-    "cliente": "cliente",
-    "responsavel_atendimento": "responsável",
-    "empresa": "empresa",
-    "porta_ssh": "porta SSH",
-    "tipo_maquina": "tipo de máquina"
+    "status": "o status",
+    "prioridade": "a prioridade",
+    "descricao_acao": "a ação realizada",
+    "tipo_acao": "o tipo da ação",
+    "origem": "a origem do problema",
+    "relato": "o relato do cliente",
+    "cliente": "o cliente",
+    "responsavel_atendimento": "o responsável",
+    "empresa": "a empresa",
+    "porta_ssh": "a porta SSH",
+    "tipo_maquina": "o tipo de máquina"
 }
 
 # Dicionário de ícones por campo
@@ -465,7 +465,7 @@ def formatar_acao_log(tipo, campo, valor_antigo, valor_novo, acao):
 
     # Fallback: usa nome legível do campo e ícone específico
     if valor_antigo and valor_novo:
-        return f"{icone} Alterou o {nome_legivel} de \"{valor_antigo}\" para \"{valor_novo}\""
+        return f"{icone} Alterou {nome_legivel} de \"{valor_antigo}\" para \"{valor_novo}\""
 
     return f"{icone} {acao or 'Ação registrada'}"
 
