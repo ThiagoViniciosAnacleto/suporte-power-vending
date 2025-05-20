@@ -489,6 +489,21 @@ td:last-child {
 }
 
 /* ---------------------- DASHBOARD ---------------------- */
+
+.dashboard-graficos {
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 36px;
+}
+
+.dashboard-graficos canvas {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+}
+
 .dashboard-main {
     width: 100%;
     max-width: 1900px;
