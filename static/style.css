@@ -985,12 +985,14 @@ body.darkmode .close-modal:hover {
     box-sizing: border-box;
 }
 
-/* GRID GERAL */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     justify-items: center;
+    padding: 30px 20px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 /* CARDS */
@@ -1043,19 +1045,7 @@ body.darkmode .close-modal:hover {
 
 /* GRÁFICOS */
 
-.graficos-dashboard {
-    display: flex;
-    flex-wrap: wrap;         /* permite quebrar em telas pequenas */
-    justify-content: center; /* centraliza os gráficos */
-    gap: 30px;
-    padding: 20px 0;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-}
-
 .dashboard-grid canvas {
-    background-color: #fff;
     border-radius: 14px;
     padding: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
