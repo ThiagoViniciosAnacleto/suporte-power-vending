@@ -17,27 +17,47 @@ app.secret_key = os.getenv("SECRET_KEY", "chave_padrao_insegura")
 csrf = CSRFProtect(app)
 socketio = SocketIO(app, async_mode='eventlet')
 
-# --- Função de Log com horário de Brasília ---
-def registrar_log(acao, chamado_id=None):
+def registrar_log(tipo, campo=None, valor_antigo=None, valor_novo=None, chamado_id=None):
     try:
         conn = conectar()
         cursor = conn.cursor()
-        usuario_nome = session.get("usuario")
 
+        # Obter ID do usuário logado
+        usuario_nome = session.get("usuario")
+        cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (usuario_nome,))
+        resultado = cursor.fetchone()
+        usuario_id = resultado[0] if resultado else None
+
+        # Gerar data/hora em horário de Brasília
         fuso_brasilia = timezone("America/Sao_Paulo")
         agora = datetime.now(fuso_brasilia).replace(tzinfo=None)
 
-        cursor.execute("SELECT id FROM usuarios WHERE usuario = %s", (usuario_nome,))
-        resultado = cursor.fetchone()
-        if resultado:
-            usuario_id = resultado[0]
-            cursor.execute("""
-                INSERT INTO log_acoes (usuario_id, acao, chamado_id, data_hora)
-                VALUES (%s, %s, %s, %s)
-            """, (usuario_id, acao, chamado_id, agora))
-            conn.commit()
+        # Gerar mensagem de texto legível
+        if tipo == "comentario":
+            acao = f"Comentário adicionado: {valor_novo}"
+        elif campo and valor_antigo and valor_novo:
+            acao = f"Alterou {campo} de \"{valor_antigo}\" para \"{valor_novo}\""
+        elif tipo == "criado":
+            acao = f"Criado chamado"
+        elif tipo == "atribuicao":
+            acao = f"Atribuído para {valor_novo}"
+        else:
+            acao = tipo.capitalize()
+
+        # Inserir log estruturado
+        cursor.execute("""
+            INSERT INTO log_acoes (
+                usuario_id, chamado_id, tipo, campo, valor_antigo, valor_novo, acao, data_hora
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (
+            usuario_id, chamado_id, tipo, campo, valor_antigo, valor_novo, acao, agora
+        ))
+
+        conn.commit()
+
     except Exception as e:
-        print(f"Erro ao registrar log: {e}")
+        print(f"[ERRO] ao registrar log: {e}")
     finally:
         conn.close()
 
@@ -364,16 +384,41 @@ def historico_chamado(id):
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT log_acoes.acao, log_acoes.data_hora, usuarios.usuario
+        SELECT tipo, campo, valor_antigo, valor_novo, acao, data_hora, usuarios.usuario
         FROM log_acoes
         JOIN usuarios ON log_acoes.usuario_id = usuarios.id
         WHERE log_acoes.chamado_id = %s
         ORDER BY log_acoes.data_hora DESC
     """, (id,))
-    logs = cursor.fetchall()
+    registros = cursor.fetchall()
     conn.close()
 
+    logs = [
+        (formatar_acao_log(tipo, campo, valor_antigo, valor_novo, acao), data_hora, usuario)
+        for tipo, campo, valor_antigo, valor_novo, acao, data_hora, usuario in registros
+    ]
+
     return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f"Histórico do Chamado #{id}")
+
+def formatar_acao_log(tipo, campo, valor_antigo, valor_novo, acao):
+    if tipo == "prioridade":
+        return f"📌 Alterou a prioridade de \"{valor_antigo}\" para \"{valor_novo}\""
+    
+    elif tipo == "status":
+        return f"🔄 Alterou o status de \"{valor_antigo}\" para \"{valor_novo}\""
+
+    elif tipo == "comentario":
+        return f"📝 Comentário: \"{valor_novo}\""
+
+    elif tipo == "atribuicao":
+        return f"👤 Atribuído para {valor_novo}"
+
+    elif tipo == "criado":
+        return f"🆕 Chamado criado"
+
+    # Fallback com o campo `acao` antigo
+    return f"📋 {acao or 'Ação registrada'}"
+
 
 @app.route("/listar")
 @login_required
