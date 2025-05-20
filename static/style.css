@@ -1045,7 +1045,13 @@ body.darkmode .close-modal:hover {
 
 .graficos-dashboard {
     display: flex;
-    max-width: 400px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .dashboard-grid canvas {
