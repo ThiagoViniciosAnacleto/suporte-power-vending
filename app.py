@@ -322,11 +322,25 @@ def editar_chamado(id):
                 mudancas.append(f"{campo} ({antigo} → {novo})")
 
         if mudancas:
-            descricao = "Alterou os campos: " + ", ".join(mudancas)
+            for campo in dados_novos:
+                antigo = chamado_antigo[campo]
+                novo = dados_novos[campo]
+                if str(antigo) != str(novo):
+                    registrar_log(
+                        tipo=campo,
+                        campo=campo,
+                        valor_antigo=str(antigo),
+                        valor_novo=str(novo),
+                        chamado_id=id
+                    )
         else:
-            descricao = "Editou chamado (sem alterações detectadas)"
-
-        registrar_log(descricao, id)
+            registrar_log(
+                tipo="edicao",
+                campo=None,
+                valor_antigo=None,
+                valor_novo=None,
+                chamado_id=id
+            )
         conn.close()
 
         flash("Chamado atualizado com sucesso!")
