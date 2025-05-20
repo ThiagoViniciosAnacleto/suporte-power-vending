@@ -275,6 +275,15 @@ def editar_chamado(id):
             "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
             "responsavel_acao", "descricao_acao", "status"
         )
+
+        # 🔒 Verificação: impedir finalização sem ação realizada
+        status = request.form.get("status", "").strip()
+        descricao_acao = request.form.get("descricao_acao", "").strip()
+        if status == "Finalizado" and not descricao_acao:
+            flash("Para finalizar um chamado, é obrigatório informar a ação realizada.")
+            conn.close()
+            return redirect(f"/editar_chamado/{id}")
+
         dados = [request.form[c] for c in campos]
         dados.append(id)
 
@@ -319,13 +328,13 @@ def editar_chamado(id):
     ]
     chamado_dict = dict(zip(campos, chamado))
 
-    # 🔁 Buscar listas de empresas e máquinas
+    # Buscar listas
     cursor.execute("SELECT nome FROM empresas ORDER BY nome")
     lista_empresas = [row[0] for row in cursor.fetchall()]
 
     cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
     lista_maquinas = [row[0] for row in cursor.fetchall()]
-    
+
     cursor.execute("SELECT usuario FROM usuarios ORDER BY usuario")
     lista_usuarios = [row[0] for row in cursor.fetchall()]
 
@@ -340,14 +349,13 @@ def editar_chamado(id):
 
     conn.close()
 
-    return render_template(
-        "editar_chamado.html",
-        chamado=chamado_dict,
-        historico_logs=historico_logs,
-        lista_empresas=lista_empresas,
-        lista_maquinas=lista_maquinas,
-        lista_usuarios=lista_usuarios
-    )
+    return render_template("editar_chamado.html",
+                            chamado=chamado_dict,
+                            lista_empresas=lista_empresas,
+                            lista_maquinas=lista_maquinas,
+                            lista_usuarios=lista_usuarios,
+                            historico_logs=historico_logs,
+                            titulo_pagina="Editar Chamado")
 
 
 @app.route("/historico/<int:id>")
