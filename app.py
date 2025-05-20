@@ -282,7 +282,7 @@ def editar_chamado(id):
         if status in ["Fechado", "Resolvido"] and not descricao_acao:
             flash("Para finalizar um chamado, é obrigatório informar a ação realizada.")
             conn.close()
-            return redirect(f"/editar_chamado/{id}")
+            return redirect(f"/editar/{id}")
 
         dados = [request.form[c] for c in campos]
         dados.append(id)
