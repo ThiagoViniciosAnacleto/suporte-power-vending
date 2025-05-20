@@ -488,6 +488,12 @@ def cadastrar_empresa():
             try:
                 conn = conectar()
                 cursor = conn.cursor()
+
+                cursor.execute("SELECT id FROM empresas WHERE nome = %s", (nome,))
+                if cursor.fetchone():
+                    flash("Empresa já cadastrada!")
+                    return redirect("/cadastrar_empresa")
+
                 cursor.execute("INSERT INTO empresas (nome) VALUES (%s)", (nome,))
                 conn.commit()
                 flash("Empresa cadastrada com sucesso!")
@@ -510,6 +516,12 @@ def cadastrar_maquina():
             try:
                 conn = conectar()
                 cursor = conn.cursor()
+
+                cursor.execute("SELECT id FROM maquinas WHERE modelo = %s", (modelo,))
+                if cursor.fetchone():
+                    flash("Máquina já cadastrada!")
+                    return redirect("/cadastrar_maquina")
+
                 cursor.execute("INSERT INTO maquinas (modelo) VALUES (%s)", (modelo,))
                 conn.commit()
                 flash("Máquina cadastrada com sucesso!")
