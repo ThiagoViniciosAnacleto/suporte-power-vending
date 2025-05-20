@@ -1044,6 +1044,7 @@ body.darkmode .close-modal:hover {
 /* GRÁFICOS */
 
 .graficos-dashboard {
+    display: flex;
     max-width: 400px;
 }
 
