@@ -1052,6 +1052,50 @@ body.darkmode .close-modal:hover {
     background-color: #2563eb;
 }
 
+/* ---------------------- GRÁFICOS DASHBOARD ---------------------- */
+canvas {
+    background: #1d2433;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+canvas:hover {
+    transform: scale(1.02);
+}
+
+/* Seção de gráficos */
+.dashboard-main canvas {
+    max-width: 380px;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 800px) {
+    .dashboard-main canvas {
+    max-width: 100%;
+    }
+}
+
+/* Estilização opcional para h3 */
+.dashboard-main h3 {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+    color: var(--cor-texto-dark);
+    text-align: center;
+}
+
+/* Cor de fundo escura para a área dos gráficos */
+.dashboard-main section:last-of-type {
+    padding: 24px;
+    border-radius: 20px;
+    background: #161c28;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    margin-top: 48px;
+}
+
+
 /* ---------------------- RESPONSIVIDADE DESKTOP AVANÇADA ---------------------- */
 
 @media (min-width: 3840px) {
