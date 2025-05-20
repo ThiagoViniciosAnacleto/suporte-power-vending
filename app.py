@@ -200,20 +200,30 @@ def logout():
 def home():
     conn = conectar()
     cursor = conn.cursor()
+
     cursor.execute("""
         SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato, prioridade, origem, tipo_maquina, porta_ssh, tipo_acao, responsavel_acao, descricao_acao, horario
         FROM chamados
-        WHERE status = 'Aberto'
-        ORDER BY id DESC
-        LIMIT 8
+        WHERE status NOT IN ('Resolvido', 'Arquivado')
+        ORDER BY
+            CASE prioridade
+                WHEN 'Crítica' THEN 1
+                WHEN 'Alta' THEN 2
+                WHEN 'Média' THEN 3
+                WHEN 'Baixa' THEN 4
+            END,
+            id DESC
+        LIMIT 20
     """)
+
     chamados_abertos = [dict(zip((
         "id", "responsavel_atendimento", "data", "cliente", "empresa", "status",
         "relato", "prioridade", "origem", "tipo_maquina", "porta_ssh", "tipo_acao",
         "responsavel_acao", "descricao_acao", "horario"
     ), row)) for row in cursor.fetchall()]
+
     conn.close()
-    return render_template("index.html", chamados_abertos=chamados_abertos, titulo_pagina="Chamados Abertos")
+    return render_template("index.html", chamados_abertos=chamados_abertos, titulo_pagina="Chamados em andamento")
 
 @app.route("/novo", methods=["GET", "POST"])
 @login_required

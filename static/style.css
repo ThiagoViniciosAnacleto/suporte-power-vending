@@ -752,6 +752,33 @@ body.darkmode .toast {
     color: #d6dfff;
 }
 
+.prioridade {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.prioridade-crítica {
+    color: white;
+    background-color: red;
+}
+
+.prioridade-alta {
+    color: white;
+    background-color: orange;
+}
+
+.prioridade-média {
+    color: black;
+    background-color: gold;
+}
+
+.prioridade-baixa {
+    color: white;
+    background-color: green;
+}
+
 /* ---------------------- MODAL DE CHAMADO ---------------------- */
 .modal-overlay {
     position: fixed;

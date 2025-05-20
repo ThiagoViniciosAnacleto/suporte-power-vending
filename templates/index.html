@@ -68,6 +68,11 @@
                     <span><strong>Cliente:</strong> {{ chamado.cliente }}</span>
                     <span><strong>Empresa:</strong> {{ chamado.empresa }}</span>
                     <span><strong>Data:</strong> {{ chamado.data }}</span>
+                    <span><strong>Prioridade:</strong> 
+                        <span class="prioridade prioridade-{{ chamado.prioridade|lower }}">
+                            {{ chamado.prioridade }}
+                        </span>
+                    </span>
                 </div>
             </div>
             <!-- Modal Chamado (um por chamado) -->
