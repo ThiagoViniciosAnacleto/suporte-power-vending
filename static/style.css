@@ -491,6 +491,7 @@ td:last-child {
 /* ---------------------- DASHBOARD ---------------------- */
 
 .dashboard-graficos {
+    width: 90%;
     margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
@@ -499,8 +500,6 @@ td:last-child {
 }
 
 .dashboard-graficos canvas {
-    max-width: 260px;
-    width: 100%;
     height: auto;
 }
 
@@ -1082,7 +1081,7 @@ canvas:hover {
 
 /* Seção de gráficos */
 .dashboard-main canvas {
-    max-width: 260px;
+    max-width: 100%;
     width: 100%;
     height: auto;
 }
