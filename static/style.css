@@ -753,7 +753,6 @@ body.darkmode .toast {
 }
 
 .chamado-card-main .prioridade-wrapper {
-    color: black;
     display: flex;
     align-items: center;
     gap: 6px;
