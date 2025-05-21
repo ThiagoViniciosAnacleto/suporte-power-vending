@@ -75,6 +75,7 @@
                 <option value="{{ nome }}">{{ nome }}</option>
                 {% endfor %}
                 </select>
+        <label for="responsavel_acao">Resposável pela Ação:</label>
             <select id="responsavel_acao" name="responsavel_acao" required>
                 <option value="" disabled selected>Selecione um responsável</option>
                 {% for user in lista_usuarios %}
