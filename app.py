@@ -391,13 +391,19 @@ def editar_chamado(id):
     lista_usuarios = [row[0] for row in cursor.fetchall()]
 
     cursor.execute("""
-        SELECT log_acoes.acao, log_acoes.data_hora, usuarios.usuario
-        FROM log_acoes
-        JOIN usuarios ON log_acoes.usuario_id = usuarios.id
-        WHERE log_acoes.chamado_id = %s
-        ORDER BY log_acoes.data_hora DESC
+    SELECT log_acoes.tipo, log_acoes.campo, log_acoes.valor_antigo, log_acoes.valor_novo,
+            log_acoes.acao, log_acoes.data_hora, usuarios.usuario
+    FROM log_acoes
+    JOIN usuarios ON log_acoes.usuario_id = usuarios.id
+    WHERE log_acoes.chamado_id = %s
+    ORDER BY log_acoes.data_hora DESC
     """, (id,))
-    historico_logs = cursor.fetchall()
+
+    historico_logs = [
+    (formatar_acao_log(tipo, campo, valor_antigo, valor_novo, acao), data_hora, usuario)
+    for tipo, campo, valor_antigo, valor_novo, acao, data_hora, usuario in cursor.fetchall()
+]
+
 
     conn.close()
 
@@ -443,7 +449,7 @@ NOMES_CAMPOS = {
     "origem": "a origem do problema",
     "relato": "o relato do cliente",
     "cliente": "o cliente",
-    "responsavel_atendimento": "o responsável",
+    "responsavel_atendimento": "o responsável pelo atendimento",
     "empresa": "a empresa",
     "porta_ssh": "a porta SSH",
     "tipo_maquina": "o tipo de máquina"
