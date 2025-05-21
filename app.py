@@ -623,7 +623,6 @@ def cadastrar_recorrente():
             request.form['origem'],
             request.form['responsavel_atendimento'],
             request.form['responsavel_acao'],
-            request.form['descricao_acao'],
             request.form['frequencia'],
             request.form['proxima_execucao']
         )
@@ -632,7 +631,7 @@ def cadastrar_recorrente():
             INSERT INTO chamados_recorrentes (
                 cliente, empresa, porta_ssh, tipo_maquina, relato,
                 prioridade, origem, responsavel_atendimento, responsavel_acao,
-                descricao_acao, frequencia, proxima_execucao
+                frequencia, proxima_execucao
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, dados)
         conn.commit()
