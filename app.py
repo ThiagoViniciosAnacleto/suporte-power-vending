@@ -264,7 +264,7 @@ def criar_chamado():
     cursor.execute("SELECT id, nome FROM empresas ORDER BY nome")
     lista_empresas = cursor.fetchall()
 
-    cursor.execute("SELECT id, nome FROM maquinas ORDER BY modelo")
+    cursor.execute("SELECT id, modelo FROM maquinas ORDER BY modelo")
     lista_maquinas = cursor.fetchall()
 
     cursor.execute("SELECT id, nome FROM usuarios WHERE is_admin IN (1, 2) ORDER BY nome")
