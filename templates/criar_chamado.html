@@ -69,7 +69,12 @@
 <option>Crítica</option>
 </select>
 <label for="origem">Origem do Caso:</label>
-<input id="origem" name="origem" type="text"/>
+<select id="origem" name="origem" required>
+    <option value="" disabled selected>Selecione a origem do problema</option>
+    {% for id, nome in lista_origens %}
+    <option value="{{ nome }}">{{ nome }}</option>
+    {% endfor %}
+</select>
 <label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
 <input id="tipo_acao" name="tipo_acao" type="text"/>
 <select id="responsavel_acao" name="responsavel_acao" required>

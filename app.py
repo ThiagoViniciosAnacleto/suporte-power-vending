@@ -257,17 +257,22 @@ def criar_chamado():
             conn.close()
         return redirect("/")
 
+    # GET: carrega dados necessários para o formulário
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("SELECT nome FROM empresas ORDER BY nome")
-    lista_empresas = [row[0] for row in cursor.fetchall()]
 
-    cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
-    lista_maquinas = [row[0] for row in cursor.fetchall()]
-    
-    cursor.execute("SELECT usuario FROM usuarios ORDER BY usuario")
-    lista_usuarios = [row[0] for row in cursor.fetchall()]
-    
+    cursor.execute("SELECT id, nome FROM empresas ORDER BY nome")
+    lista_empresas = cursor.fetchall()
+
+    cursor.execute("SELECT id, nome FROM maquinas ORDER BY nome")
+    lista_maquinas = cursor.fetchall()
+
+    cursor.execute("SELECT id, nome FROM usuarios WHERE is_admin IN (1, 2) ORDER BY nome")
+    lista_usuarios = cursor.fetchall()
+
+    cursor.execute("SELECT id, nome FROM origens ORDER BY nome")
+    lista_origens = cursor.fetchall()
+
     conn.close()
 
     return render_template(
@@ -278,8 +283,10 @@ def criar_chamado():
         lista_empresas=lista_empresas,
         lista_maquinas=lista_maquinas,
         lista_usuarios=lista_usuarios,
+        lista_origens=lista_origens,  # 👈 necessário para o select de origem
         titulo_pagina="Criar Chamado"
     )
+
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @login_required
