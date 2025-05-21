@@ -752,6 +752,12 @@ body.darkmode .toast {
     color: #d6dfff;
 }
 
+.prioridade-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .prioridade {
     font-weight: 600;
     padding: 2px 8px;
@@ -760,6 +766,8 @@ body.darkmode .toast {
     background: #eee;
     color: #222;
     display: inline-block;
+    margin-left: 4px; /* 👈 isso aqui ajuda a manter colado sem quebra */
+    vertical-align: middle; /* 👈 opcional para alinhamento fino */
 }
 
 .prioridade-crítica {

@@ -49,8 +49,8 @@
                 {% endif %}
 
                 {% if session["is_admin"] == 1 %}
-                <li><a href="/cadastrar_usuario" class="botao-acao">+ Cadastrar Novo Usuário</a></li>
-                <li><a href="/gerenciar_usuarios" class="botao-acao">+ Editar Privilégios</a></li>
+                <li><a href="/cadastrar_usuario" class="botao-acao">➕ Cadastrar Novo Usuário</a></li>
+                <li><a href="/gerenciar_usuarios" class="botao-acao">➕ Editar Privilégios</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -68,11 +68,9 @@
                     <span><strong>Cliente:</strong> {{ chamado.cliente }}</span>
                     <span><strong>Empresa:</strong> {{ chamado.empresa }}</span>
                     <span><strong>Data:</strong> {{ chamado.data }}</span>
-                    <span>
-                        <strong>Prioridade: </strong>
-                        <span class="prioridade prioridade-{{ chamado.prioridade|lower }}">
-                            {{ chamado.prioridade }}
-                        </span>
+                    <span class="prioridade-wrapper">
+                    <strong>Prioridade:</strong>
+                    <span class="prioridade prioridade-{{ chamado.prioridade|lower }}">{{ chamado.prioridade }}</span>
                     </span>
                 </div>
             </div>
