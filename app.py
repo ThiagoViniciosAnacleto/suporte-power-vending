@@ -380,6 +380,9 @@ def editar_chamado(id):
     chamado_dict = dict(zip(campos, chamado))
 
     # Buscar listas
+    cursor.execute("SELECT nome FROM origens ORDER BY nome")
+    lista_origens = [row[0] for row in cursor.fetchall()]
+
     cursor.execute("SELECT nome FROM empresas ORDER BY nome")
     lista_empresas = [row[0] for row in cursor.fetchall()]
 
@@ -403,6 +406,7 @@ def editar_chamado(id):
     return render_template("editar_chamado.html",
                             chamado=chamado_dict,
                             lista_empresas=lista_empresas,
+                            lista_origens=lista_origens,
                             lista_maquinas=lista_maquinas,
                             lista_usuarios=lista_usuarios,
                             historico_logs=historico_logs,
