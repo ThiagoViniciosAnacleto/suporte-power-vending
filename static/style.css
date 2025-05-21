@@ -752,10 +752,23 @@ body.darkmode .toast {
     color: #d6dfff;
 }
 
+.chamado-card-main .prioridade-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px; /* mesmo espaçamento visual */
+}
+
+.chamado-card-main .prioridade-wrapper span {
+  display: inline-block; /* necessário para manter o estilo do badge */
+  margin-bottom: 0; /* evita conflito */
+}
+
 .prioridade-wrapper {
     display: flex;
     align-items: center;
     gap: 6px;
+    line-height: 1;
 }
 
 .prioridade {
