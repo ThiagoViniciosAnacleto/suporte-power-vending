@@ -270,7 +270,7 @@ def criar_chamado():
     cursor.execute("SELECT usuario FROM usuarios WHERE is_admin IN (1, 2) ORDER BY usuario")
     lista_usuarios = [row[0] for row in cursor.fetchall()]
 
-    cursor.execute("SELECT nome FROM origens ORDER BY nome")
+    cursor.execute("SELECT nome FROM origens_problema ORDER BY nome")
     lista_origens = [row[0] for row in cursor.fetchall()]
 
     conn.close()
@@ -378,7 +378,7 @@ def editar_chamado(id):
     chamado_dict = dict(zip(campos, chamado))
 
     # Buscar listas
-    cursor.execute("SELECT nome FROM origens ORDER BY nome")
+    cursor.execute("SELECT nome FROM origens_problema ORDER BY nome")
     lista_origens = [row[0] for row in cursor.fetchall()]
 
     cursor.execute("SELECT nome FROM empresas ORDER BY nome")
@@ -644,10 +644,10 @@ def cadastrar_recorrente():
     cur.execute("SELECT nome FROM empresas ORDER BY nome")
     lista_empresas = [row[0] for row in cur.fetchall()]
 
-    cur.execute("SELECT nome FROM tipos_maquina ORDER BY nome")
+    cur.execute("SELECT nome FROM maquinas ORDER BY nome")
     lista_maquinas = [row[0] for row in cur.fetchall()]
 
-    cur.execute("SELECT nome FROM usuarios ORDER BY nome")
+    cur.execute("SELECT usuario FROM usuarios ORDER BY usuario")
     lista_usuarios = [row[0] for row in cur.fetchall()]
 
     cur.execute("SELECT nome FROM origens_problema ORDER BY nome")
