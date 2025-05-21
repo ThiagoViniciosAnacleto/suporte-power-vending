@@ -605,6 +605,65 @@ def atualizar_dashboard():
     'empresas': chamados_por_empresa
 })
 
+@app.route('/cadastrar_recorrente', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def cadastrar_recorrente():
+    conn = conectar()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        dados = (
+            request.form['cliente'],
+            request.form['empresa'],
+            request.form['porta_ssh'],
+            request.form['tipo_maquina'],
+            request.form['relato'],
+            request.form['prioridade'],
+            request.form['origem'],
+            request.form['responsavel_atendimento'],
+            request.form['responsavel_acao'],
+            request.form['descricao_acao'],
+            request.form['frequencia'],
+            request.form['proxima_execucao']
+        )
+
+        cur.execute("""
+            INSERT INTO chamados_recorrentes (
+                cliente, empresa, porta_ssh, tipo_maquina, relato,
+                prioridade, origem, responsavel_atendimento, responsavel_acao,
+                descricao_acao, frequencia, proxima_execucao
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, dados)
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect('/cadastrar_recorrente')
+
+    # GET: carregar dados para preencher os <select>
+    cur.execute("SELECT nome FROM empresas ORDER BY nome")
+    lista_empresas = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT nome FROM tipos_maquina ORDER BY nome")
+    lista_maquinas = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT nome FROM usuarios ORDER BY nome")
+    lista_usuarios = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT nome FROM origens_problema ORDER BY nome")
+    lista_origens = [row[0] for row in cur.fetchall()]
+
+    cur.close()
+    conn.close()
+
+    return render_template(
+        'cadastrar_recorrente.html',
+        lista_empresas=lista_empresas,
+        lista_maquinas=lista_maquinas,
+        lista_usuarios=lista_usuarios,
+        lista_origens=lista_origens
+    )
+
 @app.route("/cadastrar_empresa", methods=["GET", "POST"])
 @login_required
 @tec_or_admin_required

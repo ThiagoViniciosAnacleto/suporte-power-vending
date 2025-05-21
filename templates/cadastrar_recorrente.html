@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8"/>
+    <title>Cadastrar Chamado Recorrente</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+</head>
+<body>
+    <header class="topbar">
+        <div class="usuario-info">
+            <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Foto do usuário" class="usuario-avatar">
+            <div class="usuario-dados">
+                <span class="usuario-nome">{{ session["usuario"] }}</span>
+                <span class="usuario-cargo">
+                    {% if session["is_admin"] == 1 %}Administrador
+                    {% elif session["is_admin"] == 2 %}Técnico
+                    {% else %}Usuário Comum
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="topbar-left">
+            <h1>Cadastrar Chamado Recorrente</h1>
+        </div>
+        <div class="topbar-right">
+            <button class="darkmode-btn" id="toggle-darkmode">🌙 Modo Escuro</button>
+            <form action="/" method="get" class="topbar-form">
+                <button type="submit">Home</button>
+            </form>
+            <form action="/logout" method="get" class="topbar-form">
+                <button type="submit">Sair</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="form-main">
+        <form action="/cadastrar_recorrente" class="form-card" method="POST">
+            <label for="cliente">Nome do Cliente:</label>
+            <input id="cliente" name="cliente" required type="text"/>
+
+            <label for="empresa">Empresa:</label>
+            <select id="empresa" name="empresa" required>
+                {% for empresa in lista_empresas %}
+                <option value="{{ empresa }}">{{ empresa }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="porta_ssh">Porta SSH da Máquina:</label>
+            <input id="porta_ssh" name="porta_ssh" type="text"/>
+
+            <label for="tipo_maquina">Tipo da Máquina:</label>
+            <select id="tipo_maquina" name="tipo_maquina">
+                {% for modelo in lista_maquinas %}
+                <option value="{{ modelo }}">{{ modelo }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="relato">Relato / Solicitação do Cliente:</label>
+            <textarea id="relato" name="relato" rows="3" required></textarea>
+
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade">
+                <option>Baixa</option>
+                <option>Média</option>
+                <option>Alta</option>
+                <option>Crítica</option>
+            </select>
+
+            <label for="origem">Origem do Caso:</label>
+            <select id="origem" name="origem" required>
+                <option value="" disabled selected>Selecione a origem do problema</option>
+                {% for nome in lista_origens %}
+                <option value="{{ nome }}">{{ nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+            <input id="responsavel_atendimento" name="responsavel_atendimento" type="text" value="{{ session['usuario'] }}" readonly/>
+
+            <label for="responsavel_acao">Responsável pela Ação:</label>
+            <select id="responsavel_acao" name="responsavel_acao" required>
+                <option value="" disabled selected>Selecione um responsável</option>
+                {% for user in lista_usuarios %}
+                <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="descricao_acao">Ação Realizada / Descrição:</label>
+            <textarea id="descricao_acao" name="descricao_acao" rows="3"></textarea>
+
+            <label for="frequencia">Frequência:</label>
+            <select id="frequencia" name="frequencia" required>
+                <option value="diaria">Diária</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensal">Mensal</option>
+            </select>
+
+            <label for="proxima_execucao">Próxima Execução:</label>
+            <input id="proxima_execucao" name="proxima_execucao" required type="date"/>
+
+            <button type="submit">Salvar Chamado Recorrente</button>
+        </form>
+    </main>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
