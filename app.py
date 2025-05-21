@@ -261,17 +261,17 @@ def criar_chamado():
     conn = conectar()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id, nome FROM empresas ORDER BY nome")
-    lista_empresas = cursor.fetchall()
+    cursor.execute("SELECT nome FROM empresas ORDER BY nome")
+    lista_empresas = [row[0] for row in cursor.fetchall()]
 
-    cursor.execute("SELECT id, modelo FROM maquinas ORDER BY modelo")
-    lista_maquinas = cursor.fetchall()
+    cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
+    lista_maquinas = [row[0] for row in cursor.fetchall()]
 
-    cursor.execute("SELECT id, usuario FROM usuarios WHERE is_admin IN (1, 2) ORDER BY usuario")
-    lista_usuarios = cursor.fetchall()
+    cursor.execute("SELECT usuario FROM usuarios WHERE is_admin IN (1, 2) ORDER BY usuario")
+    lista_usuarios = [row[0] for row in cursor.fetchall()]
 
-    cursor.execute("SELECT id, nome FROM origens ORDER BY nome")
-    lista_origens = cursor.fetchall()
+    cursor.execute("SELECT nome FROM origens ORDER BY nome")
+    lista_origens = [row[0] for row in cursor.fetchall()]
 
     conn.close()
 
