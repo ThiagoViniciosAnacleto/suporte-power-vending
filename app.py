@@ -644,7 +644,7 @@ def cadastrar_recorrente():
     cur.execute("SELECT nome FROM empresas ORDER BY nome")
     lista_empresas = [row[0] for row in cur.fetchall()]
 
-    cur.execute("SELECT nome FROM maquinas ORDER BY nome")
+    cur.execute("SELECT modelo FROM maquinas ORDER BY modelo")
     lista_maquinas = [row[0] for row in cur.fetchall()]
 
     cur.execute("SELECT usuario FROM usuarios ORDER BY usuario")
