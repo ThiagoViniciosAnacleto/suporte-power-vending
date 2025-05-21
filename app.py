@@ -202,7 +202,7 @@ def home():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato, prioridade, origem, tipo_maquina, porta_ssh, tipo_acao, responsavel_acao, descricao_acao, horario
+        SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato, prioridade, origem, tipo_maquina, porta_ssh, responsavel_acao, descricao_acao, horario
         FROM chamados
         WHERE status NOT IN ('Resolvido', 'Fechado', 'Arquivado')
         ORDER BY
@@ -218,7 +218,7 @@ def home():
 
     chamados_abertos = [dict(zip((
         "id", "responsavel_atendimento", "data", "cliente", "empresa", "status",
-        "relato", "prioridade", "origem", "tipo_maquina", "porta_ssh", "tipo_acao",
+        "relato", "prioridade", "origem", "tipo_maquina", "porta_ssh",
         "responsavel_acao", "descricao_acao", "horario"
     ), row)) for row in cursor.fetchall()]
 
@@ -235,7 +235,7 @@ def criar_chamado():
     if request.method == "POST":
         campos = (
             "responsavel_atendimento", "data", "horario", "cliente", "empresa", "porta_ssh",
-            "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
+            "tipo_maquina", "relato", "prioridade", "origem",
             "responsavel_acao", "descricao_acao", "status"
         )
         dados = [request.form.get(c, "") or agora.strftime("%d/%m/%Y" if c == "data" else "%H:%M" if c == "horario" else "") for c in campos]
@@ -301,15 +301,14 @@ def editar_chamado(id):
         dados_antigos = cursor.fetchone()
         campos_completos = [
             "id", "responsavel_atendimento", "data", "horario", "cliente", "empresa",
-            "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem",
-            "tipo_acao", "responsavel_acao", "descricao_acao", "status"
+            "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem", "responsavel_acao", "descricao_acao", "status"
         ]
         chamado_antigo = dict(zip(campos_completos, dados_antigos))
 
         # Preparar atualização
         campos = (
             "responsavel_atendimento", "data", "horario", "cliente", "empresa", "porta_ssh",
-            "tipo_maquina", "relato", "prioridade", "origem", "tipo_acao",
+            "tipo_maquina", "relato", "prioridade", "origem",
             "responsavel_acao", "descricao_acao", "status"
         )
 
@@ -374,8 +373,7 @@ def editar_chamado(id):
 
     campos = [
         "id", "responsavel_atendimento", "data", "horario", "cliente", "empresa",
-        "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem",
-        "tipo_acao", "responsavel_acao", "descricao_acao", "status"
+        "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem", "responsavel_acao", "descricao_acao", "status"
     ]
     chamado_dict = dict(zip(campos, chamado))
 
@@ -442,7 +440,6 @@ NOMES_CAMPOS = {
     "status": "o status",
     "prioridade": "a prioridade",
     "descricao_acao": "a ação realizada",
-    "tipo_acao": "o tipo da ação",
     "origem": "a origem do problema",
     "relato": "o relato do cliente",
     "cliente": "o cliente",
@@ -457,7 +454,6 @@ ICONE_CAMPO = {
     "prioridade": "📌",
     "status": "🔄",
     "descricao_acao": "🛠️",
-    "tipo_acao": "🧭",
     "origem": "🛠️",
     "relato": "📝",
     "cliente": "🧑",

@@ -78,8 +78,6 @@
     <option value="{{ nome }}" {% if nome == chamado.origem %}selected{% endif %}>{{ nome }}</option>
     {% endfor %}
 </select>
-<label for="tipo_acao">Tipo de Atendimento / Ação Necessária:</label>
-<input id="tipo_acao" name="tipo_acao" type="text" value="{{ chamado.tipo_acao }}"/>
 <label for="responsavel_acao">Responsável pela Ação:</label>
 <select id="responsavel_acao" name="responsavel_acao">
     {% for user in lista_usuarios %}
