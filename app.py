@@ -755,6 +755,15 @@ def alterar_privilegio(id):
 
     return redirect("/gerenciar_usuarios")
 
+from gerar_chamados_recorrentes import gerar_chamados_recorrentes
+
+@app.route('/executar_recorrentes')
+@admin_required
+def executar_chamados_recorrentes():
+    gerar_chamados_recorrentes()
+    return "✅ Chamados recorrentes executados com sucesso!"
+
+
 if __name__ == "__main__":
     import eventlet
     import eventlet.wsgi
