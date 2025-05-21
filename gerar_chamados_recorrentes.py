@@ -6,25 +6,27 @@ def gerar_chamados_recorrentes():
     cur = conn.cursor()
 
     hoje = date.today()
+    print(f"🔍 Executando para data: {hoje}")
 
-    # Buscar modelos recorrentes com execução para hoje
+    # Busca os chamados recorrentes agendados para hoje
     cur.execute("""
         SELECT id, cliente, empresa, porta_ssh, tipo_maquina, relato,
                prioridade, origem, responsavel_atendimento,
-               responsavel_acao, frequencia, proxima_execucao
+               responsavel_acao, frequencia
         FROM chamados_recorrentes
         WHERE ativo = TRUE AND proxima_execucao = %s
     """, (hoje,))
     recorrentes = cur.fetchall()
 
+    print(f"📋 Chamados recorrentes encontrados: {len(recorrentes)}")
+
     for r in recorrentes:
         (
             id_rec, cliente, empresa, porta_ssh, tipo_maquina, relato,
-            prioridade, origem, responsavel_atend, responsavel_acao,
-            frequencia, _  # ignoramos a data porque já usamos
+            prioridade, origem, responsavel_atend, responsavel_acao, frequencia
         ) = r
 
-        # Inserir novo chamado completo na tabela chamados
+        # Criação do chamado automático
         cur.execute("""
             INSERT INTO chamados (
                 responsavel_atendimento, data, horario,
@@ -35,7 +37,7 @@ def gerar_chamados_recorrentes():
         """, (
             responsavel_atend,
             hoje.strftime('%Y-%m-%d'),
-            "00:01",  # horário padrão
+            "00:01",  # horário fixo para chamados automáticos
             cliente,
             empresa,
             porta_ssh,
@@ -46,30 +48,30 @@ def gerar_chamados_recorrentes():
             responsavel_acao
         ))
 
-        # Calcular próxima data
-        nova_data = hoje
+        # Atualiza a próxima execução conforme a frequência
         if frequencia == 'diaria':
-            nova_data += timedelta(days=1)
+            nova_data = hoje + timedelta(days=1)
         elif frequencia == 'semanal':
-            nova_data += timedelta(weeks=1)
+            nova_data = hoje + timedelta(weeks=1)
         elif frequencia == 'mensal':
-            if hoje.month == 12:
-                nova_data = hoje.replace(year=hoje.year + 1, month=1)
-            else:
-                nova_data = hoje.replace(month=hoje.month + 1)
+            nova_data = hoje.replace(day=1) + timedelta(days=32)
+            nova_data = nova_data.replace(day=1)
+        else:
+            nova_data = hoje  # fallback de segurança
 
-        # Atualizar proxima_execucao
         cur.execute("""
             UPDATE chamados_recorrentes
             SET proxima_execucao = %s
             WHERE id = %s
         """, (nova_data, id_rec))
 
+        print(f"✅ Chamado criado a partir do modelo ID {id_rec}, próxima execução em {nova_data}")
+
     conn.commit()
     cur.close()
     conn.close()
-    print("Chamados recorrentes gerados com sucesso!")
+    print("🎉 Geração de chamados recorrentes concluída!")
 
-# Execução direta (apenas se for rodado como script)
+# Executar manualmente
 if __name__ == '__main__':
     gerar_chamados_recorrentes()
