@@ -758,8 +758,11 @@ def alterar_privilegio(id):
 from gerar_chamados_recorrentes import gerar_chamados_recorrentes
 
 @app.route('/executar_recorrentes')
-@admin_required
 def executar_chamados_recorrentes():
+    token = request.args.get('token')
+    if token != '5t8sWdti0cxtf3WAhobI6G8bAnTg1SLB':
+        return "❌ Acesso não autorizado", 403
+
     gerar_chamados_recorrentes()
     return "✅ Chamados recorrentes executados com sucesso!"
 
