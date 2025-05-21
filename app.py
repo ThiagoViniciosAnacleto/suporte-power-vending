@@ -632,7 +632,7 @@ def cadastrar_recorrente():
                 cliente, empresa, porta_ssh, tipo_maquina, relato,
                 prioridade, origem, responsavel_atendimento, responsavel_acao,
                 frequencia, proxima_execucao
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, dados)
         conn.commit()
         cur.close()
