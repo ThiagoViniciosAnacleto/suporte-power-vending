@@ -1,0 +1,51 @@
+<div class="cards-abertos-container" id="cards-abertos-container">
+  {% if chamados_abertos %}
+    {% for chamado in chamados_abertos %}
+      <!-- Card Chamado -->
+      <div class="chamado-card" onclick="abrirModalChamado({{ chamado.id }})" id="card-{{ chamado.id }}">
+        <div class="chamado-card-header">
+          <span class="chamado-id">#{{ chamado.id }}</span>
+          <span class="chamado-status {{ chamado.status | lower | replace(' ', '-') }}">{{ chamado.status }}</span>
+        </div>
+        <div class="chamado-card-main">
+          <span><strong>Cliente:</strong> {{ chamado.cliente }}</span>
+          <span><strong>Empresa:</strong> {{ chamado.empresa }}</span>
+          <span><strong>Data:</strong> {{ chamado.data }}</span>
+          <span class="prioridade-wrapper">
+            <strong>Prioridade:</strong>
+            <span class="prioridade prioridade-{{ chamado.prioridade | lower }}">{{ chamado.prioridade }}</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Modal Chamado -->
+      <div class="modal-chamado" id="modal-chamado-{{ chamado.id }}" style="display: none;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-titulo">Chamado #{{ chamado.id }} - {{ chamado.status }}</h2>
+            <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})">&times;</button>
+          </div>
+          <p><strong>Responsável:</strong> {{ chamado.responsavel_atendimento }}</p>
+          <p><strong>Data:</strong> {{ chamado.data }} {{ chamado.horario }}</p>
+          <p><strong>Cliente:</strong> {{ chamado.cliente }}</p>
+          <p><strong>Empresa:</strong> {{ chamado.empresa }}</p>
+          <p><strong>Tipo de Máquina:</strong> {{ chamado.tipo_maquina }}</p>
+          <p><strong>Porta SSH:</strong> {{ chamado.porta_ssh }}</p>
+          <p><strong>Prioridade:</strong> {{ chamado.prioridade }}</p>
+          <p><strong>Origem:</strong> {{ chamado.origem }}</p>
+          <p><strong>Responsável pela ação:</strong> {{ chamado.responsavel_acao }}</p>
+          <p><strong>Relato:</strong> {{ chamado.relato }}</p>
+          <p><strong>Descrição da ação:</strong> {{ chamado.descricao_acao }}</p>
+          <a href="/editar/{{ chamado.id }}" class="btn-editar-modal">
+            ✏️ Editar Chamado
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- Overlay para modal -->
+    <div class="modal-overlay" id="modal-overlay" style="display: none;"></div>
+  {% else %}
+    <p style="text-align: center; font-size: 1.2rem; color: #ccc;">Nenhum chamado aberto.</p>
+  {% endif %}
+</div>
