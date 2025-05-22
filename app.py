@@ -1,5 +1,11 @@
 import sys
 import os
+from dotenv import load_dotenv  # 👈 Adicionado
+
+# 👇 Carrega o .env correto com base no MODO
+env_file = ".env.dev" if os.getenv("MODO") == "DEV" else ".env"
+load_dotenv(env_file)
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, render_template, request, redirect, session, flash
