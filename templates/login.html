@@ -14,7 +14,6 @@
 </header>
 <main class="form-main">
 <form action="/login" class="form-card" method="POST" style="margin-top: 70px;"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
-<h1 style="margin-bottom: 24px; font-size: 1.8rem;">Login de Acesso</h1>
 
             {% if erro %}
                 <div class="login-erro">{{ erro }}</div>
