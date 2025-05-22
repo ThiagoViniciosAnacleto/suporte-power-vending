@@ -1,20 +1,17 @@
 import os
-import sqlite3
 import psycopg2
 from dotenv import load_dotenv
 
-load_dotenv()
-
-MODO = os.getenv("MODO", "DEV")
+# Mesmo esquema de detecção de ambiente
+env_file = ".env.dev" if os.getenv("MODO") == "DEV" else ".env"
+load_dotenv(env_file)
 
 def conectar():
-    if MODO == "PROD":
-        return psycopg2.connect(
-            host=os.getenv("DB_HOST"),
-            dbname=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASS"),
-            port=os.getenv("DB_PORT", 5432)
-        )
-    else:
-        return sqlite3.connect("chamados.db")
+    return psycopg2.connect(
+        host=os.getenv("DB_HOST"),
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASS"),
+        port=os.getenv("DB_PORT", 5432),
+        sslmode=os.getenv("SSL_MODE", "require")
+    )
