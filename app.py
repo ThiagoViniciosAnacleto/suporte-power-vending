@@ -585,6 +585,40 @@ def dashboard():
         chamados_por_empresa=chamados_por_empresa
     )
     
+
+@app.route("/conteudo/chamados_abertos")
+@login_required
+def conteudo_chamados_abertos():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, responsavel_atendimento, data, cliente, empresa, status, relato,
+               prioridade, origem, tipo_maquina, porta_ssh, responsavel_acao, descricao_acao, horario
+        FROM chamados
+        WHERE status NOT IN ('Resolvido', 'Fechado', 'Arquivado')
+        ORDER BY
+            CASE prioridade
+                WHEN 'Crítica' THEN 1
+                WHEN 'Alta' THEN 2
+                WHEN 'Média' THEN 3
+                WHEN 'Baixa' THEN 4
+            END,
+            id DESC
+        LIMIT 20
+    """)
+
+    chamados_abertos = [dict(zip((
+        "id", "responsavel_atendimento", "data", "cliente", "empresa", "status",
+        "relato", "prioridade", "origem", "tipo_maquina", "porta_ssh",
+        "responsavel_acao", "descricao_acao", "horario"
+    ), row)) for row in cursor.fetchall()]
+
+    conn.close()
+
+    return render_template("partials/cards_abertos.html", chamados_abertos=chamados_abertos)
+
+
 @socketio.on('solicitar_atualizacao')
 def atualizar_dashboard():
     conn = conectar()
