@@ -724,6 +724,17 @@ def conteudo_dashboard():
 def conteudo_cadastrar_usuario():
     return render_template("partials/cadastrar_usuario.html")
 
+@app.route("/conteudo/editar_privilegios")
+@login_required
+@admin_required
+def conteudo_editar_privilegios():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, usuario, is_admin FROM usuarios ORDER BY id")
+    usuarios = [dict(zip(["id", "usuario", "is_admin"], row)) for row in cursor.fetchall()]
+    conn.close()
+    return render_template("partials/editar_privilegios.html", usuarios=usuarios)
+
 
 @app.route('/cadastrar_recorrente', methods=['GET', 'POST'])
 @login_required
