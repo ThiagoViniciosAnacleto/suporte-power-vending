@@ -1,0 +1,23 @@
+<main class="form-main">
+  <form action="/cadastrar_usuario" class="form-card" method="POST">
+    <input name="csrf_token" type="hidden" value="{{ csrf_token() }}" />
+
+    <label for="usuario">Nome de Usuário:</label>
+    <input id="usuario" name="usuario" required type="text" placeholder="Digite o nome do usuário" />
+
+    <label for="senha">Senha:</label>
+    <input id="senha" name="senha" required type="password" />
+
+    <label for="confirmar_senha">Confirmar Senha:</label>
+    <input id="confirmar_senha" name="confirmar_senha" required type="password" />
+
+    <label for="is_admin">Nível de Acesso:</label>
+    <select id="is_admin" name="is_admin" required>
+      <option value="0">Usuário Comum</option>
+      <option value="2">Técnico</option>
+      <option value="1">Administrador</option>
+    </select>
+
+    <button type="submit">Cadastrar Usuário</button>
+  </form>
+</main>

@@ -718,6 +718,12 @@ def conteudo_dashboard():
         chamados_por_empresa=chamados_por_empresa
     )
 
+@app.route("/conteudo/cadastrar_usuario")
+@login_required
+@admin_required
+def conteudo_cadastrar_usuario():
+    return render_template("partials/cadastrar_usuario.html")
+
 
 @app.route('/cadastrar_recorrente', methods=['GET', 'POST'])
 @login_required
