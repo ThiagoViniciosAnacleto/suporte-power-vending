@@ -35,6 +35,9 @@
     <!-- Menu lateral -->
     <aside class="home-nav">
         <ul>
+
+        <li><button onclick="carregarConteudo('/conteudo/chamados_abertos')">📂 Chamados Abertos</button></li>
+        
         {% if session["is_admin"] in [1, 2] %}
         <li><button onclick="carregarConteudo('/conteudo/novo_chamado')">➕ Abrir Novo Chamado</button></li>
         {% endif %}
