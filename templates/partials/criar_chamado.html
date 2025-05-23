@@ -1,0 +1,59 @@
+    <main class="form-main">
+        <form action="/novo" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+        <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+            <input id="responsavel_atendimento" name="responsavel_atendimento" readonly="" required="" type="text" value="{{ usuario_logado }}"/>
+        <label for="data">Data:</label>
+            <input id="data" name="data" required="" type="date" value="{{ data_atual }}"/>
+        <label for="horario">Horário:</label>
+            <input id="horario" name="horario" required="" type="time" value="{{ hora_atual }}"/>
+        <label for="cliente">Nome do Cliente:</label>
+            <input id="cliente" name="cliente" required="" type="text"/>
+        <label for="empresa">Empresa:</label>
+            <select id="empresa" name="empresa" required="">
+                {% for empresa in lista_empresas %}
+                <option value="{{ empresa }}">{{ empresa }}</option>
+                {% endfor %}
+            </select>
+        <label for="porta_ssh">Porta SSH da Máquina:</label>
+            <input id="porta_ssh" name="porta_ssh" type="text"/>
+        <label for="tipo_maquina">Tipo da Máquina:</label>
+            <select id="tipo_maquina" name="tipo_maquina">
+                {% for modelo in lista_maquinas %}
+                <option value="{{ modelo }}">{{ modelo }}</option>
+                {% endfor %}
+            </select>
+        <label for="relato">Relato / Solicitação do Cliente:</label>
+            <textarea id="relato" name="relato" rows="3"></textarea>
+        <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade">
+                <option>Baixa</option>
+                <option>Média</option>
+                <option>Alta</option>
+                <option>Crítica</option>
+            </select>
+        <label for="origem">Origem do Caso:</label>
+            <select id="origem" name="origem" required>
+                <option value="" disabled selected>Selecione a origem do problema</option>
+                {% for nome in lista_origens %}
+                <option value="{{ nome }}">{{ nome }}</option>
+                {% endfor %}
+                </select>
+        <label for="responsavel_acao">Resposável pela Ação:</label>
+            <select id="responsavel_acao" name="responsavel_acao" required>
+                <option value="" disabled selected>Selecione um responsável</option>
+                {% for user in lista_usuarios %}
+                <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select>
+        <label for="descricao_acao">Ação Realizada / Descrição:</label>
+            <textarea id="descricao_acao" name="descricao_acao" rows="3"></textarea>
+        <label for="status">Status do Caso:</label>
+            <select id="status" name="status">
+                <option>Aberto</option>
+                <option>Em andamento</option>
+                <option>Resolvido</option>
+                <option>Fechado</option>
+            </select>
+        <button type="submit">Salvar Atendimento</button>
+        </form>
+    </main>

@@ -618,6 +618,40 @@ def conteudo_chamados_abertos():
 
     return render_template("partials/cards_abertos.html", chamados_abertos=chamados_abertos)
 
+@app.route("/conteudo/novo_chamado")
+@login_required
+@tec_or_admin_required
+def conteudo_novo_chamado():
+    fuso_brasilia = timezone("America/Sao_Paulo")
+    agora = datetime.now(fuso_brasilia)
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT nome FROM empresas ORDER BY nome")
+    lista_empresas = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("SELECT modelo FROM maquinas ORDER BY modelo")
+    lista_maquinas = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("SELECT usuario FROM usuarios WHERE is_admin IN (1, 2) ORDER BY usuario")
+    lista_usuarios = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("SELECT nome FROM origens_problema ORDER BY nome")
+    lista_origens = [row[0] for row in cursor.fetchall()]
+
+    conn.close()
+
+    return render_template(
+        "partials/criar_chamado.html",
+        usuario_logado=session.get("usuario"),
+        data_atual=agora.strftime("%Y-%m-%d"),
+        hora_atual=agora.strftime("%H:%M"),
+        lista_empresas=lista_empresas,
+        lista_maquinas=lista_maquinas,
+        lista_usuarios=lista_usuarios,
+        lista_origens=lista_origens
+    )
 
 @socketio.on('solicitar_atualizacao')
 def atualizar_dashboard():
