@@ -691,6 +691,34 @@ def atualizar_dashboard():
 def conteudo_cadastrar_maquina():
     return render_template("partials/cadastrar_maquina.html")
 
+@app.route("/conteudo/dashboard")
+@login_required
+def conteudo_dashboard():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT COUNT(*) FROM chamados')
+    total_chamados = cursor.fetchone()[0]
+
+    cursor.execute('SELECT status, COUNT(*) FROM chamados GROUP BY status')
+    chamados_por_status = {status: count for status, count in cursor.fetchall()}
+
+    cursor.execute('SELECT prioridade, COUNT(*) FROM chamados GROUP BY prioridade')
+    chamados_por_prioridade = {prioridade: count for prioridade, count in cursor.fetchall()}
+
+    cursor.execute('SELECT empresa, COUNT(*) FROM chamados GROUP BY empresa ORDER BY COUNT(*) DESC LIMIT 5')
+    chamados_por_empresa = {empresa: count for empresa, count in cursor.fetchall()}
+
+    conn.close()
+
+    return render_template("partials/dashboard.html",
+        total_chamados=total_chamados,
+        chamados_por_status=chamados_por_status,
+        chamados_por_prioridade=chamados_por_prioridade,
+        chamados_por_empresa=chamados_por_empresa
+    )
+
+
 @app.route('/cadastrar_recorrente', methods=['GET', 'POST'])
 @login_required
 @admin_required
