@@ -653,6 +653,12 @@ def conteudo_novo_chamado():
         lista_origens=lista_origens
     )
 
+@app.route("/conteudo/cadastrar_empresa")
+@login_required
+@tec_or_admin_required
+def conteudo_cadastrar_empresa():
+    return render_template("partials/cadastrar_empresa.html")
+
 @socketio.on('solicitar_atualizacao')
 def atualizar_dashboard():
     conn = conectar()

@@ -1,0 +1,8 @@
+<main class="form-main">
+    <form action="/cadastrar_empresa" class="form-card" method="POST">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token() }}" />
+        <label for="nome">Nome da Empresa:</label>
+        <input id="nome" name="nome" required type="text" placeholder="Digite o nome da empresa" />
+        <button type="submit">Salvar Empresa</button>
+    </form>
+</main>
