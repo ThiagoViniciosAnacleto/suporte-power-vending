@@ -11,24 +11,29 @@
 
     <!-- Topo fixo -->
     <header class="topbar">
-        <div class="usuario-info">
-        <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Foto do usuário" class="usuario-avatar">
-        <div class="usuario-dados">
-            <span class="usuario-nome">{{ session["usuario"] }}</span>
-            <span class="usuario-cargo">
-            {% if session["is_admin"] == 1 %}Administrador
-            {% elif session["is_admin"] == 2 %}Técnico
-            {% else %}Usuário Comum
-            {% endif %}
-            </span>
-        </div>
+        <div class="topbar-left">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Power Vending" class="logo-pv">
         </div>
 
-        <div class="topbar-right">
-        <button class="darkmode-btn" id="toggle-darkmode">🌙 Modo Escuro</button>
-        <form action="/logout" method="get" class="topbar-form">
-            <button type="submit">Sair</button>
-        </form>
+        <div class="topbar-actions">
+            <button class="btn-header">Notificações🔔</button>
+            <button class="btn-header" id="toggle-darkmode">🌙 Modo</button>
+            <form action="/logout" method="get" style="display:inline;">
+                <button type="submit" class="btn-header btn-sair">Sair</button>
+            </form>
+        </div>
+
+        <div class="topbar-user">
+            <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Avatar" class="usuario-avatar">
+            <div class="usuario-dados">
+                <span class="usuario-nome">{{ session["usuario"] }}</span>
+                <span class="usuario-cargo">
+                {% if session["is_admin"] == 1 %}Administrador
+                {% elif session["is_admin"] == 2 %}Técnico
+                {% else %}Usuário
+                {% endif %}
+                </span>
+            </div>
         </div>
     </header>
 
