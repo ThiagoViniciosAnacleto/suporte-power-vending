@@ -24,12 +24,14 @@ body {
   height: 100vh;
 }
 
-.topbar {
+/* HEADER */
+header.topbar {
+  grid-area: header;
+  background-color: #1f1f1f;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #1f1f1f;
   border-bottom: 1px solid #333;
 }
 
@@ -37,11 +39,10 @@ body {
   height: 42px;
 }
 
-.topbar-nav {
+.topbar-right {
   display: flex;
   align-items: center;
-  flex-grow: 1;
-  justify-content: center;
+  gap: 20px;
 }
 
 .topbar-actions {
@@ -156,7 +157,7 @@ main#conteudo-dinamico {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Cards chamados (pode mover pra cards_abertos.css depois se quiser separar) --- */
+/* --- Cards chamados --- */
 .cards-abertos-container {
   display: flex;
   flex-wrap: wrap;
@@ -241,7 +242,7 @@ main#conteudo-dinamico {
   background-color: green;
 }
 
-/* Modal (caso queira manter) */
+/* Modal */
 .modal-chamado {
   position: fixed;
   top: 10%;
