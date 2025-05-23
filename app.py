@@ -684,6 +684,12 @@ def atualizar_dashboard():
     'prioridade': chamados_por_prioridade,
     'empresas': chamados_por_empresa
 })
+    
+@app.route("/conteudo/cadastrar_maquina")
+@login_required
+@tec_or_admin_required
+def conteudo_cadastrar_maquina():
+    return render_template("partials/cadastrar_maquina.html")
 
 @app.route('/cadastrar_recorrente', methods=['GET', 'POST'])
 @login_required
