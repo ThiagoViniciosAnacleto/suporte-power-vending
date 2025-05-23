@@ -1,0 +1,65 @@
+<main class="form-main">
+  <form action="/cadastrar_recorrente" class="form-card" method="POST">
+    <input name="csrf_token" type="hidden" value="{{ csrf_token() }}" />
+
+    <label for="cliente">Nome do Cliente:</label>
+    <input id="cliente" name="cliente" required type="text" />
+
+    <label for="empresa">Empresa:</label>
+    <select id="empresa" name="empresa" required>
+      {% for empresa in lista_empresas %}
+        <option value="{{ empresa }}">{{ empresa }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="porta_ssh">Porta SSH:</label>
+    <input id="porta_ssh" name="porta_ssh" type="text" />
+
+    <label for="tipo_maquina">Tipo da Máquina:</label>
+    <select id="tipo_maquina" name="tipo_maquina">
+      {% for modelo in lista_maquinas %}
+        <option value="{{ modelo }}">{{ modelo }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="relato">Relato do Cliente:</label>
+    <textarea id="relato" name="relato" rows="2"></textarea>
+
+    <label for="prioridade">Prioridade:</label>
+    <select id="prioridade" name="prioridade">
+      <option>Baixa</option>
+      <option>Média</option>
+      <option>Alta</option>
+      <option>Crítica</option>
+    </select>
+
+    <label for="origem">Origem do Caso:</label>
+    <select id="origem" name="origem" required>
+      {% for nome in lista_origens %}
+        <option value="{{ nome }}">{{ nome }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
+    <select id="responsavel_atendimento" name="responsavel_atendimento" required>
+      {% for user in lista_usuarios %}
+        <option value="{{ user }}">{{ user }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="responsavel_acao">Responsável pela Ação:</label>
+    <select id="responsavel_acao" name="responsavel_acao" required>
+      {% for user in lista_usuarios %}
+        <option value="{{ user }}">{{ user }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="frequencia">Frequência (dias):</label>
+    <input id="frequencia" name="frequencia" type="number" min="1" required />
+
+    <label for="proxima_execucao">Próxima Execução:</label>
+    <input id="proxima_execucao" name="proxima_execucao" type="date" required />
+
+    <button type="submit">Cadastrar Chamado Recorrente</button>
+  </form>
+</main>

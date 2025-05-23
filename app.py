@@ -735,6 +735,36 @@ def conteudo_editar_privilegios():
     conn.close()
     return render_template("partials/editar_privilegios.html", usuarios=usuarios)
 
+@app.route("/conteudo/cadastrar_recorrente")
+@login_required
+@admin_required
+def conteudo_cadastrar_recorrente():
+    conn = conectar()
+    cur = conn.cursor()
+
+    cur.execute("SELECT nome FROM empresas ORDER BY nome")
+    lista_empresas = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT modelo FROM maquinas ORDER BY modelo")
+    lista_maquinas = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT usuario FROM usuarios ORDER BY usuario")
+    lista_usuarios = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT nome FROM origens_problema ORDER BY nome")
+    lista_origens = [row[0] for row in cur.fetchall()]
+
+    cur.close()
+    conn.close()
+
+    return render_template(
+        "partials/cadastrar_recorrente.html",
+        lista_empresas=lista_empresas,
+        lista_maquinas=lista_maquinas,
+        lista_usuarios=lista_usuarios,
+        lista_origens=lista_origens
+    )
+
 
 @app.route('/cadastrar_recorrente', methods=['GET', 'POST'])
 @login_required
