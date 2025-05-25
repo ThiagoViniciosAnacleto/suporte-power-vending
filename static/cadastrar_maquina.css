@@ -1,0 +1,85 @@
+/* Estilo para o formulário de cadastro de máquina */
+
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.form-card {
+    background-color: #fff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-card label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.form-card input[type="text"] {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.form-card input[type="text"]:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.form-card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.form-card button:hover {
+    background-color: #218838;
+}
+
+/* Darkmode */
+body.darkmode .form-card {
+    background-color: #1e1e1e;
+    color: #f6f6f6;
+}
+
+body.darkmode .form-card label {
+    color: #f6f6f6;
+}
+
+body.darkmode .form-card input[type="text"] {
+    background-color: #2a2a2a;
+    color: #f6f6f6;
+    border: 1px solid #555;
+}
+
+body.darkmode .form-card input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+body.darkmode .form-card button {
+    background-color: #3fbf63;
+}
+
+body.darkmode .form-card button:hover {
+    background-color: #2b9b4d;
+}
