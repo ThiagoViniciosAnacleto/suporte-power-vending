@@ -107,36 +107,39 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #ffffff;
-    padding: 30px 25px;
+    background: #f9f9f9;
+    color: #333;
+    padding: 25px 22px;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     width: 90%;
-    max-width: 600px;
+    max-width: 460px;
     z-index: 1001;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 85vh;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .modal-titulo {
-    font-size: 20px;
-    color: #333;
+    font-size: 18px;
     font-weight: bold;
+    color: #444;
 }
 
 .close-modal {
     background: none;
     border: none;
-    font-size: 26px;
+    font-size: 22px;
     cursor: pointer;
-    color: #999;
+    color: red;
     transition: color 0.2s ease;
 }
 
@@ -146,8 +149,8 @@
 
 .modal-chamado p {
     margin: 6px 0;
-    color: #444;
-    font-size: 15px;
+    color: #555;
+    font-size: 14px;
 }
 
 .btn-editar-modal {
@@ -155,10 +158,11 @@
     margin-top: 16px;
     background-color: #007bff;
     color: white;
-    padding: 10px 16px;
+    padding: 10px 14px;
     border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
     text-decoration: none;
-    font-weight: 600;
     transition: background-color 0.2s ease;
 }
 
