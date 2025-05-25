@@ -129,7 +129,6 @@ def redefinir_senha():
 
     return render_template("redefinir_senha.html")
 
-# --- NOVA ROTA: Cadastrar Usuário ---
 @app.route("/cadastrar_usuario", methods=["GET", "POST"])
 @login_required
 @admin_required
@@ -544,6 +543,11 @@ def listar_chamados():
     conn.close()
 
     return render_template("partials/lista_chamados.html", titulo_pagina="Chamados", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
+
+@app.route("/conteudo/lista_chamados")
+@login_required
+def conteudo_lista_chamados():
+    return listar_chamados()
 
 @app.route('/excluir/<int:id>', methods=['POST'])
 @login_required
