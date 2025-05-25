@@ -1,48 +1,60 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='cards_abertos.css') }}">
 
-<div class="cards-abertos-container" id="cards-abertos-container">
+<section class="cards-abertos-container" id="cards-abertos-container">
   {% if chamados_abertos %}
     {% for chamado in chamados_abertos %}
       <!-- Card Chamado -->
-      <div class="chamado-card" onclick="abrirModalChamado({{ chamado.id }})" id="card-{{ chamado.id }}">
-        <div class="chamado-card-header">
-          <span class="chamado-id">#{{ chamado.id }}</span>
+      <article class="chamado-card" onclick="abrirModalChamado({{ chamado.id }})" id="card-{{ chamado.id }}" aria-labelledby="titulo-chamado-{{ chamado.id }}">
+        <header class="chamado-card-header">
+          <h3 class="chamado-id" id="titulo-chamado-{{ chamado.id }}">#{{ chamado.id }}</h3>
           <span class="chamado-status {{ chamado.status | lower | replace(' ', '-') }}">{{ chamado.status }}</span>
-        </div>
-        <div class="chamado-card-main">
-          <span><strong>Cliente:</strong> {{ chamado.cliente }}</span>
-          <span><strong>Empresa:</strong> {{ chamado.empresa }}</span>
-          <span><strong>Data:</strong> {{ chamado.data }}</span>
-          <span class="prioridade-wrapper">
-            <strong>Prioridade:</strong>
-            <span class="prioridade prioridade-{{ chamado.prioridade | lower }}">{{ chamado.prioridade }}</span>
-          </span>
-        </div>
-      </div>
+        </header>
+
+        <dl class="chamado-card-main">
+          <div>
+            <dt>Cliente:</dt>
+            <dd>{{ chamado.cliente }}</dd>
+          </div>
+          <div>
+            <dt>Empresa:</dt>
+            <dd>{{ chamado.empresa }}</dd>
+          </div>
+          <div>
+            <dt>Data:</dt>
+            <dd>{{ chamado.data }}</dd>
+          </div>
+          <div class="prioridade-wrapper">
+            <dt>Prioridade:</dt>
+            <dd><span class="prioridade prioridade-{{ chamado.prioridade | lower }}">{{ chamado.prioridade }}</span></dd>
+          </div>
+        </dl>
+      </article>
 
       <!-- Modal Chamado -->
-      <div class="modal-chamado" id="modal-chamado-{{ chamado.id }}" style="display: none;">
+      <section class="modal-chamado" id="modal-chamado-{{ chamado.id }}" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-titulo-{{ chamado.id }}">
         <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-titulo">Chamado #{{ chamado.id }} - {{ chamado.status }}</h2>
-            <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})">&times;</button>
-          </div>
-          <p><strong>Responsável:</strong> {{ chamado.responsavel_atendimento }}</p>
-          <p><strong>Data:</strong> {{ chamado.data }} {{ chamado.horario }}</p>
-          <p><strong>Cliente:</strong> {{ chamado.cliente }}</p>
-          <p><strong>Empresa:</strong> {{ chamado.empresa }}</p>
-          <p><strong>Tipo de Máquina:</strong> {{ chamado.tipo_maquina }}</p>
-          <p><strong>Porta SSH:</strong> {{ chamado.porta_ssh }}</p>
-          <p><strong>Prioridade:</strong> {{ chamado.prioridade }}</p>
-          <p><strong>Origem:</strong> {{ chamado.origem }}</p>
-          <p><strong>Responsável pela ação:</strong> {{ chamado.responsavel_acao }}</p>
-          <p><strong>Relato:</strong> {{ chamado.relato }}</p>
-          <p><strong>Descrição da ação:</strong> {{ chamado.descricao_acao }}</p>
-          <a href="/editar/{{ chamado.id }}" class="btn-editar-modal">
-            ✏️ Editar Chamado
-          </a>
+          <header class="modal-header">
+            <h2 class="modal-titulo" id="modal-titulo-{{ chamado.id }}">Chamado #{{ chamado.id }} - {{ chamado.status }}</h2>
+            <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})" aria-label="Fechar modal">&times;</button>
+          </header>
+
+          <dl>
+            <div><dt>Responsável:</dt><dd>{{ chamado.responsavel_atendimento }}</dd></div>
+            <div><dt>Data:</dt><dd>{{ chamado.data }} {{ chamado.horario }}</dd></div>
+            <div><dt>Cliente:</dt><dd>{{ chamado.cliente }}</dd></div>
+            <div><dt>Empresa:</dt><dd>{{ chamado.empresa }}</dd></div>
+            <div><dt>Tipo de Máquina:</dt><dd>{{ chamado.tipo_maquina }}</dd></div>
+            <div><dt>Porta SSH:</dt><dd>{{ chamado.porta_ssh }}</dd></div>
+            <div><dt>Prioridade:</dt><dd>{{ chamado.prioridade }}</dd></div>
+            <div><dt>Origem:</dt><dd>{{ chamado.origem }}</dd></div>
+            <div><dt>Responsável pela ação:</dt><dd>{{ chamado.responsavel_acao }}</dd></div>
+            <div><dt>Relato:</dt><dd>{{ chamado.relato }}</dd></div>
+            <div><dt>Descrição da ação:</dt><dd>{{ chamado.descricao_acao }}</dd></div>
+          </dl>
+
+          <a href="/editar/{{ chamado.id }}" class="btn-editar-modal">✏️ Editar Chamado</a>
         </div>
-      </div>
+      </section>
     {% endfor %}
 
     <!-- Overlay para modal -->
@@ -50,4 +62,4 @@
   {% else %}
     <p style="text-align: center; font-size: 1.2rem; color: #ccc;">Nenhum chamado aberto.</p>
   {% endif %}
-</div>
+</section>

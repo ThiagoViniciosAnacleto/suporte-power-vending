@@ -1,3 +1,4 @@
+/* Container principal dos cards */
 .cards-abertos-container {
     display: flex;
     flex-wrap: wrap;
@@ -7,6 +8,7 @@
     box-sizing: border-box;
 }
 
+/* Card individual */
 .chamado-card {
     background-color: #fff;
     border-radius: 12px;
@@ -26,13 +28,14 @@
 .chamado-card-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 12px;
 }
 
 .chamado-id {
     font-weight: bold;
     font-size: 16px;
-    color: #444;
+    color: #333;
 }
 
 .chamado-status {
@@ -42,7 +45,6 @@
     text-transform: uppercase;
     font-weight: 600;
     background-color: #e0e0e0;
-    color: #333;
 }
 
 .chamado-status.aberto {
@@ -53,13 +55,25 @@
     color: #0073c7;
 }
 
-.chamado-card-main span {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    color: #555;
+.chamado-status.concluido {
+    color: #256029;
 }
 
+.chamado-card-main div {
+    margin-bottom: 6px;
+}
+
+.chamado-card-main dt {
+    font-weight: bold;
+    display: inline;
+}
+
+.chamado-card-main dd {
+    display: inline;
+    margin-left: 6px;
+}
+
+/* Prioridade */
 .prioridade-wrapper {
     display: flex;
     align-items: center;
@@ -67,28 +81,17 @@
 }
 
 .prioridade {
-    padding: 2px 8px;
-    border-radius: 8px;
-    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 13px;
     font-weight: bold;
     text-transform: capitalize;
 }
 
-.prioridade-baixa {
-    color: #0077a3;
-}
-
-.prioridade-média {
-    color: #856404;
-}
-
-.prioridade-alta {
-    color: #a30000;
-}
-
-.prioridade-crítica {
-    color: #990000;
-}
+.prioridade-baixa { color: #01579b; background-color: #b3e5fc; }
+.prioridade-média { color: #7f6000; background-color: #fff59d; }
+.prioridade-alta { color: #000; background-color: #ffb52b; }
+.prioridade-crítica { color: #fff; background-color: #ef5350; }
 
 /* Modal */
 .modal-chamado {
@@ -98,7 +101,7 @@
     transform: translate(-50%, -50%);
     background: #f9f9f9;
     color: #333;
-    padding: 25px 22px;
+    padding: 25px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     width: 90%;
@@ -136,12 +139,15 @@
     color: #000;
 }
 
-.modal-chamado p {
-    margin: 6px 0;
-    color: #555;
-    font-size: 14px;
+.modal-chamado dt {
+    font-weight: bold;
 }
 
+.modal-chamado dd {
+    margin: 0 0 10px 6px;
+}
+
+/* Botão de editar */
 .btn-editar-modal {
     display: inline-block;
     margin-top: 16px;
@@ -170,7 +176,7 @@
     z-index: 1000;
 }
 
-/* Dark Mode */
+/* Dark mode */
 body.darkmode .chamado-card {
     background-color: #2a2a2a;
     color: #f0f0f0;
@@ -183,10 +189,6 @@ body.darkmode .chamado-status {
 body.darkmode .modal-chamado {
     background-color: #1e1e1e;
     color: #f0f0f0;
-}
-
-body.darkmode .modal-chamado p {
-    color: #ccc;
 }
 
 body.darkmode .btn-editar-modal {
