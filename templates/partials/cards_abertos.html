@@ -11,19 +11,19 @@
         </header>
 
         <dl class="chamado-card-main">
-          <div>
+          <div class="linha-info">
             <dt>Cliente:</dt>
             <dd>{{ chamado.cliente }}</dd>
           </div>
-          <div>
+          <div class="linha-info">
             <dt>Empresa:</dt>
             <dd>{{ chamado.empresa }}</dd>
           </div>
-          <div>
+          <div class="linha-info">
             <dt>Data:</dt>
             <dd>{{ chamado.data }}</dd>
           </div>
-          <div class="prioridade-wrapper">
+          <div class="linha-info">
             <dt>Prioridade:</dt>
             <dd><span class="prioridade prioridade-{{ chamado.prioridade | lower }}">{{ chamado.prioridade }}</span></dd>
           </div>

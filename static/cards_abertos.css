@@ -74,11 +74,6 @@
 }
 
 /* Prioridade */
-.prioridade-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
 
 .prioridade {
     padding: 4px 10px;
@@ -139,13 +134,27 @@
     color: #000;
 }
 
-.modal-chamado dt {
-    font-weight: bold;
+.linha-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
-.modal-chamado dd {
-    margin: 0 0 10px 6px;
+.linha-info dt {
+    font-weight: bold;
+    flex-shrink: 0;
+    width: 40%;
+    color: #333;
 }
+
+.linha-info dd {
+    margin: 0;
+    text-align: right;
+    width: 60%;
+    color: #555;
+}
+
 
 /* Botão de editar */
 .btn-editar-modal {
