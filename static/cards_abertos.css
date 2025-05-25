@@ -26,6 +26,10 @@
     margin-top: 10px;
 }
 
+.chamado-card-main span {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
 .chamado-card-main dt {
     font-weight: bold;
     flex-shrink: 0;
@@ -68,15 +72,15 @@
 }
 
 .chamado-status.aberto {
-    color: #a97400;
+    color: #000;
 }
 
 .chamado-status.em-andamento {
-    color: #0073c7;
+    color: #000;
 }
 
 .chamado-status.concluido {
-    color: #256029;
+    color: #000;
 }
 
 .chamado-card-main div {
@@ -120,7 +124,7 @@
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     width: 90%;
-    max-width: 250px;
+    max-width: 300px;
     z-index: 1001;
     overflow-y: auto;
     max-height: 85vh;
