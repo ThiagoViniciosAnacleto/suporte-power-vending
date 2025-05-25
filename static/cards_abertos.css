@@ -206,14 +206,51 @@
     z-index: 1000;
 }
 
-/* Dark mode */
+/* 🌙 Dark mode */
 body.darkmode .chamado-card {
     background-color: #2a2a2a;
     color: #f0f0f0;
 }
 
+body.darkmode .chamado-card-header h3,
+body.darkmode .chamado-id {
+    color: #f0f0f0;
+}
+
 body.darkmode .chamado-status {
-    color: #fff;
+    background-color: #444;
+    color: #f0f0f0;
+}
+
+body.darkmode .chamado-card-main dt,
+body.darkmode .lista-info-modal dt {
+    color: #ccc;
+}
+
+body.darkmode .chamado-card-main dd,
+body.darkmode .lista-info-modal dd {
+    color: #aaa;
+}
+
+/* Prioridades adaptadas */
+body.darkmode .prioridade-baixa {
+    background-color: #264d73;
+    color: #b3d9ff;
+}
+
+body.darkmode .prioridade-média {
+    background-color: #665500;
+    color: #fff2b3;
+}
+
+body.darkmode .prioridade-alta {
+    background-color: #a65d03;
+    color: #fff0d5;
+}
+
+body.darkmode .prioridade-crítica {
+    background-color: #990000;
+    color: #ffcccc;
 }
 
 body.darkmode .modal-chamado {
@@ -221,8 +258,21 @@ body.darkmode .modal-chamado {
     color: #f0f0f0;
 }
 
+body.darkmode .modal-titulo {
+    color: #f0f0f0;
+}
+
+body.darkmode .close-modal {
+    color: #ff5f5f;
+}
+
+body.darkmode .close-modal:hover {
+    color: #fff;
+}
+
 body.darkmode .btn-editar-modal {
     background-color: #3399ff;
+    color: #fff;
 }
 
 body.darkmode .btn-editar-modal:hover {
