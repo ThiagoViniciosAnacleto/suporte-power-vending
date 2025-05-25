@@ -27,12 +27,12 @@ body {
 /* HEADER */
 header.topbar {
   grid-area: header;
-  background-color: #1f1f1f;
+  background-color: #f8f9fa;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #ddd;
 }
 
 .topbar-left img.logo-pv {
@@ -101,15 +101,15 @@ header.topbar {
 
 .usuario-cargo {
   font-size: 12px;
-  color: #aaa;
+  color: #666;
 }
 
 /* ASIDE */
 aside.home-nav {
   grid-area: aside;
-  background-color: #1a1a1a;
+  background-color: #f5f5f5;
   padding: 20px;
-  border-right: 1px solid #333;
+  border-right: 1px solid #ccc;
 }
 
 aside.home-nav ul {
@@ -124,8 +124,8 @@ aside.home-nav button {
   padding: 10px;
   text-align: left;
   font-size: 14px;
-  background-color: #333;
-  color: #fff;
+  background-color: #eaeaea;
+  color: #000;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -133,7 +133,7 @@ aside.home-nav button {
 }
 
 aside.home-nav button:hover {
-  background-color: #555;
+  background-color: #dcdcdc;
 }
 
 /* MAIN */
@@ -141,6 +141,7 @@ main#conteudo-dinamico {
   grid-area: main;
   padding: 20px;
   overflow-y: auto;
+  background-color: #fff;
 }
 
 /* Toast */
@@ -149,12 +150,12 @@ main#conteudo-dinamico {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #323232;
-  color: #fff;
+  background-color: #f0f0f0;
+  color: #000;
   padding: 12px 24px;
   border-radius: 6px;
   z-index: 999;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Cards chamados --- */
@@ -165,17 +166,17 @@ main#conteudo-dinamico {
 }
 
 .chamado-card {
-  background-color: #202020;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 15px;
   width: 250px;
   cursor: pointer;
   transition: 0.2s ease;
-  border: 1px solid #333;
+  border: 1px solid #ccc;
 }
 
 .chamado-card:hover {
-  background-color: #2a2a2a;
+  background-color: #f5f5f5;
 }
 
 .chamado-card-header {
@@ -186,15 +187,15 @@ main#conteudo-dinamico {
 
 .chamado-id {
   font-weight: bold;
-  color: #ddd;
+  color: #333;
 }
 
 .chamado-status {
-  background-color: #444;
+  background-color: #ddd;
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 12px;
-  color: #f0f0f0;
+  color: #222;
 }
 
 .chamado-status.aberto {
@@ -248,14 +249,14 @@ main#conteudo-dinamico {
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #1a1a1a;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   width: 600px;
   max-width: 95%;
   z-index: 1000;
-  box-shadow: 0 0 15px #000;
-  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  color: #000;
 }
 
 .modal-overlay {
@@ -275,7 +276,6 @@ body.darkmode {
   color: #f0f0f0;
 }
 
-/* Grid e containers */
 body.darkmode .container-principal {
   background-color: #121212;
 }
@@ -303,7 +303,6 @@ body.darkmode main#conteudo-dinamico {
   background-color: #121212;
 }
 
-/* Cards */
 body.darkmode .chamado-card {
   background-color: #202020;
   border: 1px solid #333;
@@ -318,14 +317,12 @@ body.darkmode .chamado-status {
   color: #f0f0f0;
 }
 
-/* Modal */
 body.darkmode .modal-chamado {
   background-color: #1a1a1a;
   color: #fff;
   box-shadow: 0 0 15px #000;
 }
 
-/* Toast */
 body.darkmode .toast {
   background-color: #323232;
   color: #fff;
