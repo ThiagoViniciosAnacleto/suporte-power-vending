@@ -31,9 +31,11 @@
     font-weight: bold;
     color: #333;
     white-space: nowrap; /* ✅ Evita quebra do texto */
+    margin-right: 4px;
 }
 
 .chamado-card-main dd {
+    flex-wrap: nowrap;
     display: flex;         /* ✅ Garante que o span fique ao lado */
     align-items: center;   /* ✅ Alinha verticalmente o conteúdo */
     margin: 0;
@@ -88,16 +90,6 @@
 
 .chamado-card-main div {
     margin-bottom: 6px;
-}
-
-.chamado-card-main dt {
-    font-weight: bold;
-    display: inline;
-}
-
-.chamado-card-main dd {
-    display: inline;
-    margin-left: 6px;
 }
 
 /* Prioridade */
