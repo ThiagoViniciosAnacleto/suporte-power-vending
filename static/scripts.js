@@ -78,3 +78,20 @@ function excluirChamado(id, csrf) {
         form.submit();
     }
 }
+
+function carregarPagina(parcial) {
+    fetch(`/partials/${parcial}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("conteudo-dinamico").innerHTML = html;
+
+            if (parcial === "dashboard") {
+                inicializarDashboard(); // função do dashboard.js
+            }
+        });
+}
+
+// Carrega o dashboard automaticamente ao abrir a página
+document.addEventListener("DOMContentLoaded", () => {
+    carregarPagina("dashboard");
+});

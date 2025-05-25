@@ -1,37 +1,78 @@
-<main class="dashboard-main">
-  <h2>📊 Visão Geral dos Chamados</h2>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="dashboard-main">
+        <section class="dashboard-grid">
 
-  <div class="dashboard-grid">
-    <div class="dashboard-card">
-      <h3>Total de Chamados</h3>
-      <p>{{ total_chamados }}</p>
-    </div>
+            <!-- Cards de Indicadores -->
+            <div class="dash-card" aria-label="Total de Chamados">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <rect x="9" y="2" width="6" height="6" rx="2"/>
+                        <path d="M4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"/>
+                    </svg>
+                </div>
+                <h3>Total de Chamados</h3>
+                <p class="dash-value dash-blue" id="valor-total-chamados">{{ total_chamados }}</p>
+            </div>
 
-    <div class="dashboard-card">
-      <h3>Por Status</h3>
-      <ul>
-        {% for status, total in chamados_por_status.items() %}
-        <li><strong>{{ status }}:</strong> {{ total }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+            <div class="dash-card" aria-label="Chamados por Status">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3>Chamados por Status</h3>
+                <ul id="lista-status">
+                    {% for status, qtd in chamados_por_status.items() %}
+                        <li><strong>{{ status }}:</strong> {{ qtd }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-    <div class="dashboard-card">
-      <h3>Por Prioridade</h3>
-      <ul>
-        {% for prioridade, total in chamados_por_prioridade.items() %}
-        <li><strong>{{ prioridade }}:</strong> {{ total }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+            <div class="dash-card" aria-label="Chamados por Prioridade">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v4l3 3"/>
+                    </svg>
+                </div>
+                <h3>Chamados por Prioridade</h3>
+                <ul id="lista-prioridade">
+                    {% for prioridade, qtd in chamados_por_prioridade.items() %}
+                        <li><strong>{{ prioridade }}:</strong> {{ qtd }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-    <div class="dashboard-card">
-      <h3>Top 5 Empresas</h3>
-      <ul>
-        {% for empresa, total in chamados_por_empresa.items() %}
-        <li><strong>{{ empresa }}:</strong> {{ total }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</main>
+            <div class="dash-card" aria-label="Top 5 Empresas">
+                <div class="dash-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <rect x="3" y="7" width="18" height="13" rx="2"/>
+                        <path d="M16 3v4"/>
+                        <path d="M8 3v4"/>
+                        <path d="M3 11h18"/>
+                    </svg>
+                </div>
+                <h3>Top 5 Empresas</h3>
+                <ul id="lista-empresa">
+                    {% for empresa, qtd in chamados_por_empresa.items() %}
+                        <li><strong>{{ empresa }}:</strong> {{ qtd }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+                <canvas id="grafico-status" width="350" height="200" aria-label="Gráfico de Status" role="img"></canvas>
+                <canvas id="grafico-prioridade" width="350" height="200" aria-label="Gráfico de Prioridade" role="img"></canvas>
+                <canvas id="grafico-empresa" width="350" height="200" aria-label="Gráfico de Empresas" role="img"></canvas>
+        </section>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+        setInterval(function() {
+        window.location.reload();  // Recarrega a página a cada 60.000 milissegundos (1 minuto)
+    }, 10000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>

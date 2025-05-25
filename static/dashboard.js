@@ -1,10 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
+function inicializarDashboard() {
     const socket = io();
 
-    // Gráficos base
-    const ctxStatus = document.getElementById('grafico-status').getContext('2d');
-    const ctxPrioridade = document.getElementById('grafico-prioridade').getContext('2d');
-    const ctxEmpresa = document.getElementById('grafico-empresa').getContext('2d');
+    // Verifica se os elementos dos gráficos estão presentes
+    const elStatus = document.getElementById('grafico-status');
+    const elPrioridade = document.getElementById('grafico-prioridade');
+    const elEmpresa = document.getElementById('grafico-empresa');
+
+    if (!elStatus || !elPrioridade || !elEmpresa) return;
+
+    const ctxStatus = elStatus.getContext('2d');
+    const ctxPrioridade = elPrioridade.getContext('2d');
+    const ctxEmpresa = elEmpresa.getContext('2d');
 
     const chartStatus = new Chart(ctxStatus, {
         type: 'bar',
@@ -24,10 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
         options: { responsive: true }
     });
 
-    // Requisição inicial
+    // Envia solicitação inicial ao servidor
     socket.emit('solicitar_atualizacao');
 
-    // Escuta atualização do servidor
+    // Atualiza os gráficos quando o servidor envia novos dados
     socket.on('dashboard_update', (dados) => {
         chartStatus.data.labels = Object.keys(dados.status);
         chartStatus.data.datasets[0].data = Object.values(dados.status);
@@ -41,4 +47,4 @@ document.addEventListener("DOMContentLoaded", function () {
         chartEmpresa.data.datasets[0].data = Object.values(dados.empresas);
         chartEmpresa.update();
     });
-});
+}
