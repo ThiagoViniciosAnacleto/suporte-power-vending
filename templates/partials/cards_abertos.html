@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='cards_abertos.css') }}">
+
 <div class="cards-abertos-container" id="cards-abertos-container">
   {% if chamados_abertos %}
     {% for chamado in chamados_abertos %}

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='cadastrar_empresa.css') }}">
+
 <main class="form-main">
     <form action="/cadastrar_empresa" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
         <label for="nome">Nome da Empresa:</label>
