@@ -1,107 +1,205 @@
 .cards-abertos-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 20px;
+    box-sizing: border-box;
 }
 
 .chamado-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 15px;
-  width: 250px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 320px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .chamado-card:hover {
-  background-color: #f5f5f5;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .chamado-card-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
 
 .chamado-id {
-  font-weight: bold;
-  color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    color: #444;
 }
 
 .chamado-status {
-  background-color: #ddd;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #222;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: #e0e0e0;
+    color: #333;
 }
 
 .chamado-status.aberto {
-  background-color: #e0a800;
+    background-color: #ffecb3;
+    color: #a97400;
 }
 
 .chamado-status.em-andamento {
-  background-color: #17a2b8;
+    background-color: #d0e9ff;
+    color: #0073c7;
+}
+
+.chamado-status.concluido {
+    background-color: #c8e6c9;
+    color: #256029;
 }
 
 .chamado-card-main span {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 4px;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #555;
 }
 
-/* Prioridades */
 .prioridade-wrapper {
-  display: flex;
-  gap: 5px;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .prioridade {
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: white;
-}
-
-.prioridade-crítica {
-  background-color: red;
-}
-
-.prioridade-alta {
-  background-color: orange;
-}
-
-.prioridade-média {
-  background-color: yellow;
-  color: #000;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 .prioridade-baixa {
-  background-color: green;
+    background-color: #d0f0fd;
+    color: #0077a3;
+}
+
+.prioridade-média {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.prioridade-alta {
+    background-color: #ffe0e0;
+    color: #a30000;
+}
+
+.prioridade-crítica {
+    background-color: #ffcccc;
+    color: #990000;
 }
 
 /* Modal */
 .modal-chamado {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 600px;
-  max-width: 95%;
-  z-index: 1000;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-  color: #000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1001;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.modal-titulo {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+.modal-chamado p {
+    margin: 6px 0;
+    color: #444;
+    font-size: 15px;
+}
+
+.btn-editar-modal {
+    display: inline-block;
+    margin-top: 16px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-editar-modal:hover {
+    background-color: #0056b3;
+}
+
+/* Overlay */
 .modal-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Dark Mode */
+body.darkmode .chamado-card {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+}
+
+body.darkmode .chamado-status {
+    color: #fff;
+}
+
+body.darkmode .modal-chamado {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+
+body.darkmode .modal-chamado p {
+    color: #ccc;
+}
+
+body.darkmode .btn-editar-modal {
+    background-color: #3399ff;
+}
+
+body.darkmode .btn-editar-modal:hover {
+    background-color: #1c7ed6;
 }
