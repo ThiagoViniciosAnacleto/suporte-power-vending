@@ -11,8 +11,19 @@
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 700px;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.form-card label,
+.form-card input,
+.form-card select,
+.form-card textarea {
+    grid-column: span 2;
 }
 
 .form-card label {
@@ -54,6 +65,7 @@
 }
 
 .form-card button {
+    grid-column: span 2;
     width: 100%;
     padding: 14px;
     background-color: #007bff;
