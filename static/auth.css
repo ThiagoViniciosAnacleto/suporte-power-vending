@@ -101,3 +101,44 @@ body {
 .login-footer a:hover {
     text-decoration: underline;
 }
+
+
+/* ========== MODO ESCURO ========== */
+
+body.darkmode {
+    background-color: #1e1e1e;
+    color: #f6f6f6;
+}
+
+body.darkmode .form-card {
+    background-color: #2b2b2b;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+body.darkmode .form-card label {
+    color: #f6f6f6;
+}
+
+body.darkmode input[type="text"],
+body.darkmode input[type="password"] {
+    background-color: #3a3a3a;
+    color: #f6f6f6;
+    border: 1px solid #555;
+}
+
+body.darkmode input::placeholder {
+    color: #ccc;
+}
+
+body.darkmode button[type="submit"] {
+    background-color: #0084ff;
+}
+
+body.darkmode button[type="submit"]:hover {
+    background-color: #0066cc;
+}
+
+body.darkmode .login-erro {
+    background-color: #5c0000;
+    color: #fff0f0;
+}
