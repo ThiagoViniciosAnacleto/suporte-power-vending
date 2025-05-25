@@ -3,38 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Redefinir Senha</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
 </head>
 <body>
     <header class="topbar">
-        <div class="usuario-info">
-            <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Foto do usuário" class="usuario-avatar">
-            <div class="usuario-dados">
-                <span class="usuario-nome">{{ session["usuario"] }}</span>
-                <span class="usuario-cargo">
-                    {% if session["is_admin"] == 1 %}Administrador
-                    {% elif session["is_admin"] == 2 %}Técnico
-                    {% else %}Usuário Comum
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-        <div class="topbar-left">
-            <h1>{{ titulo_pagina }}</h1>
-        </div>
-        <div class="topbar-right">
             <button class="darkmode-btn" id="toggle-darkmode">
             🌙 Modo Escuro
             </button>
             <form action="/login" method="get" class="topbar-form">
                 <button type="submit">Login</button>
             </form>
-        </div>
     </header>
 
     <main class="form-main">
         <form method="POST" action="/redefinir_senha" class="form-card">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="login-erro">
+                        {{ mensagens[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
             <label for="usuario">Nome de Usuário:</label>
             <input type="text" name="usuario" id="usuario" placeholder="Digite seu usuário" required>
@@ -47,16 +38,7 @@
 
             <button type="submit">Redefinir Senha</button>
         </form>
-    </main>
-
-    {% with mensagens = get_flashed_messages() %}
-        {% if mensagens %}
-            <div class="toast" id="toast">
-                {{ mensagens[0] }}
-            </div>
-        {% endif %}
-    {% endwith %}
-
+    </main> 
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>
