@@ -1,8 +1,7 @@
 <main class="form-main">
-    <form action="/cadastrar_maquina" class="form-card" method="POST">
-        <input name="csrf_token" type="hidden" value="{{ csrf_token() }}" />
+    <form action="/cadastrar_maquina" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
         <label for="modelo">Modelo da Máquina:</label>
-        <input id="modelo" name="modelo" required type="text" placeholder="Digite o modelo da máquina" />
-        <button type="submit">Salvar Máquina</button>
+        <input id="modelo" name="modelo" placeholder="Ex: Storage" required="" type="text"/>
+        <button type="submit">Cadastrar Máquina</button>
     </form>
 </main>
