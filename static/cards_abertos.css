@@ -46,18 +46,11 @@
 }
 
 .chamado-status.aberto {
-    background-color: #ffecb3;
     color: #a97400;
 }
 
 .chamado-status.em-andamento {
-    background-color: #d0e9ff;
     color: #0073c7;
-}
-
-.chamado-status.concluido {
-    background-color: #c8e6c9;
-    color: #256029;
 }
 
 .chamado-card-main span {
@@ -82,22 +75,18 @@
 }
 
 .prioridade-baixa {
-    background-color: #d0f0fd;
     color: #0077a3;
 }
 
 .prioridade-média {
-    background-color: #fff3cd;
     color: #856404;
 }
 
 .prioridade-alta {
-    background-color: #ffe0e0;
     color: #a30000;
 }
 
 .prioridade-crítica {
-    background-color: #ffcccc;
     color: #990000;
 }
 
@@ -113,7 +102,7 @@
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     width: 90%;
-    max-width: 460px;
+    max-width: 250px;
     z-index: 1001;
     overflow-y: auto;
     max-height: 85vh;
