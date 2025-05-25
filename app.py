@@ -165,7 +165,7 @@ def cadastrar_usuario():
             conn.close()
         return redirect("/cadastrar_usuario")
 
-    return render_template("cadastrar_usuario.html", titulo_pagina="Cadastro Usuário")
+    return render_template("partials/cadastrar_usuario.html", titulo_pagina="Cadastro Usuário")
 
 # --- ROTAS ---
 @app.route("/login", methods=["GET", "POST"])
@@ -281,8 +281,7 @@ def criar_chamado():
 
     conn.close()
 
-    return render_template(
-        "criar_chamado.html",
+    return render_template("partials/criar_chamado.html",
         usuario_logado=session.get("usuario"),
         data_atual=agora.strftime("%Y-%m-%d"),
         hora_atual=agora.strftime("%H:%M"),
@@ -413,7 +412,7 @@ def editar_chamado(id):
 
     conn.close()
 
-    return render_template("editar_chamado.html",
+    return render_template("partials/editar_chamado.html",
                             chamado=chamado_dict,
                             lista_empresas=lista_empresas,
                             lista_origens=lista_origens,
@@ -443,7 +442,7 @@ def historico_chamado(id):
         for tipo, campo, valor_antigo, valor_novo, acao, data_hora, usuario in registros
     ]
 
-    return render_template("historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f"Histórico do Chamado #{id}")
+    return render_template("partials/historico_chamado.html", logs=logs, chamado_id=id, titulo_pagina=f"Histórico do Chamado #{id}")
 
 # Dicionário de nomes legíveis para campos no log
 NOMES_CAMPOS = {
@@ -544,7 +543,7 @@ def listar_chamados():
     chamados = [dict(zip(("id", "responsavel_atendimento", "data", "cliente", "empresa", "status"), row)) for row in cursor.fetchall()]
     conn.close()
 
-    return render_template("lista_chamados.html", titulo_pagina="Chamados", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
+    return render_template("partials/lista_chamados.html", titulo_pagina="Chamados", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
 
 @app.route('/excluir/<int:id>', methods=['POST'])
 @login_required
@@ -577,7 +576,7 @@ def dashboard():
     chamados_por_empresa = {empresa: count for empresa, count in cursor.fetchall()}
 
     conn.close()
-    return render_template("dashboard.html",
+    return render_template("partials/dashboard.html",
         titulo_pagina="Dashboard",
         total_chamados=total_chamados,
         chamados_por_status=chamados_por_status,
@@ -816,8 +815,7 @@ def cadastrar_recorrente():
     cur.close()
     conn.close()
 
-    return render_template(
-        'cadastrar_recorrente.html',
+    return render_template("partials/cadastrar_recorrente.html",
         lista_empresas=lista_empresas,
         lista_maquinas=lista_maquinas,
         lista_usuarios=lista_usuarios,
@@ -850,7 +848,7 @@ def cadastrar_empresa():
             finally:
                 conn.close()
         return redirect("/cadastrar_empresa")
-    return render_template("cadastrar_empresa.html", titulo_pagina="Cadastrar Empresa")
+    return render_template("partials/cadastrar_empresa.html", titulo_pagina="Cadastrar Empresa")
 
 @app.route("/cadastrar_maquina", methods=["GET", "POST"])
 @login_required
@@ -878,7 +876,7 @@ def cadastrar_maquina():
             finally:
                 conn.close()
         return redirect("/cadastrar_maquina")
-    return render_template("cadastrar_maquina.html", titulo_pagina="Cadastrar Máquina")
+    return render_template("partials/cadastrar_maquina.html", titulo_pagina="Cadastrar Máquina")
 
 # --- GERENCIAR USUÁRIOS ---
 @app.route("/gerenciar_usuarios")
