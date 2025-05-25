@@ -38,19 +38,20 @@
             <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})" aria-label="Fechar modal">&times;</button>
           </header>
 
-          <dl>
-            <div><dt>Responsável:</dt><dd>{{ chamado.responsavel_atendimento }}</dd></div>
-            <div><dt>Data:</dt><dd>{{ chamado.data }} {{ chamado.horario }}</dd></div>
-            <div><dt>Cliente:</dt><dd>{{ chamado.cliente }}</dd></div>
-            <div><dt>Empresa:</dt><dd>{{ chamado.empresa }}</dd></div>
-            <div><dt>Tipo de Máquina:</dt><dd>{{ chamado.tipo_maquina }}</dd></div>
-            <div><dt>Porta SSH:</dt><dd>{{ chamado.porta_ssh }}</dd></div>
-            <div><dt>Prioridade:</dt><dd>{{ chamado.prioridade }}</dd></div>
-            <div><dt>Origem:</dt><dd>{{ chamado.origem }}</dd></div>
-            <div><dt>Responsável pela ação:</dt><dd>{{ chamado.responsavel_acao }}</dd></div>
-            <div><dt>Relato:</dt><dd>{{ chamado.relato }}</dd></div>
-            <div><dt>Descrição da ação:</dt><dd>{{ chamado.descricao_acao }}</dd></div>
+          <dl class="lista-info-modal">
+            <dt>Responsável:</dt><dd>{{ chamado.responsavel_atendimento }}</dd>
+            <dt>Data:</dt><dd>{{ chamado.data }} {{ chamado.horario }}</dd>
+            <dt>Cliente:</dt><dd>{{ chamado.cliente }}</dd>
+            <dt>Empresa:</dt><dd>{{ chamado.empresa }}</dd>
+            <dt>Tipo de Máquina:</dt><dd>{{ chamado.tipo_maquina }}</dd>
+            <dt>Porta SSH:</dt><dd>{{ chamado.porta_ssh }}</dd>
+            <dt>Prioridade:</dt><dd>{{ chamado.prioridade }}</dd>
+            <dt>Origem:</dt><dd>{{ chamado.origem }}</dd>
+            <dt>Responsável pela ação:</dt><dd>{{ chamado.responsavel_acao }}</dd>
+            <dt>Relato:</dt><dd>{{ chamado.relato }}</dd>
+            <dt>Descrição da ação:</dt><dd>{{ chamado.descricao_acao }}</dd>
           </dl>
+
 
           <a href="/editar/{{ chamado.id }}" class="btn-editar-modal">✏️ Editar Chamado</a>
         </div>
