@@ -22,7 +22,7 @@
 .chamado-card-main {
     display: grid;
     grid-template-columns: max-content 1fr;
-    gap: 6px 10px;
+    gap: 1px 1px;
     margin-top: 10px;
     align-items: center; /* ✅ Alinha dt e dd na mesma linha */
 }
@@ -212,11 +212,6 @@ body.darkmode .chamado-id {
     color: #f0f0f0;
 }
 
-body.darkmode .chamado-status {
-    background-color: #444;
-    color: #f0f0f0;
-}
-
 body.darkmode .chamado-card-main dt,
 body.darkmode .lista-info-modal dt {
     color: #ccc;
@@ -229,27 +224,27 @@ body.darkmode .lista-info-modal dd {
 
 /* Prioridades adaptadas */
 body.darkmode .prioridade-baixa {
-    background-color: #264d73;
-    color: #b3d9ff;
+    background-color: #003a74;
+    color: #f0f0f0;
 }
 
 body.darkmode .prioridade-média {
-    background-color: #665500;
-    color: #fff2b3;
+    background-color: #382f00;
+    color: #f0f0f0;
 }
 
 body.darkmode .prioridade-alta {
-    background-color: #a65d03;
-    color: #fff0d5;
+    background-color: #804700;
+    color: #f0f0f0;
 }
 
 body.darkmode .prioridade-crítica {
-    background-color: #990000;
-    color: #ffcccc;
+    background-color: #790000;
+    color: #f0f0f0;
 }
 
 body.darkmode .modal-chamado {
-    background-color: #1e1e1e;
+    background-color: #8d4e4e;
     color: #f0f0f0;
 }
 
