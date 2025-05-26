@@ -55,6 +55,11 @@ function inicializarDashboard() {
     socket.on('dashboard_update', (dados) => {
         console.log("[DEBUG] Dados recebidos do servidor:", dados);
 
+        if (!dados || !dados.status || !dados.prioridade || !dados.empresas) {
+            console.error("❌ Dados incompletos para renderizar gráficos");
+            return;
+        }
+
         chartStatus.data.labels = Object.keys(dados.status);
         chartStatus.data.datasets[0].data = Object.values(dados.status);
         chartStatus.update();
