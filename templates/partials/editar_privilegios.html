@@ -1,6 +1,8 @@
-    <main class="form-main">
-        <section class="form-card">
-            <h2 style="margin-bottom: 20px;">Lista de Usuários</h2>
+<link rel="stylesheet" href="{{ url_for('static', filename='editar_privilegios.css') }}">
+
+<main class="form-main">
+    <section class="form-card">
+        <h2 style="margin-bottom: 20px;">Lista de Usuários</h2>
             <table>
                 <thead>
                     <tr>
@@ -34,5 +36,5 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </section>
-    </main>
+    </section>
+</main>

@@ -1,0 +1,104 @@
+/* Página: editar_privilegios.html */
+
+.form-main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.form-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    overflow-x: auto;
+}
+
+.form-card h2 {
+    font-size: 22px;
+    text-align: center;
+    color: #333;
+}
+
+/* Tabela de usuários */
+.form-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.form-card th,
+.form-card td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-card th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Formulário inline */
+.form-inline-privilegio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Select */
+.select-privilegio {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+/* Botão de atualizar */
+.botao-atualizar {
+    padding: 6px 12px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.botao-atualizar:hover {
+    background-color: #0056b3;
+}
+
+/* Dark mode */
+body.darkmode .form-card {
+    background-color: #222;
+    color: #eee;
+}
+
+body.darkmode .form-card th {
+    background-color: #333;
+    color: #ddd;
+}
+
+body.darkmode .form-card td {
+    color: #ccc;
+}
+
+body.darkmode .select-privilegio {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
+body.darkmode .botao-atualizar {
+    background-color: #007bff;
+}
+
+body.darkmode .botao-atualizar:hover {
+    background-color: #3399ff;
+}
