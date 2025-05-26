@@ -1,13 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    ativarInterceptacaoFormsSPA(); // ✅ só essa linha já ativa todos os forms
-
-    // ✅ Toast temporário
-    const toast = document.getElementById("toast");
-    if (toast) {
-        setTimeout(() => {
-            toast.style.display = "none";
-        }, 4000);
-    }
+    ativarInterceptacaoFormsSPA();
+    ocultarToast();
 
     // ✅ Darkmode toggle
     if (localStorage.getItem('darkmode') === 'on') {
@@ -81,12 +74,7 @@ function carregarConteudo(parcial) {
             container.innerHTML = html;
 
             ativarInterceptacaoFormsSPA();
-
-            // ✅ Reativa toast após carregamento SPA
-            const toast = document.getElementById("toast");
-                if (toast) {
-                    setTimeout(() => { toast.style.display = "none";}, 4000);
-                    }
+            ocultarToast();
 
             if (url.includes("dashboard")) {
                 const observer = new MutationObserver((mut, obs) => {
@@ -129,4 +117,13 @@ function ativarInterceptacaoFormsSPA() {
             form.dataset.listener = "true"; // evita adicionar mais de uma vez
         }
     });
+}
+
+function ocultarToast() {
+    const toast = document.getElementById("toast");
+    if (toast) {
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 4000);
+    }
 }
