@@ -565,7 +565,14 @@ def excluir_chamado(id):
     conn.commit()
     conn.close()
     flash("Chamado excluído!")
-    return redirect("/conteudo/lista_chamados")
+
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM chamados ORDER BY data DESC')
+    chamados = cursor.fetchall()
+    conn.close()
+
+    return render_template('partials/lista_chamados.html', chamados=chamados, titulo_pagina="Lista de Chamados")
 
 @app.route("/dashboard")
 @login_required

@@ -130,6 +130,20 @@ tbody td {
     color: #0056b3;
 }
 
+.botao-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
 /* Responsividade */
 @media (max-width: 768px) {
     .filtro-container {

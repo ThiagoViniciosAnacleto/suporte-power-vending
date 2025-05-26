@@ -89,11 +89,14 @@
                 <img src="{{ url_for('static', filename='img/editar.png') }}" alt="Editar" width="14" height="14"> Editar
               </a>
 
-              {% if session["is_admin"] == 1 %}
-              <a href="#" onclick="excluirChamado('{{ chamado.id }}', '{{ csrf_token() }}')" title="Excluir chamado">
-                <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="14" height="14"> Excluir
-              </a>
-              {% endif %}
+                {% if session["is_admin"] == 1 %}
+                <form action="/excluir/{{ chamado.id }}" method="POST" data-spa-post onsubmit="return confirm('Tem certeza que deseja excluir este chamado?')" style="display:inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="botao-link">
+                            <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="14" height="14"> Excluir
+                        </button>
+                </form>
+                {% endif %}
 
               <a href="#" onclick="carregarConteudo('historico/{{ chamado.id }}')" title="Histórico do chamado">
                 <img src="{{ url_for('static', filename='img/documento.png') }}" alt="Histórico" width="14" height="14"> Histórico
