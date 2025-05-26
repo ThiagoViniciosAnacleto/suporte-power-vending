@@ -1,0 +1,82 @@
+/* Container principal */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card base */
+.dash-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background-color 0.3s ease;
+}
+
+/* Ícones SVG no topo */
+.dash-card-icon {
+    color: #007bff;
+}
+
+/* Título de cada card */
+.dash-card h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+}
+
+/* Valor principal destacado */
+.dash-value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.dash-blue   { color: #007bff; }
+.dash-green  { color: #28a745; }
+.dash-yellow { color: #ffc107; }
+.dash-red    { color: #dc3545; }
+
+/* Lista (ex: status, prioridade, empresa) */
+.dash-card ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.dash-card ul li {
+    margin: 4px 0;
+}
+
+/* Gráficos */
+canvas {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Modo escuro */
+body.darkmode .dash-card {
+    background-color: #222;
+    color: #eee;
+}
+
+body.darkmode .dash-card h3 {
+    color: #ddd;
+}
+
+body.darkmode .dash-card ul {
+    color: #ccc;
+}
+
+body.darkmode canvas {
+    background-color: #2a2a2a;
+}
