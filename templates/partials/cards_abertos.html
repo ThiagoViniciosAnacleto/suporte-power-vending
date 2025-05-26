@@ -75,3 +75,11 @@
     <p style="text-align: center; font-size: 1.2rem; color: #ccc;">Nenhum chamado aberto.</p>
   {% endif %}
 </section>
+
+{% with mensagens = get_flashed_messages() %}
+    {% if mensagens %}
+    <div class="toast" id="toast">
+        {{ mensagens[0] }}
+    </div>
+    {% endif %}
+{% endwith %}

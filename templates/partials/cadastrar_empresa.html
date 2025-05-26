@@ -10,3 +10,11 @@
         <button type="submit">Cadastrar Empresa</button>
     </form>
 </main>
+
+{% with mensagens = get_flashed_messages() %}
+    {% if mensagens %}
+    <div class="toast" id="toast">
+        {{ mensagens[0] }}
+    </div>
+    {% endif %}
+{% endwith %}
