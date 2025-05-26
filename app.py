@@ -370,7 +370,7 @@ def editar_chamado(id):
         conn.close()
 
         flash("Chamado atualizado com sucesso!")
-        return redirect("/conteudo/lista_chamados")
+        return conteudo_lista_chamados()
 
     # BLOCO GET
     cursor.execute("SELECT * FROM chamados WHERE id = %s", (id,))
@@ -807,7 +807,7 @@ def cadastrar_recorrente():
         conn.commit()
         cur.close()
         conn.close()
-        return redirect("/conteudo/cadastrar_recorrente")
+        return conteudo_cadastrar_recorrente()
 
     # GET: carregar dados para preencher os <select>
     cur.execute("SELECT nome FROM empresas ORDER BY nome")
@@ -846,7 +846,7 @@ def cadastrar_empresa():
                 cursor.execute("SELECT id FROM empresas WHERE nome = %s", (nome,))
                 if cursor.fetchone():
                     flash("Empresa já cadastrada!")
-                    return redirect("/conteudo/cadastrar_empresa")
+                    return conteudo_cadastrar_empresa()
 
                 cursor.execute("INSERT INTO empresas (nome) VALUES (%s)", (nome,))
                 conn.commit()
@@ -857,7 +857,7 @@ def cadastrar_empresa():
                 print(f"Erro: {e}")
             finally:
                 conn.close()
-        return redirect("/conteudo/cadastrar_empresa")
+        return conteudo_cadastrar_empresa()
     return render_template("partials/cadastrar_empresa.html", titulo_pagina="Cadastrar Empresa")
 
 @app.route("/cadastrar_maquina", methods=["GET", "POST"])
@@ -874,7 +874,7 @@ def cadastrar_maquina():
                 cursor.execute("SELECT id FROM maquinas WHERE modelo = %s", (modelo,))
                 if cursor.fetchone():
                     flash("Máquina já cadastrada!")
-                    return redirect("/conteudo/cadastrar_maquina")
+                    return conteudo_cadastrar_maquina()
 
                 cursor.execute("INSERT INTO maquinas (modelo) VALUES (%s)", (modelo,))
                 conn.commit()
@@ -885,7 +885,7 @@ def cadastrar_maquina():
                 print(f"Erro: {e}")
             finally:
                 conn.close()
-        return redirect("/conteudo/cadastrar_maquina")
+        return conteudo_cadastrar_maquina()
     return render_template("partials/cadastrar_maquina.html", titulo_pagina="Cadastrar Máquina")
 
 # --- GERENCIAR USUÁRIOS ---
@@ -907,7 +907,7 @@ def alterar_privilegio(id):
     novo_nivel = request.form.get("novo_nivel")
     if novo_nivel is None:
         flash("Privilégio inválido.")
-        return redirect("/conteudo/editar_privilegios")
+        return conteudo_editar_privilegios()
 
     try:
         conn = conectar()
@@ -922,7 +922,7 @@ def alterar_privilegio(id):
     finally:
         conn.close()
 
-    return redirect("/conteudo/editar_privilegios")
+    return conteudo_editar_privilegios()
 
 from gerar_chamados_recorrentes import gerar_chamados_recorrentes
 
