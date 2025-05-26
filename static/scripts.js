@@ -85,14 +85,26 @@ function carregarConteudo(parcial) {
     fetch(url)
         .then(response => response.text())
         .then(html => {
-            document.getElementById("conteudo-dinamico").innerHTML = html;
+            const container = document.getElementById("conteudo-dinamico");
+            container.innerHTML = html;
 
-            // Se for dashboard, inicializa os gráficos
+            // Se for dashboard, espera o canvas aparecer de fato
             if (url.includes("dashboard")) {
-                setTimeout(inicializarDashboard, 100);
+                const tentarIniciar = () => {
+                    const s = document.getElementById('grafico-status');
+                    const p = document.getElementById('grafico-prioridade');
+                    const e = document.getElementById('grafico-empresa');
+                    if (s && p && e) {
+                        inicializarDashboard();
+                    } else {
+                        setTimeout(tentarIniciar, 100);
+                    }
+                };
+                tentarIniciar();
             }
         })
         .catch(() => {
             document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
         });
 }
+

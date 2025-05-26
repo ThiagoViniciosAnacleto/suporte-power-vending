@@ -73,26 +73,3 @@ function inicializarDashboard() {
         chartEmpresa.update();
     });
 }
-
-function carregarDashboard() {
-    fetch("/conteudo/dashboard")
-        .then(res => res.text())
-        .then(html => {
-            document.querySelector("main").innerHTML = html;
-
-            // Aguarda elementos <canvas> aparecerem no DOM
-            const tentarIniciar = () => {
-                const s = document.getElementById('grafico-status');
-                const p = document.getElementById('grafico-prioridade');
-                const e = document.getElementById('grafico-empresa');
-
-                if (s && p && e) {
-                    inicializarDashboard();
-                } else {
-                    setTimeout(tentarIniciar, 100); // tenta novamente
-                }
-            };
-
-            tentarIniciar();
-        });
-}
