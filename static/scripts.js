@@ -76,7 +76,7 @@ function carregarConteudo(parcial) {
 
             ativarInterceptacaoFormsSPA();
             observarToast();
-            ocultarToast(); 
+            ocultarToast();
 
             if (url.includes("dashboard")) {
                 const dashObserver = new MutationObserver((mut, obs) => {
@@ -155,15 +155,14 @@ function ocultarToast() {
 
 function observarToast() {
     const container = document.getElementById("conteudo-dinamico");
-    const observer = new MutationObserver(() => {
+    const toastObserver = new MutationObserver(() => {
         const toast = document.getElementById("toast");
         if (toast) {
             console.log("🟡 Toast detectado via MutationObserver");
             ocultarToast();
-            observer.disconnect();
+            toastObserver.disconnect();  // desconecta só esse ciclo
         }
     });
 
-    observer.observe(container, { childList: true, subtree: true });
+    toastObserver.observe(container, { childList: true, subtree: true });
 }
-
