@@ -870,10 +870,11 @@ def cadastrar_maquina():
             try:
                 conn = conectar()
                 cursor = conn.cursor()
+
                 cursor.execute("SELECT id FROM maquinas WHERE modelo = %s", (modelo,))
                 if cursor.fetchone():
                     flash("Máquina já cadastrada!")
-                    return redirect("/conteudo/cadastrar_maquina")
+                    return conteudo_cadastrar_maquina()
 
                 cursor.execute("INSERT INTO maquinas (modelo) VALUES (%s)", (modelo,))
                 conn.commit()
@@ -884,7 +885,7 @@ def cadastrar_maquina():
                 print(f"Erro: {e}")
             finally:
                 conn.close()
-        return redirect("/conteudo/cadastrar_maquina")
+        return conteudo_cadastrar_maquina()
     return render_template("partials/cadastrar_maquina.html", titulo_pagina="Cadastrar Máquina")
 
 # --- GERENCIAR USUÁRIOS ---
