@@ -266,7 +266,7 @@ def criar_chamado():
             print(f"Erro ao inserir chamado: {e}")
         finally:
             conn.close()
-        return redirect("/conteudo/novo_chamado")
+        return conteudo_novo_chamado()
 
     # GET: carrega dados necessários para o formulário
     conn = conectar()
