@@ -74,10 +74,21 @@ function carregarConteudo(parcial) {
             container.innerHTML = html;
 
             ativarInterceptacaoFormsSPA();
-            ocultarToast();
+
+            // ✅ Espera o toast aparecer no DOM antes de ocultar
+            const observer = new MutationObserver((mutations, obs) => {
+                const toast = document.getElementById("toast");
+                if (toast) {
+                    console.log("🍞 Toast detectado via MutationObserver");
+                    ocultarToast();
+                    obs.disconnect();
+                }
+            });
+
+            observer.observe(container, { childList: true, subtree: true });
 
             if (url.includes("dashboard")) {
-                const observer = new MutationObserver((mut, obs) => {
+                const dashObserver = new MutationObserver((mut, obs) => {
                     const s = document.getElementById('grafico-status');
                     const p = document.getElementById('grafico-prioridade');
                     const e = document.getElementById('grafico-empresa');
@@ -87,13 +98,14 @@ function carregarConteudo(parcial) {
                     }
                 });
 
-                observer.observe(container, { childList: true, subtree: true });
+                dashObserver.observe(container, { childList: true, subtree: true });
             }
         })
         .catch(() => {
             document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
         });
 }
+
 
 function ativarInterceptacaoFormsSPA() {
     document.querySelectorAll("form[data-spa-post]").forEach(form => {
