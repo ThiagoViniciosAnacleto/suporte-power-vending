@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     ativarInterceptacaoFormsSPA();
+    observarToast();
     ocultarToast();
 
     // ✅ Darkmode toggle
@@ -74,18 +75,8 @@ function carregarConteudo(parcial) {
             container.innerHTML = html;
 
             ativarInterceptacaoFormsSPA();
-
-            // ✅ Espera o toast aparecer no DOM antes de ocultar
-            const observer = new MutationObserver((mutations, obs) => {
-                const toast = document.getElementById("toast");
-                if (toast) {
-                    console.log("🍞 Toast detectado via MutationObserver");
-                    ocultarToast();
-                    obs.disconnect();
-                }
-            });
-
-            observer.observe(container, { childList: true, subtree: true });
+            observarToast();
+            ocultarToast(); 
 
             if (url.includes("dashboard")) {
                 const dashObserver = new MutationObserver((mut, obs) => {
@@ -162,4 +153,17 @@ function ocultarToast() {
     tentarOcultar();
 }
 
+function observarToast() {
+    const container = document.getElementById("conteudo-dinamico");
+    const observer = new MutationObserver(() => {
+        const toast = document.getElementById("toast");
+        if (toast) {
+            console.log("🟡 Toast detectado via MutationObserver");
+            ocultarToast();
+            observer.disconnect();
+        }
+    });
+
+    observer.observe(container, { childList: true, subtree: true });
+}
 
