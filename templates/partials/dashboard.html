@@ -14,52 +14,6 @@
         <p class="dash-value dash-blue" id="valor-total-chamados">{{ total_chamados }}</p>
     </div>
 
-    <div class="dash-card" aria-label="Chamados por Status">
-        <div class="dash-card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 6v6l4 2"/>
-            </svg>
-        </div>
-        <h3>Chamados por Status</h3>
-        <ul id="lista-status">
-            {% for status, qtd in chamados_por_status.items() %}
-                <li><strong>{{ status }}:</strong> {{ qtd }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="dash-card" aria-label="Chamados por Prioridade">
-        <div class="dash-card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 8v4l3 3"/>
-            </svg>
-        </div>
-        <h3>Chamados por Prioridade</h3>
-        <ul id="lista-prioridade">
-            {% for prioridade, qtd in chamados_por_prioridade.items() %}
-                <li><strong>{{ prioridade }}:</strong> {{ qtd }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="dash-card" aria-label="Top 5 Empresas">
-        <div class="dash-card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-                <rect x="3" y="7" width="18" height="13" rx="2"/>
-                <path d="M16 3v4"/>
-                <path d="M8 3v4"/>
-                <path d="M3 11h18"/>
-            </svg>
-        </div>
-        <h3>Top 5 Empresas</h3>
-        <ul id="lista-empresa">
-            {% for empresa, qtd in chamados_por_empresa.items() %}
-                <li><strong>{{ empresa }}:</strong> {{ qtd }}</li>
-            {% endfor %}
-        </ul>
-    </div>
     <div class="dash-card" aria-label="Gráfico de Status">
         <canvas id="grafico-status" aria-label="Gráfico de Status" role="img"></canvas>
     </div>
