@@ -1,61 +1,70 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
+    aplicarTemaDarkmode();
+    configurarBotaoDarkmode();
     ativarInterceptacaoFormsSPA();
     observarToast();
     ocultarToast();
+    configurarFechamentoModais();
+});
 
-    // ✅ Darkmode toggle
-    if (localStorage.getItem('darkmode') === 'on') {
-        document.body.classList.add('darkmode');
+// ✅ DARKMODE
+function aplicarTemaDarkmode() {
+    if (localStorage.getItem("darkmode") === "on") {
+        document.body.classList.add("darkmode");
+    }
+}
+
+function configurarBotaoDarkmode() {
+    const btn = document.getElementById("toggle-darkmode");
+    if (!btn) return;
+
+    function updateTexto() {
+        btn.textContent = document.body.classList.contains("darkmode")
+            ? "☀️ Modo Claro"
+            : "🌙 Modo Escuro";
     }
 
-    const btn = document.getElementById('toggle-darkmode');
-    if (btn) {
-        function updateButton() {
-            btn.textContent = document.body.classList.contains('darkmode')
-                ? '☀️ Modo Claro'
-                : '🌙 Modo Escuro';
-        }
+    updateTexto();
 
-        updateButton();
+    btn.onclick = () => {
+        document.body.classList.toggle("darkmode");
+        localStorage.setItem("darkmode",
+            document.body.classList.contains("darkmode") ? "on" : "off");
+        updateTexto();
+    };
+}
 
-        btn.onclick = () => {
-            document.body.classList.toggle('darkmode');
-            localStorage.setItem('darkmode',
-                document.body.classList.contains('darkmode') ? 'on' : 'off');
-            updateButton();
-        };
-    }
-
-    // ✅ Fechar modal ao clicar fora
-    document.querySelectorAll('.modal-chamado').forEach(modal => {
-        modal.addEventListener('click', event => {
+// ✅ MODAIS
+function configurarFechamentoModais() {
+    document.querySelectorAll(".modal-chamado").forEach(modal => {
+        modal.addEventListener("click", event => {
             if (event.target === modal) {
-                modal.style.display = 'none';
+                modal.style.display = "none";
             }
         });
     });
-});
+}
 
-// ✅ Funções globais
-window.abrirModalChamado = function (id) {
-    const modal = document.getElementById('modal-chamado-' + id);
-    if (modal) modal.style.display = 'flex';
+window.abrirModalChamado = id => {
+    const modal = document.getElementById(`modal-chamado-${id}`);
+    if (modal) modal.style.display = "flex";
 };
 
-window.fecharModalChamado = function (id) {
-    const modal = document.getElementById('modal-chamado-' + id);
-    if (modal) modal.style.display = 'none';
+window.fecharModalChamado = id => {
+    const modal = document.getElementById(`modal-chamado-${id}`);
+    if (modal) modal.style.display = "none";
 };
 
+// ✅ EXCLUSÃO DE CHAMADOS
 function excluirChamado(id, csrf) {
-    if (confirm('Tem certeza que deseja excluir este chamado?')) {
-        const form = document.createElement('form');
-        form.method = 'POST';
+    if (confirm("Tem certeza que deseja excluir este chamado?")) {
+        const form = document.createElement("form");
+        form.method = "POST";
         form.action = `/excluir/${id}`;
 
-        const csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = 'csrf_token';
+        const csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "csrf_token";
         csrfInput.value = csrf;
 
         form.appendChild(csrfInput);
@@ -64,6 +73,7 @@ function excluirChamado(id, csrf) {
     }
 }
 
+// ✅ SPA: carregamento de partials + CSS dinâmico
 function carregarConteudo(parcial) {
     const url = parcial.startsWith("/conteudo/") ? parcial : `/conteudo/${parcial}`;
 
@@ -75,18 +85,19 @@ function carregarConteudo(parcial) {
 
             ativarInterceptacaoFormsSPA();
             observarToast();
+            carregarCssDinamico(url);
 
+            // Detectar quando os gráficos forem injetados
             if (url.includes("dashboard")) {
                 const dashObserver = new MutationObserver((mut, obs) => {
-                    const s = document.getElementById('grafico-status');
-                    const p = document.getElementById('grafico-prioridade');
-                    const e = document.getElementById('grafico-empresa');
+                    const s = document.getElementById("grafico-status");
+                    const p = document.getElementById("grafico-prioridade");
+                    const e = document.getElementById("grafico-empresa");
                     if (s && p && e) {
                         inicializarDashboard();
                         obs.disconnect();
                     }
                 });
-
                 dashObserver.observe(container, { childList: true, subtree: true });
             }
         })
@@ -95,31 +106,55 @@ function carregarConteudo(parcial) {
         });
 }
 
+// ✅ CSS dinâmico por partial
+function carregarCssDinamico(url) {
+    const mapaCss = {
+        "editar_chamado": "editar_chamado.css",
+        // Você pode adicionar mais páginas aqui no futuro
+    };
 
-function ativarInterceptacaoFormsSPA() {
-    document.querySelectorAll("form[data-spa-post]").forEach(form => {
-        if (!form.dataset.listener) {
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: formData
-                });
-
-                if (response.redirected) {
-                    carregarConteudo(response.url);
-                } else {
-                    const html = await response.text();
-                    document.getElementById("conteudo-dinamico").innerHTML = html;
-                    ativarInterceptacaoFormsSPA();
-                }
-            });
-            form.dataset.listener = "true";
+    Object.keys(mapaCss).forEach(chave => {
+        if (url.includes(chave)) {
+            const id = `css-${chave}`;
+            if (!document.getElementById(id)) {
+                const link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = `/static/${mapaCss[chave]}`;
+                link.id = id;
+                document.head.appendChild(link);
+            }
         }
     });
 }
 
+// ✅ SPA: interceptar formulários
+function ativarInterceptacaoFormsSPA() {
+    document.querySelectorAll("form[data-spa-post]").forEach(form => {
+        if (form.dataset.listener) return;
+
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            if (response.redirected) {
+                carregarConteudo(response.url);
+            } else {
+                const html = await response.text();
+                document.getElementById("conteudo-dinamico").innerHTML = html;
+                ativarInterceptacaoFormsSPA();
+            }
+        });
+
+        form.dataset.listener = "true";
+    });
+}
+
+// ✅ Toast automático
 function ocultarToast() {
     const tentarOcultar = () => {
         const toast = document.getElementById("toast");
@@ -141,19 +176,17 @@ function ocultarToast() {
     tentarOcultar();
 }
 
+// ✅ Monitorar quando um novo toast aparece
 let toastObserver = null;
 
 function observarToast() {
     const container = document.getElementById("conteudo-dinamico");
-    if (toastObserver) {
-        toastObserver.disconnect();
-        toastObserver = null;
-    }
+    if (toastObserver) toastObserver.disconnect();
+
     toastObserver = new MutationObserver(() => {
         const toast = document.getElementById("toast");
-        if (toast) {
-            ocultarToast();
-        }
+        if (toast) ocultarToast();
     });
+
     toastObserver.observe(container, { childList: true, subtree: true });
 }

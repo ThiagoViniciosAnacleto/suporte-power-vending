@@ -425,7 +425,49 @@ def editar_chamado(id):
                             lista_usuarios=lista_usuarios,
                             historico_logs=historico_logs,
                             titulo_pagina="Editar Chamado")
+    
+    
+@app.route("/conteudo/editar_chamado/<int:id>")
+@login_required
+@tec_or_admin_required
+def conteudo_editar_chamado(id):
+    conn = conectar()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT * FROM chamados WHERE id = %s", (id,))
+    chamado = cursor.fetchone()
 
+    cursor.execute("SELECT nome FROM empresas")
+    lista_empresas = [r[0] for r in cursor.fetchall()]
+
+    cursor.execute("SELECT nome FROM tipos_maquina")
+    lista_maquinas = [r[0] for r in cursor.fetchall()]
+
+    cursor.execute("SELECT nome FROM origens_problema")
+    lista_origens = [r[0] for r in cursor.fetchall()]
+
+    cursor.execute("SELECT usuario FROM usuarios")
+    lista_usuarios = [r[0] for r in cursor.fetchall()]
+
+    cursor.execute("SELECT tipo, data_hora, usuario FROM logs WHERE chamado_id = %s ORDER BY data_hora DESC", (id,))
+    historico_logs = cursor.fetchall()
+
+    campos = [
+        "id", "responsavel_atendimento", "data", "horario", "cliente", "empresa",
+        "porta_ssh", "tipo_maquina", "relato", "prioridade", "origem", "responsavel_acao", "descricao_acao", "status"
+    ]
+    chamado_dict = dict(zip(campos, chamado))
+
+    conn.close()
+
+    return render_template("partials/editar_chamado.html",
+        chamado=chamado_dict,
+        lista_empresas=lista_empresas,
+        lista_maquinas=lista_maquinas,
+        lista_origens=lista_origens,
+        lista_usuarios=lista_usuarios,
+        historico_logs=historico_logs
+    )
 
 @app.route("/historico/<int:id>")
 @login_required
