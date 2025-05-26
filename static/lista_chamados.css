@@ -98,35 +98,46 @@ tbody td {
     border-bottom: 1px solid #eee;
 }
 
-tbody tr:hover {
-    background-color: #f9f9f9;
-}
-
 /* Coluna de ações */
-.botoes-lista-chamados {
+.botoes-lista-chamados .acoes-flex {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-.botoes-lista-chamados a,
-.botoes-lista-chamados button {
+.botoes-lista-chamados a {
+    display: flex;
     font-size: 13px;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
+    text-decoration: none;
     background: none;
     border: none;
     color: #007bff;
+    font-weight: bold;
+    font-size: 14px;
+    transition: color 0.3s ease;
     cursor: pointer;
-    transition: color 0.2s;
 }
 
+.botoes-lista-chamados a:hover {
 .botoes-lista-chamados a:hover,
 .botoes-lista-chamados button:hover {
     color: #0056b3;
 }
 
-.botoes-lista-chamados button.botao-link:disabled {
+.botao-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     color: #ccc;
     cursor: not-allowed;
 }
