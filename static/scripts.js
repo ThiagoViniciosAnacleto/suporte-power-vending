@@ -82,6 +82,12 @@ function carregarConteudo(parcial) {
 
             ativarInterceptacaoFormsSPA();
 
+            // ✅ Reativa toast após carregamento SPA
+            const toast = document.getElementById("toast");
+                if (toast) {
+                    setTimeout(() => { toast.style.display = "none";}, 4000);
+                    }
+
             if (url.includes("dashboard")) {
                 const observer = new MutationObserver((mut, obs) => {
                     const s = document.getElementById('grafico-status');
