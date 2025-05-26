@@ -1,25 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-    // ✅ Interceptar formulários SPA com POST
-    document.querySelectorAll("form[data-spa-post]").forEach(form => {
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-
-            const response = await fetch(form.action, {
-                method: form.method,
-                body: formData
-            });
-
-            if (response.redirected) {
-                carregarConteudo(response.url);  // SPA: atualiza apenas o conteúdo
-            } else {
-                const html = await response.text();
-                document.getElementById("conteudo-dinamico").innerHTML = html;
-            }
-        });
-    });
+    ativarInterceptacaoFormsSPA(); // ✅ só essa linha já ativa todos os forms
 
     // ✅ Toast temporário
     const toast = document.getElementById("toast");
@@ -100,6 +80,8 @@ function carregarConteudo(parcial) {
             const container = document.getElementById("conteudo-dinamico");
             container.innerHTML = html;
 
+            ativarInterceptacaoFormsSPA();
+
             if (url.includes("dashboard")) {
                 const observer = new MutationObserver((mut, obs) => {
                     const s = document.getElementById('grafico-status');
@@ -117,4 +99,28 @@ function carregarConteudo(parcial) {
         .catch(() => {
             document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
         });
+}
+
+function ativarInterceptacaoFormsSPA() {
+    document.querySelectorAll("form[data-spa-post]").forEach(form => {
+        if (!form.dataset.listener) {
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData
+                });
+
+                if (response.redirected) {
+                    carregarConteudo(response.url);
+                } else {
+                    const html = await response.text();
+                    document.getElementById("conteudo-dinamico").innerHTML = html;
+                    ativarInterceptacaoFormsSPA(); // 👈 reaplica após renderizar novo conteúdo
+                }
+            });
+            form.dataset.listener = "true"; // evita adicionar mais de uma vez
+        }
+    });
 }
