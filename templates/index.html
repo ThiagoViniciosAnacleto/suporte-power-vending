@@ -73,16 +73,6 @@
                 {% include "partials/cards_abertos.html" %}
             </main>
         </div>
-
-        <!-- Toast de mensagens -->
-        {% with mensagens = get_flashed_messages() %}
-            {% if mensagens %}
-            <div class="toast" id="toast">
-                {{ mensagens[0] }}
-            </div>
-            {% endif %}
-        {% endwith %}
-
         <!-- Scripts -->
         <script src="{{ url_for('static', filename='scripts.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
