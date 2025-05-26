@@ -64,7 +64,6 @@ function excluirChamado(id, csrf) {
     }
 }
 
-// ✅ Carregamento SPA de conteúdo parcial
 function carregarConteudo(parcial) {
     const url = parcial.startsWith("/conteudo/") ? parcial : `/conteudo/${parcial}`;
 
@@ -113,38 +112,28 @@ function ativarInterceptacaoFormsSPA() {
                 } else {
                     const html = await response.text();
                     document.getElementById("conteudo-dinamico").innerHTML = html;
-                    ativarInterceptacaoFormsSPA(); // 👈 reaplica após renderizar novo conteúdo
+                    ativarInterceptacaoFormsSPA();
                 }
             });
-            form.dataset.listener = "true"; // evita adicionar mais de uma vez
+            form.dataset.listener = "true";
         }
     });
 }
 
 function ocultarToast() {
-    console.log("🔁 Função ocultarToast() foi chamada");
-
     const tentarOcultar = () => {
         const toast = document.getElementById("toast");
-        console.log("Tentando encontrar o toast...");
-
         if (toast) {
-            console.log("✅ Toast encontrado! Iniciando fade-out");
-
             toast.style.opacity = "1";
             toast.style.transition = "opacity 0.5s ease";
 
             setTimeout(() => {
                 toast.style.opacity = "0";
-                console.log("⏳ Iniciando fade-out...");
-
                 setTimeout(() => {
                     toast.style.display = "none";
-                    console.log("🧼 Toast escondido com display:none");
-                }, 500); // depois do fade-out
-            }, 3000); // tempo visível
+                }, 500);
+            }, 3000);
         } else {
-            console.log("❌ Toast ainda não está no DOM, tentando novamente...");
             setTimeout(tentarOcultar, 50);
         }
     };
@@ -156,20 +145,15 @@ let toastObserver = null;
 
 function observarToast() {
     const container = document.getElementById("conteudo-dinamico");
-
-    // Se já existe um observer ativo, desconecta
     if (toastObserver) {
         toastObserver.disconnect();
         toastObserver = null;
     }
-
     toastObserver = new MutationObserver(() => {
         const toast = document.getElementById("toast");
         if (toast) {
-            console.log("🟡 Toast detectado via MutationObserver");
             ocultarToast();
         }
     });
-
     toastObserver.observe(container, { childList: true, subtree: true });
 }
