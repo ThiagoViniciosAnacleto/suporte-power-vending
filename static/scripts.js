@@ -83,28 +83,28 @@ function carregarConteudo(parcial) {
     const url = parcial.startsWith("/conteudo/") ? parcial : `/conteudo/${parcial}`;
     
     fetch(url)
-        .then(response => response.text())
+        .then(res => res.text())
         .then(html => {
             const container = document.getElementById("conteudo-dinamico");
             container.innerHTML = html;
 
-            // Se for dashboard, espera o canvas aparecer de fato
             if (url.includes("dashboard")) {
-                const tentarIniciar = () => {
+                const observer = new MutationObserver((mut, obs) => {
                     const s = document.getElementById('grafico-status');
                     const p = document.getElementById('grafico-prioridade');
                     const e = document.getElementById('grafico-empresa');
                     if (s && p && e) {
                         inicializarDashboard();
-                    } else {
-                        setTimeout(tentarIniciar, 100);
+                        obs.disconnect();
                     }
-                };
-                tentarIniciar();
+                });
+
+                observer.observe(container, { childList: true, subtree: true });
             }
         })
         .catch(() => {
             document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
         });
 }
+
 
