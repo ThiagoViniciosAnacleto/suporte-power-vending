@@ -79,8 +79,8 @@ function excluirChamado(id, csrf) {
     }
 }
 
-function carregarPagina(parcial) {
-    fetch(`/conteudo/${parcial}`)
+function carregarConteudo(parcial) {
+    fetch(parcial.startsWith('/conteudo/') ? parcial : `/conteudo/${parcial}`)
         .then(response => response.text())
         .then(html => {
             document.getElementById("conteudo-dinamico").innerHTML = html;
@@ -90,8 +90,3 @@ function carregarPagina(parcial) {
             }
         });
 }
-
-// Carrega o dashboard automaticamente ao abrir a página
-document.addEventListener("DOMContentLoaded", () => {
-    carregarPagina("dashboard");
-});
