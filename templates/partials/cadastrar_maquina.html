@@ -9,11 +9,11 @@
 
         <button type="submit">Cadastrar Máquina</button>
     </form>
-    {% with mensagens = get_flashed_messages() %}
-    {% if mensagens %}
-    <div class="toast" id="toast">
-        {{ mensagens[0] }}
-    </div>
-    {% endif %}
+    {% with mensagens = session.pop('_flashes', []) %}
+        {% if mensagens %}
+            <div class="toast" id="toast">
+                {{ mensagens[0][1] }}
+            </div>
+        {% endif %}
     {% endwith %}
 </main>
