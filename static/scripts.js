@@ -120,18 +120,23 @@ function ativarInterceptacaoFormsSPA() {
 }
 
 function ocultarToast() {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
         const toast = document.getElementById("toast");
         if (toast) {
+            // Garante estilos iniciais
             toast.style.opacity = "1";
             toast.style.transition = "opacity 0.5s ease";
 
+            // Aguarda renderização visual
             setTimeout(() => {
                 toast.style.opacity = "0";
+
+                // Remove após fade-out
                 setTimeout(() => {
                     toast.style.display = "none";
                 }, 500);
-            }, 3000);
+            }, 3000); // visível por 3s
         }
-    }, 50);
+    });
 }
+
