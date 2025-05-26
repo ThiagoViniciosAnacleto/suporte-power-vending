@@ -80,7 +80,7 @@ function excluirChamado(id, csrf) {
 }
 
 function carregarPagina(parcial) {
-    fetch(`/partials/${parcial}`)
+    fetch(`/conteudo/${parcial}`)
         .then(response => response.text())
         .then(html => {
             document.getElementById("conteudo-dinamico").innerHTML = html;
