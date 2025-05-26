@@ -18,7 +18,13 @@ function inicializarDashboard() {
             labels: [],
             datasets: [{ label: 'Status', data: [], backgroundColor: '#4b91fa' }]
         },
-        options: { responsive: true, plugins: { legend: { display: false } } }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            }
+        }
     });
 
     const chartPrioridade = new Chart(ctxPrioridade, {
@@ -27,7 +33,7 @@ function inicializarDashboard() {
             labels: [],
             datasets: [{ label: 'Prioridade', data: [], backgroundColor: ['#28a745', '#ffc107', '#dc3545'] }]
         },
-        options: { responsive: true }
+        options: { responsive: true, maintainAspectRatio: false }
     });
 
     const chartEmpresa = new Chart(ctxEmpresa, {
@@ -36,7 +42,7 @@ function inicializarDashboard() {
             labels: [],
             datasets: [{ label: 'Empresas', data: [], backgroundColor: ['#4b91fa', '#6f42c1', '#fd7e14', '#20c997', '#e83e8c'] }]
         },
-        options: { responsive: true }
+        options: { responsive: true, maintainAspectRatio: false }
     });
 
     // Evita duplicação do listener
