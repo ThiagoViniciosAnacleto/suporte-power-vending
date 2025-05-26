@@ -120,10 +120,18 @@ function ativarInterceptacaoFormsSPA() {
 }
 
 function ocultarToast() {
-    const toast = document.getElementById("toast");
-    if (toast) {
-        setTimeout(() => {
-            toast.style.display = "none";
-        }, 4000);
-    }
+    setTimeout(() => {
+        const toast = document.getElementById("toast");
+        if (toast) {
+            toast.style.opacity = "1";
+            toast.style.transition = "opacity 0.5s ease";
+
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 500);
+            }, 3000);
+        }
+    }, 50);
 }
