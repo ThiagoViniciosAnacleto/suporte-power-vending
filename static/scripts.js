@@ -80,13 +80,19 @@ function excluirChamado(id, csrf) {
 }
 
 function carregarConteudo(parcial) {
-    fetch(parcial.startsWith('/conteudo/') ? parcial : `/conteudo/${parcial}`)
+    const url = parcial.startsWith("/conteudo/") ? parcial : `/conteudo/${parcial}`;
+    
+    fetch(url)
         .then(response => response.text())
         .then(html => {
             document.getElementById("conteudo-dinamico").innerHTML = html;
 
-            if (parcial === "dashboard") {
-                inicializarDashboard(); // função do dashboard.js
+            // Se for dashboard, inicializa os gráficos
+            if (url.includes("dashboard")) {
+                setTimeout(inicializarDashboard, 100);
             }
+        })
+        .catch(() => {
+            document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
         });
 }
