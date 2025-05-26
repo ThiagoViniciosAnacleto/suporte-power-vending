@@ -611,7 +611,7 @@ def buscar_chamados(filtros):
     sql += " ORDER BY data DESC"
 
     cursor.execute(sql, params)
-    chamados = cursor.fetchall()
+    chamados = [dict(zip([desc[0] for desc in cursor.description], row)) for row in cursor.fetchall()]
     conn.close()
 
     return chamados
