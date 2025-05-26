@@ -1,6 +1,6 @@
-function inicializarDashboard() {
-    const socket = io();
+const socket = io(); // só conecta uma vez
 
+function inicializarDashboard() {
     // Verifica se os elementos dos gráficos estão presentes
     const elStatus = document.getElementById('grafico-status');
     const elPrioridade = document.getElementById('grafico-prioridade');
@@ -14,26 +14,38 @@ function inicializarDashboard() {
 
     const chartStatus = new Chart(ctxStatus, {
         type: 'bar',
-        data: { labels: [], datasets: [{ label: 'Status', data: [], backgroundColor: '#4b91fa' }] },
+        data: {
+            labels: [],
+            datasets: [{ label: 'Status', data: [], backgroundColor: '#4b91fa' }]
+        },
         options: { responsive: true, plugins: { legend: { display: false } } }
     });
 
     const chartPrioridade = new Chart(ctxPrioridade, {
         type: 'pie',
-        data: { labels: [], datasets: [{ label: 'Prioridade', data: [], backgroundColor: ['#28a745', '#ffc107', '#dc3545'] }] },
+        data: {
+            labels: [],
+            datasets: [{ label: 'Prioridade', data: [], backgroundColor: ['#28a745', '#ffc107', '#dc3545'] }]
+        },
         options: { responsive: true }
     });
 
     const chartEmpresa = new Chart(ctxEmpresa, {
         type: 'doughnut',
-        data: { labels: [], datasets: [{ label: 'Empresas', data: [], backgroundColor: ['#4b91fa', '#6f42c1', '#fd7e14', '#20c997', '#e83e8c'] }] },
+        data: {
+            labels: [],
+            datasets: [{ label: 'Empresas', data: [], backgroundColor: ['#4b91fa', '#6f42c1', '#fd7e14', '#20c997', '#e83e8c'] }]
+        },
         options: { responsive: true }
     });
 
-    // Envia solicitação inicial ao servidor
+    // Evita duplicação do listener
+    socket.off('dashboard_update');
+
+    // Solicita dados atualizados
     socket.emit('solicitar_atualizacao');
 
-    // Atualiza os gráficos quando o servidor envia novos dados
+    // Recebe dados do servidor e atualiza os gráficos
     socket.on('dashboard_update', (dados) => {
         chartStatus.data.labels = Object.keys(dados.status);
         chartStatus.data.datasets[0].data = Object.values(dados.status);
@@ -47,4 +59,14 @@ function inicializarDashboard() {
         chartEmpresa.data.datasets[0].data = Object.values(dados.empresas);
         chartEmpresa.update();
     });
+}
+
+// SPA loader
+function carregarDashboard() {
+    fetch("/conteudo/dashboard")
+        .then(res => res.text())
+        .then(html => {
+            document.querySelector("main").innerHTML = html;
+            inicializarDashboard();
+        });
 }
