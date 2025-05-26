@@ -141,21 +141,23 @@ def cadastrar_usuario():
         confirmar = request.form.get("confirmar_senha", "")
         is_admin = int(request.form.get("is_admin", 0))
 
-
         if not usuario or not senha or not confirmar:
             flash("Todos os campos são obrigatórios.")
-            return redirect("/cadastrar_usuario")
+            return conteudo_cadastrar_usuario()
 
         if senha != confirmar:
             flash("As senhas não coincidem.")
-            return redirect("/cadastrar_usuario")
+            return conteudo_cadastrar_usuario()
 
         senha_hash = generate_password_hash(senha, method="scrypt")
 
         try:
             conn = conectar()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO usuarios (usuario, senha_hash, is_admin) VALUES (%s, %s, %s)", (usuario, senha_hash, is_admin))
+            cursor.execute(
+                "INSERT INTO usuarios (usuario, senha_hash, is_admin) VALUES (%s, %s, %s)",
+                (usuario, senha_hash, is_admin)
+            )
             conn.commit()
             flash("Usuário cadastrado com sucesso!")
         except Exception as e:
@@ -164,9 +166,11 @@ def cadastrar_usuario():
             print(f"Erro: {e}")
         finally:
             conn.close()
-        return redirect("/conteudo/cadastrar_usuario")
+
+        return conteudo_cadastrar_usuario()
 
     return render_template("partials/cadastrar_usuario.html", titulo_pagina="Cadastro Usuário")
+
 
 # --- ROTAS ---
 @app.route("/login", methods=["GET", "POST"])
