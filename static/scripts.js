@@ -120,23 +120,34 @@ function ativarInterceptacaoFormsSPA() {
 }
 
 function ocultarToast() {
-    requestAnimationFrame(() => {
+    console.log("🔁 Função ocultarToast() foi chamada");
+
+    const tentarOcultar = () => {
         const toast = document.getElementById("toast");
+        console.log("Tentando encontrar o toast...");
+
         if (toast) {
-            // Garante estilos iniciais
+            console.log("✅ Toast encontrado! Iniciando fade-out");
+
             toast.style.opacity = "1";
             toast.style.transition = "opacity 0.5s ease";
 
-            // Aguarda renderização visual
             setTimeout(() => {
                 toast.style.opacity = "0";
+                console.log("⏳ Iniciando fade-out...");
 
-                // Remove após fade-out
                 setTimeout(() => {
                     toast.style.display = "none";
-                }, 500);
-            }, 3000); // visível por 3s
+                    console.log("🧼 Toast escondido com display:none");
+                }, 500); // depois do fade-out
+            }, 3000); // tempo visível
+        } else {
+            console.log("❌ Toast ainda não está no DOM, tentando novamente...");
+            setTimeout(tentarOcultar, 50);
         }
-    });
+    };
+
+    tentarOcultar();
 }
+
 
