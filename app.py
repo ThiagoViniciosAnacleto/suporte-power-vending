@@ -516,39 +516,24 @@ def listar_chamados():
         "data_fim": request.args.get("data_fim", "").strip()
     }
 
+    chamados = buscar_chamados(filtros)
+
+    # totalizações
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM chamados")
     total_geral = cursor.fetchone()[0]
-
-    sql = "SELECT id, responsavel_atendimento, data, cliente, empresa, status FROM chamados WHERE 1=1"
-    params = []
-
-    if filtros["status"] != "todos":
-        sql += " AND status = %s"
-        params.append(filtros["status"])
-    if filtros["empresa"]:
-        sql += " AND empresa ILIKE %s"
-        params.append(f"%{filtros['empresa']}%")
-    if filtros["responsavel"]:
-        sql += " AND responsavel_atendimento ILIKE %s"
-        params.append(f"%{filtros['responsavel']}%")
-    if filtros["cliente"]:
-        sql += " AND cliente ILIKE %s"
-        params.append(f"%{filtros['cliente']}%")
-    if filtros["data_inicio"]:
-        sql += " AND data >= %s"
-        params.append(filtros["data_inicio"])
-    if filtros["data_fim"]:
-        sql += " AND data <= %s"
-        params.append(filtros["data_fim"])
-
-    sql += " ORDER BY id DESC"
-    cursor.execute(sql, params)
-    chamados = [dict(zip(("id", "responsavel_atendimento", "data", "cliente", "empresa", "status"), row)) for row in cursor.fetchall()]
+    total_filtrados = len(chamados)
     conn.close()
 
-    return render_template("partials/lista_chamados.html", titulo_pagina="Chamados", chamados=chamados, total_geral=total_geral, total_filtrados=len(chamados), **filtros)
+    return render_template(
+        "partials/lista_chamados.html",
+        chamados=chamados,
+        total_geral=total_geral,
+        total_filtrados=total_filtrados,
+        titulo_pagina="Lista de Chamados"
+    )
+
 
 @app.route("/conteudo/lista_chamados")
 @login_required
@@ -566,13 +551,70 @@ def excluir_chamado(id):
     conn.close()
     flash("Chamado excluído!")
 
+    filtros = {
+        "status": request.form.get("status", "todos"),
+        "empresa": request.form.get("empresa", "").strip(),
+        "responsavel": request.form.get("responsavel", "").strip(),
+        "cliente": request.form.get("cliente", "").strip(),
+        "data_inicio": request.form.get("data_inicio", "").strip(),
+        "data_fim": request.form.get("data_fim", "").strip()
+    }
+
+    chamados = buscar_chamados(filtros)
+
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM chamados ORDER BY data DESC')
+    cursor.execute("SELECT COUNT(*) FROM chamados")
+    total_geral = cursor.fetchone()[0]
+    total_filtrados = len(chamados)
+    conn.close()
+
+    return render_template(
+        "partials/lista_chamados.html",
+        chamados=chamados,
+        total_geral=total_geral,
+        total_filtrados=total_filtrados,
+        titulo_pagina="Lista de Chamados"
+    )
+    
+def buscar_chamados(filtros):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    sql = "SELECT * FROM chamados WHERE 1=1"
+    params = []
+
+    if filtros.get("status") and filtros["status"] != "todos":
+        sql += " AND status = %s"
+        params.append(filtros["status"])
+
+    if filtros.get("empresa"):
+        sql += " AND empresa ILIKE %s"
+        params.append(f"%{filtros['empresa']}%")
+
+    if filtros.get("responsavel"):
+        sql += " AND responsavel_atendimento ILIKE %s"
+        params.append(f"%{filtros['responsavel']}%")
+
+    if filtros.get("cliente"):
+        sql += " AND cliente ILIKE %s"
+        params.append(f"%{filtros['cliente']}%")
+
+    if filtros.get("data_inicio"):
+        sql += " AND data >= %s"
+        params.append(filtros["data_inicio"])
+
+    if filtros.get("data_fim"):
+        sql += " AND data <= %s"
+        params.append(filtros["data_fim"])
+
+    sql += " ORDER BY data DESC"
+
+    cursor.execute(sql, params)
     chamados = cursor.fetchall()
     conn.close()
 
-    return render_template('partials/lista_chamados.html', chamados=chamados, titulo_pagina="Lista de Chamados")
+    return chamados
 
 @app.route("/dashboard")
 @login_required

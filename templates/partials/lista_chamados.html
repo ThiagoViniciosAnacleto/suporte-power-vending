@@ -85,20 +85,28 @@
           <td class="botoes-lista-chamados">
             <div class="acoes-flex">
 
-              <a href="#" onclick="carregarConteudo('editar/{{ chamado.id }}')" title="Editar chamado">
+              {# Link para edição com filtros na URL #}
+              <a href="#" onclick="carregarConteudo('editar/{{ chamado.id }}?{{ request.query_string.decode() }}')" title="Editar chamado">
                 <img src="{{ url_for('static', filename='img/editar.png') }}" alt="Editar" width="14" height="14"> Editar
               </a>
 
-                {% if session["is_admin"] == 1 %}
-                <form action="/excluir/{{ chamado.id }}" method="POST" data-spa-post onsubmit="return confirm('Tem certeza que deseja excluir este chamado?')" style="display:inline;">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="botao-link">
-                            <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="14" height="14"> Excluir
-                        </button>
-                </form>
-                {% endif %}
+              {% if session["is_admin"] == 1 %}
+              <form action="/excluir/{{ chamado.id }}" method="POST" data-spa-post onsubmit="return confirm('Tem certeza que deseja excluir este chamado?')" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="status" value="{{ request.args.get('status', 'todos') }}">
+                <input type="hidden" name="empresa" value="{{ request.args.get('empresa', '') }}">
+                <input type="hidden" name="responsavel" value="{{ request.args.get('responsavel', '') }}">
+                <input type="hidden" name="cliente" value="{{ request.args.get('cliente', '') }}">
+                <input type="hidden" name="data_inicio" value="{{ request.args.get('data_inicio', '') }}">
+                <input type="hidden" name="data_fim" value="{{ request.args.get('data_fim', '') }}">
+                <button type="submit" class="botao-link">
+                  <img src="{{ url_for('static', filename='img/cruz.png') }}" alt="Excluir" width="14" height="14"> Excluir
+                </button>
+              </form>
+              {% endif %}
 
-              <a href="#" onclick="carregarConteudo('historico/{{ chamado.id }}')" title="Histórico do chamado">
+              {# Link para histórico com filtros na URL #}
+              <a href="#" onclick="carregarConteudo('historico/{{ chamado.id }}?{{ request.query_string.decode() }}')" title="Histórico do chamado">
                 <img src="{{ url_for('static', filename='img/documento.png') }}" alt="Histórico" width="14" height="14"> Histórico
               </a>
 
