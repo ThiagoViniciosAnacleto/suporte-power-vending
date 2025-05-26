@@ -10,6 +10,9 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_socketio import SocketIO
+from flask_socketio import emit
+from flask import request as flask_request
+from flask_socketio import request as socket_request
 from datetime import datetime
 from functools import wraps
 from flask import get_flashed_messages
@@ -686,7 +689,7 @@ def atualizar_dashboard():
     'status': chamados_por_status,
     'prioridade': chamados_por_prioridade,
     'empresas': chamados_por_empresa
-})
+}, to=socket_request.sid)
     
 @app.route("/conteudo/cadastrar_maquina")
 @login_required

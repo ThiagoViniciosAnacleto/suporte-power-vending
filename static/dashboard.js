@@ -53,6 +53,8 @@ function inicializarDashboard() {
 
     // Recebe dados do servidor e atualiza os gráficos
     socket.on('dashboard_update', (dados) => {
+        console.log("[DEBUG] Dados recebidos do servidor:", dados);
+
         chartStatus.data.labels = Object.keys(dados.status);
         chartStatus.data.datasets[0].data = Object.values(dados.status);
         chartStatus.update();
