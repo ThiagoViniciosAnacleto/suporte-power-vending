@@ -11,7 +11,7 @@
     flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 30px;
-    background-color: #fff;
+    background-color: #d0d0d0;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -121,7 +121,6 @@ tbody td {
     cursor: pointer;
 }
 
-.botoes-lista-chamados a:hover {
 .botoes-lista-chamados a:hover,
 .botoes-lista-chamados button:hover {
     color: #0056b3;
@@ -154,7 +153,6 @@ tbody td {
     }
 }
 
-/* 🌙 Modo escuro opcional */
 body.darkmode .filtro-container,
 body.darkmode table {
     background-color: #1f1f1f;
@@ -177,4 +175,13 @@ body.darkmode .filtro-item label {
 
 body.darkmode .botoes-lista-chamados a {
     color: #66b0ff;
+}
+
+body.darkmode .filtro-btn-full button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+body.darkmode .filtro-btn-full button:hover {
+    background-color: #3390ff;
 }
