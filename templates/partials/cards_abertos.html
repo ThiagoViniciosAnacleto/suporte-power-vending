@@ -4,7 +4,10 @@
   {% if chamados_abertos %}
     {% for chamado in chamados_abertos %}
       <!-- Card Chamado -->
-      <article class="chamado-card" onclick="abrirModalChamado({{ chamado.id }})" id="card-{{ chamado.id }}" aria-labelledby="titulo-chamado-{{ chamado.id }}">
+      <article class="chamado-card"
+               onclick="abrirModalChamado({{ chamado.id }})"
+               id="card-{{ chamado.id }}"
+               aria-labelledby="titulo-chamado-{{ chamado.id }}">
         <header class="chamado-card-header">
           <h3 class="chamado-id" id="titulo-chamado-{{ chamado.id }}">#{{ chamado.id }}</h3>
           <span class="chamado-status {{ chamado.status | lower | replace(' ', '-') }}">{{ chamado.status }}</span>
@@ -13,21 +16,35 @@
         <dl class="chamado-card-main">
           <dt>Cliente:</dt>
           <dd>{{ chamado.cliente }}</dd>
+
           <dt>Empresa:</dt>
           <dd>{{ chamado.empresa }}</dd>
+
           <dt>Data:</dt>
           <dd>{{ chamado.data }}</dd>
+
           <dt>Prioridade:</dt>
-          <dd><span class="prioridade prioridade-{{ chamado.prioridade | lower }}">{{ chamado.prioridade }}</span></dd>
+          <dd>
+            <span class="prioridade prioridade-{{ chamado.prioridade | lower }}">{{ chamado.prioridade }}</span>
+          </dd>
         </dl>
       </article>
 
       <!-- Modal Chamado -->
-      <section class="modal-chamado" id="modal-chamado-{{ chamado.id }}" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-titulo-{{ chamado.id }}">
+      <section class="modal-chamado"
+               id="modal-chamado-{{ chamado.id }}"
+               style="display: none;"
+               role="dialog"
+               aria-modal="true"
+               aria-labelledby="modal-titulo-{{ chamado.id }}">
         <div class="modal-content">
           <header class="modal-header">
-            <h2 class="modal-titulo" id="modal-titulo-{{ chamado.id }}">Chamado #{{ chamado.id }} - {{ chamado.status }}</h2>
-            <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})" aria-label="Fechar modal">&times;</button>
+            <h2 class="modal-titulo" id="modal-titulo-{{ chamado.id }}">
+              Chamado #{{ chamado.id }} - {{ chamado.status }}
+            </h2>
+            <button class="close-modal" onclick="fecharModalChamado({{ chamado.id }})" aria-label="Fechar modal">
+              &times;
+            </button>
           </header>
 
           <dl class="lista-info-modal">
@@ -44,8 +61,10 @@
             <dt>Descrição da ação:</dt><dd>{{ chamado.descricao_acao }}</dd>
           </dl>
 
-
-          <a href="/editar/{{ chamado.id }}" class="btn-editar-modal">✏️ Editar Chamado</a>
+          <!-- SPA: usar carregarConteudo para evitar reload -->
+          <button class="btn-editar-modal" onclick="carregarConteudo('editar/{{ chamado.id }}')">
+            ✏️ Editar Chamado
+          </button>
         </div>
       </section>
     {% endfor %}

@@ -1,45 +1,60 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Toast
+
+    // ✅ Interceptar formulários SPA com POST
+    document.querySelectorAll("form[data-spa-post]").forEach(form => {
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            if (response.redirected) {
+                carregarConteudo(response.url);  // SPA: atualiza apenas o conteúdo
+            } else {
+                const html = await response.text();
+                document.getElementById("conteudo-dinamico").innerHTML = html;
+            }
+        });
+    });
+
+    // ✅ Toast temporário
     const toast = document.getElementById("toast");
     if (toast) {
-        setTimeout(function () {
+        setTimeout(() => {
             toast.style.display = "none";
         }, 4000);
     }
 
-    // Darkmode
+    // ✅ Darkmode toggle
     if (localStorage.getItem('darkmode') === 'on') {
         document.body.classList.add('darkmode');
-    } else {
-        document.body.classList.remove('darkmode');
     }
 
     const btn = document.getElementById('toggle-darkmode');
     if (btn) {
         function updateButton() {
-            if (document.body.classList.contains('darkmode')) {
-                btn.textContent = '☀️ Modo Claro';
-            } else {
-                btn.textContent = '🌙 Modo Escuro';
-            }
+            btn.textContent = document.body.classList.contains('darkmode')
+                ? '☀️ Modo Claro'
+                : '🌙 Modo Escuro';
         }
+
         updateButton();
 
-        btn.onclick = function () {
+        btn.onclick = () => {
             document.body.classList.toggle('darkmode');
-            if (document.body.classList.contains('darkmode')) {
-                localStorage.setItem('darkmode', 'on');
-            } else {
-                localStorage.setItem('darkmode', 'off');
-            }
+            localStorage.setItem('darkmode',
+                document.body.classList.contains('darkmode') ? 'on' : 'off');
             updateButton();
         };
     }
 
-    // Fechar modal ao clicar fora do conteúdo
-    var modais = document.querySelectorAll('.modal-chamado');
-    modais.forEach(function(modal) {
-        modal.addEventListener('click', function(event) {
+    // ✅ Fechar modal ao clicar fora
+    document.querySelectorAll('.modal-chamado').forEach(modal => {
+        modal.addEventListener('click', event => {
             if (event.target === modal) {
                 modal.style.display = 'none';
             }
@@ -47,19 +62,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Funções globais para os modais
-window.abrirModalChamado = function(id) {
-    var modal = document.getElementById('modal-chamado-' + id);
-    if (modal) {
-        modal.style.display = 'flex';
-    }
+// ✅ Funções globais
+window.abrirModalChamado = function (id) {
+    const modal = document.getElementById('modal-chamado-' + id);
+    if (modal) modal.style.display = 'flex';
 };
 
-window.fecharModalChamado = function(id) {
-    var modal = document.getElementById('modal-chamado-' + id);
-    if (modal) {
-        modal.style.display = 'none';
-    }
+window.fecharModalChamado = function (id) {
+    const modal = document.getElementById('modal-chamado-' + id);
+    if (modal) modal.style.display = 'none';
 };
 
 function excluirChamado(id, csrf) {
@@ -79,9 +90,10 @@ function excluirChamado(id, csrf) {
     }
 }
 
+// ✅ Carregamento SPA de conteúdo parcial
 function carregarConteudo(parcial) {
     const url = parcial.startsWith("/conteudo/") ? parcial : `/conteudo/${parcial}`;
-    
+
     fetch(url)
         .then(res => res.text())
         .then(html => {
@@ -106,5 +118,3 @@ function carregarConteudo(parcial) {
             document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
         });
 }
-
-

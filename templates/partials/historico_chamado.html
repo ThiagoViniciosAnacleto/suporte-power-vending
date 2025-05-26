@@ -1,24 +1,26 @@
 <main class="form-main">
     <section class="form-card">
         <h2>📋 Histórico de Alterações</h2>
+
         {% if logs %}
         <ul class="log-lista">
             {% for acao, data_hora, usuario in logs %}
             <li>
-                <strong>{{ usuario }}</strong> - {{ acao }} 
+                <strong>{{ usuario }}</strong> - {{ acao }}
                 <span class="hora-log">em {{ data_hora.strftime('%d/%m/%Y %H:%M') }}</span>
             </li>
             {% endfor %}
         </ul>
         {% else %}
         <p>Nenhuma alteração registrada para este chamado.</p>
-        {% endif %}
+    {% endif %}
     </section>
 </main>
-    {% with mensagens = get_flashed_messages() %}
-        {% if mensagens %}
-            <div class="toast" id="toast">
-                {{ mensagens[0] }}
-            </div>
-        {% endif %}
-    {% endwith %}
+
+{% with mensagens = get_flashed_messages() %}
+    {% if mensagens %}
+    <div class="toast" id="toast">
+        {{ mensagens[0] }}
+    </div>
+    {% endif %}
+{% endwith %}

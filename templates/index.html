@@ -1,104 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Central de Suporte - Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container-principal">
-        <header class="topbar">
-            <!-- LOGO -->
-            <div class="topbar-left">
-                <a href="/" aria-label="Página inicial Power Vending">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Power Vending" class="logo-pv">
-                </a>
-            </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Central de Suporte - Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+    </head>
+    <body>
+        <div class="container-principal">
 
-            <!-- AÇÕES E USUÁRIO -->
-            <nav class="topbar-nav" aria-label="Ações do usuário">
-                <ul class="topbar-actions" role="list">
-                    <li><button class="btn-header" aria-label="Ver notificações">🔔 Notificações</button></li>
-                    <li><button class="btn-header" id="toggle-darkmode" aria-label="Alternar tema">🌙 Modo</button></li>
-                    <li>
-                    <form action="/logout" method="get">
-                        <button type="submit" class="btn-header btn-sair" aria-label="Sair do sistema">Sair</button>
-                    </form>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- PERFIL DO USUÁRIO -->
-            <section class="topbar-user" aria-label="Informações do usuário logado">
-                <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Avatar do usuário" class="usuario-avatar">
-                <div class="usuario-dados">
-                    <span class="usuario-nome">{{ session["usuario"] }}</span>
-                    <span class="usuario-cargo">
-                    {% if session["is_admin"] == 1 %}Administrador
-                    {% elif session["is_admin"] == 2 %}Técnico
-                    {% else %}Usuário
-                    {% endif %}
-                    </span>
+        <!-- Topo -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <a href="/" aria-label="Página inicial Power Vending">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Power Vending" class="logo-pv">
+                    </a>
                 </div>
-            </section>
-        </header>
 
-    <!-- Menu lateral -->
-    <aside class="home-nav">
-        <ul>
+                <nav class="topbar-nav" aria-label="Ações do usuário">
+                    <ul class="topbar-actions" role="list">
+                        <li><button class="btn-header" aria-label="Ver notificações">🔔 Notificações</button></li>
+                        <li><button class="btn-header" id="toggle-darkmode" aria-label="Alternar tema">🌙 Modo</button></li>
+                        <li>
+                            <form action="/logout" method="get">
+                            <button type="submit" class="btn-header btn-sair" aria-label="Sair do sistema">Sair</button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
 
-        <li><button onclick="carregarConteudo('/conteudo/chamados_abertos')">📂 Chamados Abertos</button></li>
-        
-        {% if session["is_admin"] in [1, 2] %}
-        <li><button onclick="carregarConteudo('/conteudo/novo_chamado')">➕ Abrir Novo Chamado</button></li>
-        {% endif %}
-        <li><button onclick="carregarConteudo('/conteudo/lista_chamados')">📂 Lista de Chamados</button></li>
-        <li><button onclick="carregarConteudo('/conteudo/dashboard')">📊 Dashboard</button></li>
+                <section class="topbar-user" aria-label="Informações do usuário logado">
+                    <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Avatar do usuário" class="usuario-avatar">
+                    <div class="usuario-dados">
+                        <span class="usuario-nome">{{ session["usuario"] }}</span>
+                        <span class="usuario-cargo">
+                        {% if session["is_admin"] == 1 %}Administrador
+                        {% elif session["is_admin"] == 2 %}Técnico
+                        {% else %}Usuário
+                        {% endif %}
+                        </span>
+                    </div>
+                </section>
+            </header>
 
-        {% if session["is_admin"] in [1, 2] %}
-        <li><button onclick="carregarConteudo('/conteudo/cadastrar_empresa')">➕ Cadastrar Empresa</button></li>
-        <li><button onclick="carregarConteudo('/conteudo/cadastrar_maquina')">➕ Cadastrar Novo Tipo de Máquina</button></li>
-        {% endif %}
+            <!-- Menu lateral -->
+            <aside class="home-nav" aria-label="Menu lateral">
+                <ul>
+                    <li><button onclick="carregarConteudo('/conteudo/chamados_abertos')">📂 Chamados Abertos</button></li>
 
-        {% if session["is_admin"] == 1 %}
-        <li><button onclick="carregarConteudo('/conteudo/cadastrar_usuario')">➕ Cadastrar Novo Usuário</button></li>
-        <li><button onclick="carregarConteudo('/conteudo/editar_privilegios')">➕ Editar Privilégios</button></li>
-        <li><button onclick="carregarConteudo('/conteudo/cadastrar_recorrente')">➕ Cadastrar Chamado Recorrente</button></li>
-        {% endif %}
-        </ul>
-    </aside>
+                    {% if session["is_admin"] in [1, 2] %}
+                    <li><button onclick="carregarConteudo('/conteudo/novo_chamado')">➕ Abrir Novo Chamado</button></li>
+                    {% endif %}
 
-    <!-- Conteúdo dinâmico -->
-    <main id="conteudo-dinamico">
-        <!-- Conteúdo inicial: cards de chamados abertos -->
-        {% include "partials/cards_abertos.html" %}
-    </main>
-    </div>
+                    <li><button onclick="carregarConteudo('/conteudo/lista_chamados')">📂 Lista de Chamados</button></li>
+                    <li><button onclick="carregarConteudo('/conteudo/dashboard')">📊 Dashboard</button></li>
 
-    <!-- Flash message -->
-    {% with mensagens = get_flashed_messages() %}
-    {% if mensagens %}
-        <div class="toast" id="toast">
-        {{ mensagens[0] }}
+                    {% if session["is_admin"] in [1, 2] %}
+                    <li><button onclick="carregarConteudo('/conteudo/cadastrar_empresa')">🏢 Cadastrar Empresa</button></li>
+                    <li><button onclick="carregarConteudo('/conteudo/cadastrar_maquina')">🛠️ Cadastrar Máquina</button></li>
+                    {% endif %}
+
+                    {% if session["is_admin"] == 1 %}
+                    <li><button onclick="carregarConteudo('/conteudo/cadastrar_usuario')">👤 Cadastrar Usuário</button></li>
+                    <li><button onclick="carregarConteudo('/conteudo/editar_privilegios')">🔧 Editar Privilégios</button></li>
+                    <li><button onclick="carregarConteudo('/conteudo/cadastrar_recorrente')">♻️ Chamados Recorrentes</button></li>
+                    {% endif %}
+                </ul>
+            </aside>
+
+            <!-- Conteúdo SPA -->
+            <main id="conteudo-dinamico">
+                {% include "partials/cards_abertos.html" %}
+            </main>
         </div>
-    {% endif %}
-    {% endwith %}
 
-    <script>
-    function carregarConteudo(url) {
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById("conteudo-dinamico").innerHTML = html;
-        })
-        .catch(() => {
-            document.getElementById("conteudo-dinamico").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
-        });
-    }
-    </script>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
-</body>
+        <!-- Toast de mensagens -->
+        {% with mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+            <div class="toast" id="toast">
+                {{ mensagens[0] }}
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Scripts -->
+        <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+    </body>
 </html>
