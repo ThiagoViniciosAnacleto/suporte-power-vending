@@ -1,5 +1,7 @@
-    <main class="form-main">
-        <form action="/novo" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='criar_chamado.css') }}">
+
+<main class="form-main">
+    <form action="/novo" class="form-card" method="POST"><input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
         <label for="responsavel_atendimento">Responsável pelo Atendimento:</label>
             <input id="responsavel_atendimento" name="responsavel_atendimento" readonly="" required="" type="text" value="{{ usuario_logado }}"/>
         <label for="data">Data:</label>
@@ -55,5 +57,5 @@
                 <option>Fechado</option>
             </select>
         <button type="submit">Salvar Atendimento</button>
-        </form>
-    </main>
+    </form>
+</main>

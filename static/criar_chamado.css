@@ -1,0 +1,89 @@
+/* Container principal que centraliza o formulário */
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px;
+}
+
+/* Cartão do formulário */
+.form-card {
+    background-color: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Coloca campos de texto/textarea/select em duas colunas */
+.form-card label,
+.form-card input,
+.form-card select,
+.form-card textarea {
+    grid-column: span 2;
+}
+
+.form-card label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.form-card input[type="text"],
+.form-card input[type="date"],
+.form-card input[type="time"],
+.form-card select,
+.form-card textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Botão de envio */
+.form-card button[type="submit"] {
+    grid-column: span 2;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.form-card button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Modo dark opcional (caso use class body.darkmode) */
+body.darkmode .form-card {
+    background-color: #222;
+    color: #eee;
+}
+
+body.darkmode .form-card input,
+body.darkmode .form-card select,
+body.darkmode .form-card textarea {
+    background-color: #333;
+    color: #eee;
+    border-color: #555;
+}
+
+body.darkmode .form-card label {
+    color: #ccc;
+}
