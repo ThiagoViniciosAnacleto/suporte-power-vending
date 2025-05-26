@@ -66,8 +66,8 @@
 
 .graficos-container canvas {
     width: 100%;
-    max-width: 200px;
-    height: auto;
+    max-width: 250px;
+    height: 200px;
     background-color: #1e1e1e;
     padding: 10px;
     border-radius: 12px;
